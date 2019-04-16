@@ -10,7 +10,6 @@ class App extends Component {
     data: ""
   }
 
-
   componentDidMount() {
     const url = runtimeEnv().REACT_APP_API_URL
     fetch(url)
