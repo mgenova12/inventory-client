@@ -5,6 +5,7 @@
   "dependencies": {
     "@mars/heroku-js-runtime-env": "^3.0.2",
     "isomorphic-fetch": "^2.2.1",
+    "module-alias": "^2.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
@@ -27,5 +28,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],  
+  "devDependencies": {
+    "babel-plugin-module-resolver": "^3.2.0"
+  }
 }
