@@ -7,7 +7,7 @@ import ApolloClient from 'apollo-boost';
 export function getProducts() {
   return async (dispatch, getState) => {
   	const client = new ApolloClient({
-  		uri: `${process.env.REACT_APP_API_URL}/graphql`
+  		uri: `${process.env.REACT_APP_API_URL}graphql`
 	  });
 
     const request = await client.query({
