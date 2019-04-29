@@ -7,18 +7,35 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export function getProducts() {
   return async (dispatch, getState) => {
-  	
-   //  const client = new ApolloClient({
-  	// 	uri: `${process.env.REACT_APP_API_URL}graphql`
-	  // });
 
-    const cache = new InMemoryCache();
-    const client = new ApolloClient({
-      cache,
-      link: new HttpLink({
-        uri: `${process.env.REACT_APP_API_URL}graphql`,
-      }),
+  const customFetch = (uri, options) => {
+    return fetch(uri, options)
+    .then(response => {
+      if (response.status >= 500) {  // or handle 400 errors
+        return Promise.reject(response.status);
+      }
+      return response;
     });
+  };
+
+  const client = new ApolloClient({
+    link: new HttpLink({
+      uri: `${process.env.REACT_APP_API_URL}graphql`,
+      fetch: customFetch,
+    }),
+    cache: new InMemoryCache()
+  });
+
+
+
+    // const cache = new InMemoryCache();
+    // const client = new ApolloClient({
+    //   cache,
+    //   link: new HttpLink({
+    //     uri: `${process.env.REACT_APP_API_URL}graphql`,
+    //   }),
+    // });
+
 
     const request = await client.query({
       query: getProductsQuery,
