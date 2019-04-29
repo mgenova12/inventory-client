@@ -14,6 +14,7 @@ export function getProducts() {
   return async (dispatch, getState) => {
     axios({
       url: `${process.env.REACT_APP_API_URL}graphql`,
+      headers: { 'Content-Type': 'application/json' },
       method: 'post',
       data: {
       query: `
