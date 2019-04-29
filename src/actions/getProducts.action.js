@@ -22,10 +22,9 @@ export function getProducts() {
 
 const client = new ApolloClient({
   link: new createHttpLink({
-    credentials: 'omit',
-    uri: `${process.env.REACT_APP_API_URL}graphql.json`,
+    uri: `${process.env.REACT_APP_API_URL}graphql`,
     headers: {
-      'Content-Type': 'application/graphql',
+      'Content-Type': 'application/json',
     }
   }),
   cache: new InMemoryCache(),
