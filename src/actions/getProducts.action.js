@@ -2,7 +2,7 @@ import actionTypes from "../actionTypes";
 import getProductsQuery from '../queries/products/getProducts';
 
 import { ApolloClient } from 'apollo-boost';
-import { HttpLink } from 'apollo-link-http'
+import { createHttpLink } from "apollo-link-http"
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export function getProducts() {
@@ -19,7 +19,7 @@ export function getProducts() {
   };
 
   const client = new ApolloClient({
-    link: new HttpLink({
+    link: createHttpLink({
       uri: `${process.env.REACT_APP_API_URL}graphql`,
       fetch: customFetch,
     }),
