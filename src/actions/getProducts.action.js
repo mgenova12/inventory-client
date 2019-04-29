@@ -22,7 +22,7 @@ const link_errors = onError(({ graphQLErrors, networkError }) => {
 });
 
   const client = new ApolloClient({
-    link: ApolloLink.from([link_errors, createHttpLink({ uri: `${process.env.REACT_APP_API_URL}graphql` })]),
+    link: ApolloLink.from([link_errors,createHttpLink({ uri: `${process.env.REACT_APP_API_URL}graphql.json` }), ]),
     cache: new InMemoryCache(),
   });
 
