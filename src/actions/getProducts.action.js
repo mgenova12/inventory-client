@@ -23,7 +23,7 @@ export function getProducts() {
 
 const client = new ApolloClient({
   link: new createHttpLink({
-    uri: `${process.env.REACT_APP_API_URL}graphql`,
+    uri: `${process.env.REACT_APP_API_URL}graphql.json`,
     headers: {
       'Content-Type': 'application/graphql',
     }
@@ -33,6 +33,7 @@ const client = new ApolloClient({
 
   console.log('client')
   console.log(client)
+
   return async (dispatch, getState) => {
     console.log('start request')
     const request = await client.query({
