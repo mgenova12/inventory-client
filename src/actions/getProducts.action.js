@@ -1,5 +1,6 @@
 import actionTypes from "../actionTypes";
-import getProductsQuery from '../queries/products/getProducts';
+// import getProductsQuery from '../queries/products/getProducts';
+import gql from 'graphql-tag';
 
 import { ApolloClient } from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http'
@@ -23,30 +24,34 @@ export function getProducts() {
 const client = new ApolloClient({
   link: new createHttpLink({
     uri: `${process.env.REACT_APP_API_URL}graphql`,
-    headers: {
-      'Content-Type': 'application/json',
-    }
   }),
   cache: new InMemoryCache(),
 })
 
   console.log('client')
   console.log(client)
-
+  
   return async (dispatch, getState) => {
     console.log('start request')
-    const request = await client.query({
-      query: getProductsQuery,
-    });
+    
+    client.query({
+      query: gql`
+        {
+          products {
+            id
+            name
+          }
+        }
+      `
+    }).then(response => 
+      dispatch({
+        type: actionTypes.GET_PRODUCTS,
+        payload: response.data
+      })
 
-    console.log('request')
-    console.log(request)
+    )
 
-    const result = await request.data;
-    dispatch({
-      type: actionTypes.GET_PRODUCTS,
-      payload: result
-    })
+
   }
 }
 
