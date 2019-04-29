@@ -1,24 +1,30 @@
 import actionTypes from "../actionTypes";
 import getProductsQuery from '../queries/products/getProducts';
 
-import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-boost';
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory';
 
 export function getProducts() {
   return async (dispatch, getState) => {
   	
+   //  const client = new ApolloClient({
+  	// 	uri: `${process.env.REACT_APP_API_URL}graphql`
+	  // });
+
+    const cache = new InMemoryCache();
     const client = new ApolloClient({
-  		uri: `${process.env.REACT_APP_API_URL}graphql`
-	  });
-    console.log(client)
+      cache,
+      link: new HttpLink({
+        uri: `${process.env.REACT_APP_API_URL}graphql`,
+      }),
+    });
 
     const request = await client.query({
       query: getProductsQuery,
     });
-    console.log(request)
 
     const result = await request.data;
-
-    console.log(result)
 
     dispatch({
       type: actionTypes.GET_PRODUCTS,
