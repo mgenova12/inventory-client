@@ -1,20 +1,9 @@
 import actionTypes from "../actionTypes";
-// import getProductsQuery from '../queries/products/getProducts';
+import getProductsQuery from '../queries/products/getProducts';
 
 import { ApolloClient } from 'apollo-boost';
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory';
-
-import gql from 'graphql-tag';
-
-const getProductsQuery = gql`
-  {
-    products {
-      id
-      name
-    }
-  }
-`;
 
 export function getProducts() {
     const cache = new InMemoryCache();
@@ -22,6 +11,9 @@ export function getProducts() {
       cache,
       link: new HttpLink({
         uri: `${process.env.REACT_APP_API_URL}graphql`,
+        opts: {
+          mode: 'no-cors'
+        }
       }),
     });
     console.log('client')
