@@ -5,6 +5,7 @@ import { ApolloClient } from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { onError } from "apollo-link-error";
+import { ApolloLink } from 'apollo-link'
 // `${process.env.REACT_APP_API_URL}graphql`
 
 export function getProducts() {
@@ -21,14 +22,14 @@ const link_errors = onError(({ graphQLErrors, networkError }) => {
 });
 
   const client = new ApolloClient({
-    link: createHttpLink({ uri: `${process.env.REACT_APP_API_URL}graphql` }),
+    link: ApolloLink.from([link_errors, createHttpLink({ uri: `${process.env.REACT_APP_API_URL}graphql` })]),
     cache: new InMemoryCache(),
-    link_errors
   });
 
   console.log('client')
   console.log(client)
   return async (dispatch, getState) => {
+    console.log('start request')
     const request = await client.query({
       query: getProductsQuery,
     });
