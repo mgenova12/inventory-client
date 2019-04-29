@@ -4,8 +4,7 @@ import getProductsQuery from '../queries/products/getProducts';
 import { ApolloClient } from 'apollo-boost';
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory';
-// import { onError } from "apollo-link-error";
-// import { ApolloLink } from 'apollo-link'
+
 // `${process.env.REACT_APP_API_URL}graphql`
 
 export function getProducts() {
@@ -23,6 +22,7 @@ export function getProducts() {
 
 const client = new ApolloClient({
   link: new createHttpLink({
+    credentials: 'omit',
     uri: `${process.env.REACT_APP_API_URL}graphql.json`,
     headers: {
       'Content-Type': 'application/graphql',
