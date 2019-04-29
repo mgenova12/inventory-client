@@ -11,7 +11,7 @@ export class ProductTable extends Component {
     
 
 	const data = this.props.products.map(product => {
-	  return Object.values(product).slice(0,-1)
+	  return Object.values(product)
 	})
 	console.log(data)
 
