@@ -13,6 +13,9 @@ class Products extends React.Component {
 
 	render(){
 		const { products } = this.props.onGetProducts
+		console.log('props data')
+		console.log(products)
+
 		return (
 		  <div className="products">
 		  	{products.length > 0 && <ProductTable products={products}/> }
