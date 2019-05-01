@@ -3,7 +3,6 @@ import axios from "axios";
 // import getProductsQuery from '../queries/products/getProducts';
 // import gql from 'graphql-tag';
 
-
 // import { ApolloClient } from 'apollo-boost';
 // import { createHttpLink } from 'apollo-link-http'
 // import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -21,13 +20,20 @@ export function getProducts() {
           products {
             id
             name
+            distributor {
+              id
+              name
+            }
+            measurement {
+              id
+              name
+            }
           }
         }
         `
       }
     }).then((result) => {
-          console.log('action data')
-          console.log(result.data.data.products)  
+          console.log(result.data.data.products)
           dispatch({
             type: actionTypes.GET_PRODUCTS,
             payload: result.data.data
@@ -46,17 +52,6 @@ export function getProducts() {
   }
 }
 
-  
-// const link_errors = onError(({ graphQLErrors, networkError }) => {
-//   if (graphQLErrors)
-//     graphQLErrors.map(({ message, locations, path }) =>
-//       console.log(
-//         `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-//       ),
-//     );
-
-//   if (networkError) console.log(`[Network error]: ${networkError}`);
-// });
 
 // const client = new ApolloClient({
 //   link: new createHttpLink({

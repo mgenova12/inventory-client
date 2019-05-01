@@ -5,16 +5,27 @@ import MUIDataTable from "mui-datatables";
 
 export class ProductTable extends Component {
 
+	getRows = (obj) => {
+	    let rows = []
+
+	    for (var key in obj) {
+	        if (typeof obj[key] === "object") {
+	            rows.push(obj[key].name)   
+	        } else {
+	            rows.push(obj[key]);    
+	        }
+	    }
+	    return rows
+	}
+
 
   render() {
-	const columns = ["ID", "Name", "City", "State"];
+	const columns = ["ID", "Name", "Distributor", "Count By", "Category", "Case Quantity", "Price", "Markup", "Prepped"];
     
 
 	const data = this.props.products.map(product => {
-	  return Object.values(product)
+	  	return this.getRows(product)
 	})
-	console.log('Table Data')
-	console.log(data)
 
 
 	// const { products } = this.props;
