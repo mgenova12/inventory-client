@@ -35,5 +35,4 @@ const mapActionsToProps = {
 };
 
 
-
 export default connect(mapStateToProps, mapActionsToProps)(Products);

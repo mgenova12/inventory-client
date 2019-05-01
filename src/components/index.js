@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Products from "./Products";
+import Navbar from "./Common/Navbar"
 
 class Router extends React.Component {
 
@@ -9,8 +10,9 @@ class Router extends React.Component {
 	    return (
 	      <BrowserRouter>
 	        <React.Fragment>
+	          <Navbar/>
 	          <Switch>
-	            <Route exact path="/" component={Products} />
+	            <Route exact path="/products" component={Products} />
 	          </Switch>
 
 	        </React.Fragment>
