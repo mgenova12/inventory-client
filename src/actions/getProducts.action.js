@@ -33,7 +33,6 @@ export function getProducts() {
         `
       }
     }).then((result) => {
-          console.log(result.data.data.products)
           dispatch({
             type: actionTypes.GET_PRODUCTS,
             payload: result.data.data
