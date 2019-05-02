@@ -2,33 +2,38 @@ import React from "react";
 
 import "./index.css";
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 
 class Navbar extends React.Component {
 
 	render() {
+
 	    return (
-		    <div className="nav-root">
-		      <AppBar position="static">
-		        <Toolbar>
-		          <IconButton className="menu-button" color="inherit" aria-label="Menu">
-		            <MenuIcon />
-		          </IconButton>
-		          <Typography variant="h6" color="inherit" className="grow">
-		            Rusticana Inventory
-		          </Typography>
-		          <Button color="inherit">Login</Button>
-		        </Toolbar>
-		      </AppBar>
-		    </div>	        
+			<nav className="navbar navbar-expand-lg navbar-dark">
+			  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+			    <span className="navbar-toggler-icon"></span>
+			  </button>
+			  <a className="navbar-brand" href="/">Rusticana Inventory</a>
 
+			  <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+			    <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
+			      <li className="nav-item">
+			        <a className="nav-link" href="/products">Products</a>
+			      </li>
+			    </ul>
+			  </div>
+			    
+			    <div class="collapse navbar-collapse " id="navbarTogglerDemo03">
+			        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+			            <li class="nav-item">
+			                <a class="nav-link" href="/">Log In</a>
+			            </li>
+			            <li class="nav-item">
+			                <a class="nav-link" href="/">Log Out</a>
+			            </li>
+			        </ul>
+			    </div>		    
+			</nav>   
 	    )
-
 	}
 
 }
