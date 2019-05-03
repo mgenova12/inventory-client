@@ -28,7 +28,7 @@ export class ProductTable extends Component {
 	const columns = [
 		"ID", "Name", "Distributor", "Count By", 
 		"Category", "Case Quantity", "Price", 
-		"Markup", "Prepped"
+		
 	];
     
 	const data = this.props.products.map(product => {
@@ -43,7 +43,8 @@ export class ProductTable extends Component {
 		  data={data}
 		  columns={columns}
 		  options={{
-		    selectableRows: false 
+		    selectableRows: false,
+		    responsive: "scroll"
 		  }}		  
 		/>     	
       </div>

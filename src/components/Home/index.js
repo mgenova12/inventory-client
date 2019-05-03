@@ -1,6 +1,8 @@
 import React from "react";
 import "./index.css";
+import Button from '@material-ui/core/Button';
 
+import Stores from '../Stores'
 
 class Home extends React.Component {
 
@@ -15,13 +17,15 @@ class Home extends React.Component {
 	  			<a href="/" class="list-group-item list-group-item-action list-group-item-light">Product Prices</a>
 	  			<a href="/" class="list-group-item list-group-item-action list-group-item-light">Manage Users</a>
 			</div>
-			<div class="list-group">
-				<h4>Label(prepcenter)</h4> 
-			</div>
 
-			<div class="list-group">
-				<h4>Label(store)</h4> 
-			</div>
+      <Stores/>
+
+      <a href="/stores/new">
+      	<Button variant="contained" color="primary">
+        	Add Store
+      	</Button>
+      </a>
+
 		</div>
     );
   }
