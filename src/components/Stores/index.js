@@ -6,11 +6,11 @@ class Stores extends React.Component {
     return (    
     	<div > 
 
-			<div class="list-group">
+			<div className="list-group">
 				<h4>Label(prepcenter)</h4> 
 			</div>
 
-			<div class="list-group">
+			<div className="list-group">
 				<h4>Label(store)</h4> 
 			</div>
       
