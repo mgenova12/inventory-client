@@ -26,7 +26,7 @@ class Home extends React.Component {
 	      	</Button>
 	      </a>
 
-			</div>
+		</div>
     );
   }
 }

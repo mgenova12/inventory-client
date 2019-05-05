@@ -1,38 +1,48 @@
 import React from "react";
+import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import { addStore } from '../../../actions/addStore.action';
+import { getStoreTypes } from '../../../actions/getStoreTypes.action';
+
+
+	
 class NewStoreForm extends React.Component {
 	state = {
 		name: '',
-		storeType: ''
+		storeType: '',
+		storeTypeId: '',
 	}
-
 
 	handleSubmit = (event) => {
 		event.preventDefault()
-		console.log('form submitted!')
+		this.props.onAddStore(this.state.name, parseInt(this.state.storeTypeId), this.props.history)
 	}
 
 	handleChange = (event) => {
 		this.setState({ [event.target.name]: event.target.value })
+		this.setState({ storeTypeId: event.nativeEvent.target.dataset.value })
+	}
+
+	componentWillMount = () => {
+		this.props.onRequestStoreTypes()
 	}
 
   render() {
-  	console.log(this.state.name)
-  	console.log(this.state.storeType)
+  	const storeTypesMenu = this.props.onGetStoreTypes.map(storeType => {
+  		return <MenuItem key={storeType.id} value={storeType.id}>{storeType.name}</MenuItem>
+  	})
+
     return (    
     	<div className="container">
     		<h3>Create New Store</h3>
-	        <form 
-		         autoComplete="off"
-		         onSubmit={(e) => this.handleSubmit(e)}
-		         >
+	        <div>
 		    	<TextField
 		          label="Name"
 		          name="name"
-		          onChange={(e) => this.handleChange(e)}
+		          onChange={this.handleChange}
 		          placeholder="Add Store Name!"
 		          fullWidth
 		          margin="normal"
@@ -44,10 +54,9 @@ class NewStoreForm extends React.Component {
 
 		    	<TextField
 		          value={this.state.storeType}
-		          native="true"
 		          select
 		          name="storeType"
-		          onChange={(e) => this.handleChange(e)}
+		          onChange={this.handleChange}
 		          label="Store Type"
 		          fullWidth
 		          margin="normal"
@@ -56,22 +65,30 @@ class NewStoreForm extends React.Component {
 		            shrink: true,
 		          }}	          
 		        >
-	            <MenuItem value={'Restaurant'}> Restaurant</MenuItem>
-	            <MenuItem value={'Prepcenter'}> Prepcenter</MenuItem>
+
+		        {storeTypesMenu}
 		        </TextField>
 
-			    <Button type="submit" variant="contained" color="primary">
+			    <Button variant="contained" color="primary" onClick={this.handleSubmit}>
 		        	Save Store
-		      	</Button>
+		      </Button>
 		    
-		    </form>
+		    </div>
 
 		</div>
     );
   }
 }
+const mapActionsToProps = {
+  onAddStore: addStore,
+  onRequestStoreTypes: getStoreTypes,
+};
+
+const mapStateToProps = state => ({
+  onGetStoreTypes: state.storeTypesReducer.storeTypes
+});
 
 
+export default connect(mapStateToProps, mapActionsToProps)(NewStoreForm)
 
 
-export default NewStoreForm;
