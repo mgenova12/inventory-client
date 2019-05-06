@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux'
+import { getProducts } from '../../../actions/getProducts.action';
+
 import MUIDataTable from "mui-datatables";
 
-export class ProductTable extends Component {
+class ProductTable extends React.Component {
 
 	getRows = (obj) => {
 		let formatter = new Intl.NumberFormat('en-US', {
@@ -23,15 +26,21 @@ export class ProductTable extends Component {
 	    return rows
 	}
 
+	componentWillMount = () => {
+		this.props.onRequestProducts()
+	}	
+
 
   render() {
+  	const { products } = this.props.onGetProducts
+
 	const columns = [
 		"ID", "Name", "Distributor", "Count By", 
 		"Category", "Case Quantity", "Price", 
 		
 	];
     
-	const data = this.props.products.map(product => {
+	const data = products.map(product => {
 	  	return this.getRows(product)
 	})
 
@@ -53,4 +62,14 @@ export class ProductTable extends Component {
   }
 }
 
-export default ProductTable;
+const mapStateToProps = state => ({
+  onGetProducts: state.productReducer
+});
+
+const mapActionsToProps = {
+  onRequestProducts: getProducts,
+};
+
+
+export default connect(mapStateToProps, mapActionsToProps)(ProductTable);
+

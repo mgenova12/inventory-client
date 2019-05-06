@@ -69,7 +69,7 @@ class NewStoreForm extends React.Component {
 		        {storeTypesMenu}
 		        </TextField>
 
-			    <Button variant="contained" color="primary" onClick={this.handleSubmit}>
+			   <Button variant="contained" color="primary" onClick={this.handleSubmit}>
 		        	Save Store
 		      </Button>
 		    
