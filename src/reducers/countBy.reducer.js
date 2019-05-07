@@ -1,14 +1,14 @@
 import actionTypes from '../actionTypes';
 
 const initialState = {
-  distributors: []
+  countBies: []
 };
 
 export default (state = initialState, { type, payload }) => {
 	const newState = { ...state };
 	switch (type) {
-		case actionTypes.GET_DISTRIBUTORS:
-		      newState.distributors = payload.distributors;
+		case actionTypes.GET_COUNT_BIES:
+		      newState.countBies = payload.countBies;
 		      return newState;
 		default: 
 			return state;
