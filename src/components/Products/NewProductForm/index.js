@@ -5,6 +5,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format'
 
+import Notifications from '../../Common/Notifications'
+
 import { getCategories } from '../../../actions/getCategories.action';
 import { getCountBies } from '../../../actions/getCountBies.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
@@ -38,7 +40,8 @@ class NewProductForm extends React.Component {
 		caseQuantity: '',
 		markUp: '',
 		price: '',
-		prepped: false
+		prepped: false,
+		isSubmitted: false,
 	}
 
   handleChange = name => event => {
@@ -47,18 +50,27 @@ class NewProductForm extends React.Component {
     });
   };	
 
+ 	resetForm = () => {
+    this.setState({name: '', distributor: '', countBy: '', category: '', caseQuantity:'', markUp: '', price: ''});
+	}
+
   handleSubmit = (event) => {
   	event.preventDefault()
+  	this.setState({isSubmitted: true})
   	const { name, distributor, category, countBy, price, markUp, caseQuantity, prepped } = this.state
   	this.props.onAddProduct(name, distributor, category, countBy, price, markUp, caseQuantity, prepped)
-  }
+  	this.resetForm()
+     setTimeout(function(){
+           this.setState({isSubmitted: false});
+      }.bind(this),2000)
+  }	
 
   handleKeyPress = (event) => {
 		if (event.which === 13) {
 			event.preventDefault();
 		}
   }
-	
+
 	componentDidMount = () => {
 		this.props.onRequestCategories()
 		this.props.onRequestDistributors()
@@ -66,6 +78,7 @@ class NewProductForm extends React.Component {
 	}
 
 	render(){  	
+		console.log(this.state.isSubmitted)
   	const categoryMenu = this.props.onGetCategories.map(category => {
   		return <option key={category.id} value={category.id}>{category.name}</option>
   	})
@@ -80,9 +93,10 @@ class NewProductForm extends React.Component {
 
   	// const { onGetErrors } = this.props
 
-  	// console.log(onGetErrors)
 		return (
 			<div className='container'> 
+				{this.state.isSubmitted && <Notifications/>}
+
 				<h3> New Product Form </h3>
 				<form onSubmit={this.handleSubmit}
 				  		onKeyPress={this.handleKeyPress}
@@ -90,6 +104,7 @@ class NewProductForm extends React.Component {
 		    	<TextField
 							required
 		          label="Product Name"
+		          value={this.state.name}
 		          name="name"
 		          placeholder="Add Product Name"
 		          fullWidth
@@ -170,6 +185,7 @@ class NewProductForm extends React.Component {
 		    	<TextField
 		          label="Case Quantity"
 		          name="caseQuantity"
+		          value={this.state.caseQuantity}
 		          type="number"
 		          placeholder="Leave Blank if Not a Case"
 		          fullWidth
@@ -186,7 +202,8 @@ class NewProductForm extends React.Component {
 		          label="Mark Up"
 		          name="markUp"
 		          type="number"
-		          placeholder="Add a Mark Up"
+		          value={this.state.markUp}
+		          placeholder="Add Mark Up"
 		          fullWidth
 		          onChange={this.handleChange('markUp')}
 		          margin="normal"
@@ -203,7 +220,7 @@ class NewProductForm extends React.Component {
 	        	required
 	          label="Price"
 	          variant="outlined"
-	          placeholder="Add a Price"
+	          placeholder="Add Price"
 	          fullWidth
 	          name="price"
 	          margin="normal"

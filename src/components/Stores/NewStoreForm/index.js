@@ -40,6 +40,7 @@ class NewStoreForm extends React.Component {
     		<h3>Create New Store</h3>
 	        <div>
 		    	<TextField
+		    			required
 		          label="Name"
 		          name="name"
 		          onChange={this.handleChange}
@@ -53,6 +54,7 @@ class NewStoreForm extends React.Component {
 		        />
 
 		    	<TextField
+		    			required
 		          value={this.state.storeType}
 		          select
 		          name="storeType"
