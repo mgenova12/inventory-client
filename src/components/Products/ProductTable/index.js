@@ -48,12 +48,16 @@ class ProductTable extends React.Component {
 
       <div>
 		<MUIDataTable
-		  title={"Products"}
+		  title={"Global Products"}
 		  data={data}
 		  columns={columns}
 		  options={{
 		    selectableRows: false,
-		    responsive: "scroll"
+		    responsive: "scroll",
+		    rowsPerPage: 15,
+		    onCellClick: (cellIndex, rowIndex) => {
+        		console.log(cellIndex, rowIndex);
+      		}
 		  }}		  
 		/>     	
       </div>

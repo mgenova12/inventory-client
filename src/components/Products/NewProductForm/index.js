@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux'
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format'
@@ -9,6 +8,7 @@ import NumberFormat from 'react-number-format'
 import { getCategories } from '../../../actions/getCategories.action';
 import { getCountBies } from '../../../actions/getCountBies.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
+import { addProduct } from '../../../actions/addProduct.action';
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -38,6 +38,7 @@ class NewProductForm extends React.Component {
 		caseQuantity: '',
 		markUp: '',
 		price: '',
+		prepped: false
 	}
 
   handleChange = name => event => {
@@ -45,8 +46,20 @@ class NewProductForm extends React.Component {
       [name]: event.target.value,
     });
   };	
+
+  handleSubmit = (event) => {
+  	event.preventDefault()
+  	const { name, distributor, category, countBy, price, markUp, caseQuantity, prepped } = this.state
+  	this.props.onAddProduct(name, distributor, category, countBy, price, markUp, caseQuantity, prepped)
+  }
+
+  handleKeyPress = (event) => {
+		if (event.which === 13) {
+			event.preventDefault();
+		}
+  }
 	
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.onRequestCategories()
 		this.props.onRequestDistributors()
 		this.props.onRequestCountBies()
@@ -54,21 +67,28 @@ class NewProductForm extends React.Component {
 
 	render(){  	
   	const categoryMenu = this.props.onGetCategories.map(category => {
-  		return <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
+  		return <option key={category.id} value={category.id}>{category.name}</option>
   	})
 
   	const countByMenu = this.props.onGetCountBies.map(countBy => {
-  		return <MenuItem key={countBy.id} value={countBy.id}>{countBy.name}</MenuItem>
+  		return <option key={countBy.id} value={countBy.id}>{countBy.name}</option>
   	})
 
   	const distributorMenu = this.props.onGetDistributors.map(distributor => {
-  		return <MenuItem key={distributor.id} value={distributor.id}>{distributor.name}</MenuItem>
+  		return <option key={distributor.id} value={distributor.id}>{distributor.name}</option>
   	})
 
+  	// const { onGetErrors } = this.props
+
+  	// console.log(onGetErrors)
 		return (
 			<div className='container'> 
-				<h3> New Product Form </h3> 
+				<h3> New Product Form </h3>
+				<form onSubmit={this.handleSubmit}
+				  		onKeyPress={this.handleKeyPress}
+				 >
 		    	<TextField
+							required
 		          label="Product Name"
 		          name="name"
 		          placeholder="Add Product Name"
@@ -94,8 +114,12 @@ class NewProductForm extends React.Component {
 		          InputLabelProps={{
 		            shrink: true,
 		          }}
+		          required
+		          SelectProps={{
+		            native: true,
+		          }}		          
 		        >	
-		        <MenuItem key='' value=''></MenuItem>
+		        <option key='' value=''></option>
 		        {distributorMenu}
 		        </TextField>	
 
@@ -112,8 +136,12 @@ class NewProductForm extends React.Component {
 		          InputLabelProps={{
 		            shrink: true,
 		          }}
+		          required
+		          SelectProps={{
+		            native: true,
+		          }}		          
 		        >	
-		        <MenuItem key='' value=''></MenuItem>
+		        <option key='' value=''></option>
 		        {countByMenu}
 		        </TextField>	
 
@@ -130,8 +158,12 @@ class NewProductForm extends React.Component {
 		          InputLabelProps={{
 		            shrink: true,
 		          }}
+		          required
+		          SelectProps={{
+		            native: true,
+		          }}		          
 		        >
-		        <MenuItem key='' value=''></MenuItem>
+		        <option key='' value=''></option>
 		        {categoryMenu}
 		        </TextField>		
 
@@ -150,6 +182,7 @@ class NewProductForm extends React.Component {
 		        />	
 
 		    	<TextField
+		    			required
 		          label="Mark Up"
 		          name="markUp"
 		          type="number"
@@ -167,8 +200,10 @@ class NewProductForm extends React.Component {
 		        />	
 
 	        <TextField
+	        	required
 	          label="Price"
 	          variant="outlined"
+	          placeholder="Add a Price"
 	          fullWidth
 	          name="price"
 	          margin="normal"
@@ -182,9 +217,10 @@ class NewProductForm extends React.Component {
 	          }}
 	        />		        	        		        
 
-			   <Button variant="contained" color="primary" onClick={this.handleSubmit}>
+			   <Button type='submit' variant="contained" color="primary">
 		        	Save Product
-		      </Button>
+		     </Button>
+		     </form>
 
 			</div>
 			
@@ -197,12 +233,14 @@ const mapActionsToProps = {
   onRequestCategories: getCategories,
   onRequestCountBies: getCountBies,
   onRequestDistributors: getDistributors,
+  onAddProduct: addProduct,
 };
 
 const mapStateToProps = state => ({
   onGetCountBies: state.countByReducer.countBies,
   onGetCategories: state.categoryReducer.categories,
   onGetDistributors: state.distributorReducer.distributors,
+  onGetErrors: state.errorReducer.errors,
 });
 
 
