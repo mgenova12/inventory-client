@@ -78,7 +78,6 @@ class NewProductForm extends React.Component {
 	}
 
 	render(){  	
-		console.log(this.state.isSubmitted)
   	const categoryMenu = this.props.onGetCategories.map(category => {
   		return <option key={category.id} value={category.id}>{category.name}</option>
   	})

@@ -14,14 +14,15 @@ class ProductTable extends React.Component {
 
 	    let rows = []
 	    for (var key in obj) {
-	        if (typeof obj[key] === "object") {
+	    	if (!obj[key]) {
+				rows.push('');
+	    	} else if (typeof obj[key] === "object") {
 	            rows.push(obj[key].name)   
 	        } else if(key === "price") {
 	        	rows.push(formatter.format(obj[key]))
-	        }
-	        else {
+	        } else {
 	            rows.push(obj[key]);    
-	        }
+	        } 
 	    }
 	    return rows
 	}
@@ -37,7 +38,6 @@ class ProductTable extends React.Component {
 	const columns = [
 		"ID", "Name", "Distributor", "Count By", 
 		"Category", "Case Quantity", "Price", 
-		
 	];
     
 	const data = products.map(product => {

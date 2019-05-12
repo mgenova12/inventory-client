@@ -10,6 +10,9 @@ export default (state = initialState, { type, payload }) => {
 		case actionTypes.GET_DISTRIBUTORS:
 		      newState.distributors = payload.distributors;
 		      return newState;
+		case actionTypes.ADD_DISTRIBUTOR:
+				newState.distributors.push(payload.createDistributor.distributor)
+				return newState
 		default: 
 			return state;
 	}
