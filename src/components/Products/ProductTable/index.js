@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { getProducts } from '../../../actions/getProducts.action';
+import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
 
 import MUIDataTable from "mui-datatables";
 
@@ -24,6 +26,8 @@ class ProductTable extends React.Component {
 	            rows.push(obj[key]);    
 	        } 
 	    }
+    	rows.push(<Edit/>);
+    	rows.push(<Delete/>);	    
 	    return rows
 	}
 
@@ -37,7 +41,7 @@ class ProductTable extends React.Component {
 
 	const columns = [
 		"ID", "Name", "Distributor", "Count By", 
-		"Category", "Case Quantity", "Price", 
+		"Category", "Case Quantity", "Price", "","" 
 	];
     
 	const data = products.map(product => {

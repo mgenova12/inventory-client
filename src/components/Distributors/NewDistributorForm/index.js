@@ -11,15 +11,11 @@ class NewDistributorForm extends React.Component {
 
 	state = {
 		name: '',
-		distributors: []
 	}
-
 
 	handleSubmit = event => {
 		event.preventDefault()
 		this.props.onAddDistributor(this.state.name)
-		.then(() => this.setState({ distributors: this.props.onGetDistributors }))
-		
 		this.setState({ name: '' })
 	}
 
@@ -27,16 +23,11 @@ class NewDistributorForm extends React.Component {
 		this.setState({ name: event.target.value })
 	}
 	
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.onRequestDistributors()
-		.then(() => this.setState({ distributors: this.props.onGetDistributors }))
-	}	
-
+	}		
 
 	render(){
-		// console.log('onRender')
-		console.log(this.props.onGetDistributors)
-		
 		return (
 			<div> 
 				<div className='container'>
@@ -44,6 +35,7 @@ class NewDistributorForm extends React.Component {
 					<form onSubmit={this.handleSubmit}>
 				    	<TextField
 				          label="Name"
+				          required
 				          value={this.state.name}
 				          name="name"
 				          placeholder="Add Distributor Name"
@@ -58,7 +50,7 @@ class NewDistributorForm extends React.Component {
 			        </form>
 			     </div>
 
-		      	<DistributorTable distributors={this.state.distributors}/>
+		      	<DistributorTable distributors={this.props.onGetDistributors}/>
 			</div>
 			
 		)

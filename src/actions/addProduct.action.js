@@ -1,4 +1,4 @@
-import actionTypes from "../actionTypes";
+// import actionTypes from "../actionTypes";
 import axios from "axios";
 import addProductMutation from '../mutations/products/addProduct';
 import { print } from 'graphql';
@@ -19,14 +19,14 @@ export function addProduct(name, distributorId, categoryId, countById, price, ma
         prepped: prepped,
       },
     })
-    .then((result) => {
-      if (result.data.errors) {
-          dispatch({
-            type: actionTypes.FORM_ERRORS,
-            payload: result.data
-          })       
-      }
-    });  
+    // .then((result) => {
+    //   if (result.data.errors) {
+    //       dispatch({
+    //         type: actionTypes.FORM_ERRORS,
+    //         payload: result.data
+    //       })       
+    //   }
+    // });  
     
   }
 }

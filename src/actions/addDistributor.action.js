@@ -10,16 +10,12 @@ export function addDistributor(name) {
       variables: {
         name: name,
       },
-    })
-    .then((result) => {
+    }).then((result) => {
         dispatch({
           type: actionTypes.ADD_DISTRIBUTOR,
           payload: result.data.data
         })       
-    });
-    // .then(() => history.push("/"))
-    // .catch(err => console.log(err))    
-
+    });    
 
     
   }

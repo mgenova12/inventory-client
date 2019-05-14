@@ -1,7 +1,11 @@
 import React from "react";
+import { connect } from 'react-redux'
 
 import MUIDataTable from "mui-datatables";
+import Edit from '@material-ui/icons/Edit';
+import Delete from '@material-ui/icons/Delete';
 
+import { deleteDistributor } from '../../../actions/deleteDistributor.action';
 
 class DistributorTable extends React.Component {
 
@@ -13,12 +17,53 @@ class DistributorTable extends React.Component {
 	    return rows
 	}
 
+	handleEdit = (tableMeta) => {
+		console.log(tableMeta.rowData)
+		// console.log(event.target.value)
+	}
+
+	handleDelete = (tableMeta) => {
+		 if (window.confirm('Are you sure you wish to delete this item?')) {
+			let id = tableMeta.rowData[0]
+			this.props.onDeleteDistributor(id)
+		 }
+	}
+
 
 	render(){
-		// console.log('distributors state')
-		// console.log(this.props.distributors)
+
 		const columns = [
-			"ID", "Name"
+	      	{
+		        name: "ID",
+		        options: {
+		          filter: true,
+		        }
+	        },
+	      	{
+		        name: "Name",
+		        options: {
+		          filter: true,
+		        }
+	        },
+		      {
+		        name: "",
+		        options: {
+		          filter: false,
+		          customBodyRender: (value, tableMeta, updateValue) => (
+		          	<Edit onClick={ () => this.handleEdit(tableMeta) }/>
+		          )
+		        }
+		      },	
+		      {
+		        name: "",
+		        options: {
+		          filter: false,
+		          customBodyRender: (value, tableMeta, updateValue) => (
+		          	<Delete onClick={ () => this.handleDelete(tableMeta) }/>
+		          )
+		        }
+		      },			              	        
+
 		];
 
 		const data = this.props.distributors.map(distributor => {
@@ -34,7 +79,7 @@ class DistributorTable extends React.Component {
 				  options={{
 				    selectableRows: false,
 				    responsive: "scroll",
-				    rowsPerPage: 15,
+				    rowsPerPage: 15,		    
 				  }}		  
 				/>    
 			</div>
@@ -43,8 +88,12 @@ class DistributorTable extends React.Component {
 	}
 }
 
+const mapActionsToProps = {
+  onDeleteDistributor: deleteDistributor,
+};
 
 
-export default DistributorTable
+export default connect(null, mapActionsToProps)(DistributorTable)
+
 
 
