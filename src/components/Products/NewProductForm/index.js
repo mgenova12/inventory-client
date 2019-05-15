@@ -78,17 +78,17 @@ class NewProductForm extends React.Component {
 	}
 
 	render(){  	
-  	const categoryMenu = this.props.onGetCategories.map(category => {
-  		return <option key={category.id} value={category.id}>{category.name}</option>
-  	})
+	  	const categoryMenu = this.props.onGetCategories.map(category => {
+	  		return <option key={category.id} value={category.id}>{category.name}</option>
+	  	})
 
-  	const countByMenu = this.props.onGetCountBies.map(countBy => {
-  		return <option key={countBy.id} value={countBy.id}>{countBy.name}</option>
-  	})
+	  	const countByMenu = this.props.onGetCountBies.map(countBy => {
+	  		return <option key={countBy.id} value={countBy.id}>{countBy.name}</option>
+	  	})
 
-  	const distributorMenu = this.props.onGetDistributors.map(distributor => {
-  		return <option key={distributor.id} value={distributor.id}>{distributor.name}</option>
-  	})
+	  	const distributorMenu = this.props.onGetDistributors.map(distributor => {
+	  		return <option key={distributor.id} value={distributor.id}>{distributor.name}</option>
+	  	})
 
   	// const { onGetErrors } = this.props
 
@@ -116,7 +116,7 @@ class NewProductForm extends React.Component {
 		        />
 
 		    	<TextField
-		    			select
+		    	  select
 		          label="Distributor"
 		          name="distributor"
 		          value={this.state.distributor}
@@ -256,7 +256,6 @@ const mapStateToProps = state => ({
   onGetCountBies: state.countByReducer.countBies,
   onGetCategories: state.categoryReducer.categories,
   onGetDistributors: state.distributorReducer.distributors,
-  onGetErrors: state.errorReducer.errors,
 });
 
 

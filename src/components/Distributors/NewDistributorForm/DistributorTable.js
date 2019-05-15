@@ -27,7 +27,7 @@ class DistributorTable extends React.Component {
 	    		rows.push(
 	    			<form onSubmit={this.handleSubmit}>
 	    				<TextField value={this.state.distributor} onChange={this.handleChange}/>
-	    			</form>
+	    			</form>	
 	    		)
 	    	} else {
 	    		rows.push(obj[key]);

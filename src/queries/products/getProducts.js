@@ -17,7 +17,8 @@ export default gql`
 	      id
 	      name
 	    }   
-	    caseQuantity   
+	    caseQuantity 
+	    markUp  
 	    price
     }
   }
