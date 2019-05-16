@@ -23,7 +23,7 @@ class ProductTable extends React.Component {
 		distributor: '',
 		countBy: '',
 		category: '',
-		caseQuantity: null,
+		caseQuantity: '',
 		markUp: '',
 		price: '',
 		prepped: false,
@@ -48,7 +48,7 @@ class ProductTable extends React.Component {
 	    let rows = []
 	    for (var key in obj) {
 				if(this.state.isEditing && this.state.currentProductId === obj.id && key !== 'id'){
-					if (typeof obj[key] === "object" && obj[key]) {
+					if (['category', 'distributor', 'countBy'].includes(key)) {
 						var menuOption = (
 						  key === 'category' ? categoryMenu : 
 						  key === 'distributor' ? distributorMenu : 
@@ -59,11 +59,12 @@ class ProductTable extends React.Component {
 				    	<TextField
 				    		select
 				    		onChange={this.handleChange(key)}
-				    		defaultValue={obj[key].name}
+				    		defaultValue={obj[key] ? obj[key].name : ''}
 			          SelectProps={{
 			            native: true,
 			          }}				                 
-				        >					        
+				        >		
+				        <option> </option>			        
 				        {menuOption}
 				      </TextField>	
 			       )

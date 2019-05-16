@@ -5,6 +5,7 @@ import MUIDataTable from "mui-datatables";
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
+import Check from '@material-ui/icons/Check';
 
 import { deleteDistributor } from '../../../actions/deleteDistributor.action';
 import { editDistributor } from '../../../actions/editDistributor.action';
@@ -25,9 +26,7 @@ class DistributorTable extends React.Component {
 	    for (var key in obj) {
 	    	if(this.state.isEditing && this.state.currentDistributorId === obj.id && key !== 'id'){
 	    		rows.push(
-	    			<form onSubmit={this.handleSubmit}>
-	    				<TextField value={this.state.distributor} onChange={this.handleChange}/>
-	    			</form>	
+	    			<TextField value={this.state.distributor} onChange={this.handleChange}/>
 	    		)
 	    	} else {
 	    		rows.push(obj[key]);
@@ -72,7 +71,11 @@ class DistributorTable extends React.Component {
 		        options: {
 		          filter: false,
 		          customBodyRender: (value, tableMeta, updateValue) => (
+				    (this.state.isEditing && tableMeta.rowData && tableMeta.rowData[0] === this.state.currentDistributorId ) ? (
+		          		<Check style={{cursor:'pointer'}} onClick={this.handleSubmit}/>
+		          	) :(
 		          		<Edit style={{cursor:'pointer'}} onClick={ () => this.handleEdit(tableMeta) }/>
+		          	)		          	
 		          )
 		        }
 		      },	
