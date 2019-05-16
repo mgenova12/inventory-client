@@ -6,6 +6,7 @@ import Check from '@material-ui/icons/Check';
 import MUIDataTable from "mui-datatables";
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import { getProducts } from '../../../actions/getProducts.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
@@ -154,7 +155,6 @@ class ProductTable extends React.Component {
 		this.props.onRequestCountBies()
 	}	
 
-
   render() {
   	const { products } = this.props.onGetProducts
 
@@ -188,10 +188,22 @@ class ProductTable extends React.Component {
 		const data = products.map(product => {
 		  	return this.getRows(product)
 		})
+	  const theme = createMuiTheme({
+	    overrides: {
+	      MUIDataTable: {
+	        responsiveScroll: {
+	          overflowX: 'none',
+	          height: 'auto',
+	          maxHeight: 'auto',
+	        },
+	      },
+	    },
+	  })		
 
     return (
 
       <div>
+      <MuiThemeProvider theme={theme}>
 				<MUIDataTable
 				  title={"Global Products"}
 				  data={data}
@@ -199,9 +211,10 @@ class ProductTable extends React.Component {
 				  options={{
 				    selectableRows: false,
 				    responsive: "scroll",
-				    rowsPerPage: 15,
+				    rowsPerPage: 20,
 				  }}		  
 				/>     	
+				</MuiThemeProvider>
       </div>
 
     );
