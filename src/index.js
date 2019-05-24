@@ -16,6 +16,7 @@ import Routes from "./components";
 const App = (
     <Provider store={store}>
 	    <Routes />
+	    <br/>
     </Provider>
 );
 

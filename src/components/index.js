@@ -8,6 +8,7 @@ import Navbar from "./Common/Navbar"
 import NewProductForm from './Products/NewProductForm'
 import NewDistributorForm from './Distributors/NewDistributorForm'
 import ProductTable from "./Products/ProductTable";
+import ProductShow from "./Products/ProductShow";
 
 class Router extends React.Component {
 
@@ -22,6 +23,8 @@ class Router extends React.Component {
 	            <Route exact path="/products" component={ProductTable} />
 	            <Route exact path="/products/new" component={NewProductForm} />
 	            <Route exact path="/distributors/new" component={NewDistributorForm} />
+	            <Route exact path="/products/:id" component={ProductShow} />
+
 
 	          </Switch>
 

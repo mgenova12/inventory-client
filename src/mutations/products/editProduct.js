@@ -6,7 +6,6 @@ export default gql`
 	  $name: String!, 
 	  $distributor: String!, 
 	  $category: String!, 
-	  $countBy: String!,
 	  $price: Float!, 
 	  $markUp: Int!, 
 	  $caseQuantity: Int, 
@@ -17,7 +16,6 @@ export default gql`
     	name: $name, 
     	distributor: $distributor,
     	category: $category,
-    	countBy: $countBy,
     	price: $price,
     	markUp: $markUp,
     	caseQuantity: $caseQuantity,
@@ -27,10 +25,6 @@ export default gql`
         id
         name
         distributor {
-          id
-          name
-        }
-        countBy {
           id
           name
         }

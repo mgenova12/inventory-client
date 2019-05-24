@@ -1,14 +1,16 @@
 import React from "react";
+import "./index.css";
 import { connect } from 'react-redux'
+import StyledDropzone from '../../Common/StyledDropzone'
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import AddBox from '@material-ui/icons/AddBox';
+
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format'
-
 import Notifications from '../../Common/Notifications'
-
 import { getCategories } from '../../../actions/getCategories.action';
-import { getCountBies } from '../../../actions/getCountBies.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
 import { addProduct } from '../../../actions/addProduct.action';
 
@@ -32,17 +34,27 @@ function NumberFormatCustom(props) {
 }
 
 class NewProductForm extends React.Component {
-	state = {
-		name: '',
-		distributor: '',
-		countBy: '',
-		category: '',
-		caseQuantity: '',
-		markUp: '',
-		price: '',
-		prepped: false,
-		isSubmitted: false,
-	}
+   getInitialState = () => {
+     const initialState = {
+			name: '',
+			distributor: '',
+			category: '',
+			caseQuantity: '',
+			markUp: '',
+			price: '',
+			prepped: false,
+			barcode:'',
+			description: '',
+			distributorNumber: '',
+			brand: '',
+			unitSize: '',
+			isSubmitted: false,
+			files: []        
+     };
+     return initialState;
+ 	}	
+
+	state = this.getInitialState();
 
   handleChange = name => event => {
     this.setState({
@@ -51,18 +63,18 @@ class NewProductForm extends React.Component {
   };	
 
  	resetForm = () => {
-    this.setState({name: '', distributor: '', countBy: '', category: '', caseQuantity:'', markUp: '', price: ''});
+ 		this.setState(this.getInitialState());
 	}
 
   handleSubmit = (event) => {
   	event.preventDefault()
   	this.setState({isSubmitted: true})
-  	const { name, distributor, category, countBy, price, markUp, caseQuantity, prepped } = this.state
-  	this.props.onAddProduct(name, distributor, category, countBy, price, markUp, caseQuantity, prepped)
+  	const { name, distributor, category, price, markUp, caseQuantity, prepped } = this.state
+  	this.props.onAddProduct(name, distributor, category, price, markUp, caseQuantity, prepped)
   	this.resetForm()
-     setTimeout(function(){
-           this.setState({isSubmitted: false});
-      }.bind(this),2000)
+   	setTimeout(function(){
+      this.setState({isSubmitted: false});
+    }.bind(this),2000)
   }	
 
   handleKeyPress = (event) => {
@@ -71,26 +83,29 @@ class NewProductForm extends React.Component {
 		}
   }
 
+	onDrop = (pictureFiles, pictureDataURLs) => {
+		this.setState({
+        pictures: this.state.pictures.concat(pictureFiles),
+    });
+	}  
+
+	generateBarcode = () => {
+		let barcode = Math.floor(Math.random() * 9000000000) + 1000000000;
+		this.setState({barcode: barcode})
+	}
+
 	componentDidMount = () => {
 		this.props.onRequestCategories()
 		this.props.onRequestDistributors()
-		this.props.onRequestCountBies()
 	}
 
 	render(){  	
 	  	const categoryMenu = this.props.onGetCategories.map(category => {
 	  		return <option key={category.id} value={category.id}>{category.name}</option>
 	  	})
-
-	  	const countByMenu = this.props.onGetCountBies.map(countBy => {
-	  		return <option key={countBy.id} value={countBy.id}>{countBy.name}</option>
-	  	})
-
 	  	const distributorMenu = this.props.onGetDistributors.map(distributor => {
 	  		return <option key={distributor.id} value={distributor.id}>{distributor.name}</option>
 	  	})
-
-  	// const { onGetErrors } = this.props
 
 		return (
 			<div className='container'> 
@@ -139,28 +154,6 @@ class NewProductForm extends React.Component {
 
 		    	<TextField
 		    			select
-		          label="Count By"
-		          name="countBy"
-		          value={this.state.countBy}
-		          placeholder="Select A Count By"
-		          fullWidth
-		          onChange={this.handleChange('countBy')}
-		          margin="normal"
-		          variant="outlined"
-		          InputLabelProps={{
-		            shrink: true,
-		          }}
-		          required
-		          SelectProps={{
-		            native: true,
-		          }}		          
-		        >	
-		        <option key='' value=''></option>
-		        {countByMenu}
-		        </TextField>	
-
-		    	<TextField
-		    			select
 		          label="Category"
 		          name="category"
 		          value={this.state.category}
@@ -186,7 +179,7 @@ class NewProductForm extends React.Component {
 		          name="caseQuantity"
 		          value={this.state.caseQuantity}
 		          type="number"
-		          placeholder="Leave Blank if Not a Case"
+		          placeholder="Leave Blank If Not Case"
 		          fullWidth
 		          onChange={this.handleChange('caseQuantity')}
 		          margin="normal"
@@ -231,12 +224,93 @@ class NewProductForm extends React.Component {
 	          InputProps={{
 	            inputComponent: NumberFormatCustom,
 	          }}
-	        />		        	        		        
+	        />		
+
+					<TextField
+					  placeholder="Add Brand"
+					  variant="outlined"
+					  margin="normal"
+					  label="Brand"
+					  fullWidth
+					  value={this.state.brand}
+					  onChange={this.handleChange('brand')}
+	          InputLabelProps={{
+	            shrink: true,
+	          }}					  
+					/>
+
+					<TextField
+					  placeholder="Add Unit Size"
+					  variant="outlined"
+					  margin="normal"
+					  label="Unit Size"
+					  fullWidth
+					  value={this.state.unitSize}
+					  onChange={this.handleChange('unitSize')}
+	          InputLabelProps={{
+	            shrink: true,
+	          }}					  
+					/>
+
+					<TextField
+					  placeholder="Add Distributor ID Number"
+					  variant="outlined"
+					  type="number"
+					  margin="normal"
+					  label="Distributor Number"
+					  fullWidth
+					  value={this.state.distributorNumber}
+					  onChange={this.handleChange('distributorNumber')}
+	          InputLabelProps={{
+	            shrink: true,
+	          }}					  
+					/>				
+
+					<TextField
+					  placeholder="Add or Generate Barcode"
+					  variant="outlined"
+					  type="number"
+					  margin="normal"
+					  label="Barcode"
+					  fullWidth
+					  value={this.state.barcode}
+					  onChange={this.handleChange('barcode')}
+	          InputLabelProps={{
+	            shrink: true,
+	          }}		
+	          InputProps={{
+	            endAdornment: 
+		            <InputAdornment>
+		            	<IconButton style={{ outline: 'none' }} onClick={this.generateBarcode}>
+		            		<AddBox/>
+		            	</IconButton>
+		            </InputAdornment>,
+	          }}          			  
+					/>							
+
+					<TextField
+					  placeholder="Add Description"
+					  variant="outlined"
+					  margin="normal"
+					  label="Description"
+					  fullWidth
+					  value={this.state.description}
+					  onChange={this.handleChange('description')}
+					  multiline={true}
+					  rows={3}
+					  rowsMax={5}
+	          InputLabelProps={{
+	            shrink: true,
+	          }}					  
+					/>
+					
+					<StyledDropzone/>
 
 			   <Button type='submit' variant="contained" color="primary">
 		        	Save Product
 		     </Button>
 		     </form>
+	        
 
 			</div>
 			
@@ -247,13 +321,11 @@ class NewProductForm extends React.Component {
 
 const mapActionsToProps = {
   onRequestCategories: getCategories,
-  onRequestCountBies: getCountBies,
   onRequestDistributors: getDistributors,
   onAddProduct: addProduct,
 };
 
 const mapStateToProps = state => ({
-  onGetCountBies: state.countByReducer.countBies,
   onGetCategories: state.categoryReducer.categories,
   onGetDistributors: state.distributorReducer.distributors,
 });

@@ -2,7 +2,8 @@ import actionTypes from '../actionTypes';
 import update from 'immutability-helper';
 
 const initialState = {
-  products: []
+  products: [],
+  product: ''
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -11,11 +12,11 @@ export default (state = initialState, { type, payload }) => {
 		case actionTypes.GET_PRODUCTS:
 		      newState.products = payload.products;
 		      return newState;
+		case actionTypes.GET_PRODUCT:
+					newState.product = payload.getProduct
+					return newState
 		case actionTypes.EDIT_PRODUCT: 
 				let productIndex = newState.products.findIndex(product => product.id === payload.editProduct.product.id)
-				console.log(newState)
-				console.log(payload)
-				console.log(productIndex)
 				return {
 					products: update(newState.products, { $splice: [[productIndex, 1, payload.editProduct.product]] })
 				}

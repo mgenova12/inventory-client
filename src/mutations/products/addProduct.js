@@ -5,21 +5,29 @@ export default gql`
 	  $name: String!, 
 	  $distributorId: Int!, 
 	  $categoryId: Int!, 
-	  $countById: Int!,
 	  $price: Float!, 
 	  $markUp: Int!, 
 	  $caseQuantity: Int, 
-	  $prepped: Boolean!
+	  $prepped: Boolean!,
+    $barcode: Int, 
+    $description: String,
+    $distributorNumber: Int, 
+    $brand: String,
+    $unitSize: String
   ) {
     createProduct(input: { 
     	name: $name, 
     	distributorId: $distributorId,
     	categoryId: $categoryId,
-    	countById: $countById,
     	price: $price,
     	markUp: $markUp,
     	caseQuantity: $caseQuantity,
     	prepped: $prepped,
+      barcode: $barcode,
+      description: $description,
+      distributorNumber: $distributorNumber,
+      brand: $brand,
+      unitSize: $unitSize
     }) {
       product {
         id

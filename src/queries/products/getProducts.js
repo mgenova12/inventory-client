@@ -8,11 +8,7 @@ export default gql`
 	    distributor {
 	      id
 	      name
-	    }
-	    countBy {
-	      id
-	      name
-	    }	    
+	    }    
 	    category {
 	      id
 	      name

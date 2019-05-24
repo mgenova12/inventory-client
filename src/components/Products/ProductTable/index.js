@@ -11,7 +11,6 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { getProducts } from '../../../actions/getProducts.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCategories } from '../../../actions/getCategories.action';
-import { getCountBies } from '../../../actions/getCountBies.action';
 
 import { editProduct } from '../../../actions/editProduct.action';
 import { deleteProduct } from '../../../actions/deleteProduct.action';
@@ -22,7 +21,6 @@ class ProductTable extends React.Component {
 		currentProductId: '',
 		name: '',
 		distributor: '',
-		countBy: '',
 		category: '',
 		caseQuantity: '',
 		markUp: '',
@@ -30,13 +28,9 @@ class ProductTable extends React.Component {
 		prepped: false,
 	}
 
-
 	getRows = (obj) => {
 	  	const categoryMenu = this.props.onGetCategories.map(category => {
 	  		return <option key={category.id} value={category.name}>{category.name}</option>
-	  	})
-	  	const countByMenu = this.props.onGetCountBies.map(countBy => {
-	  		return <option key={countBy.id} value={countBy.name}>{countBy.name}</option>
 	  	})
 	  	const distributorMenu = this.props.onGetDistributors.map(distributor => {
 	  		return <option key={distributor.id} value={distributor.name}>{distributor.name}</option>
@@ -49,11 +43,10 @@ class ProductTable extends React.Component {
 	    let rows = []
 	    for (var key in obj) {
 				if(this.state.isEditing && this.state.currentProductId === obj.id && key !== 'id'){
-					if (['category', 'distributor', 'countBy'].includes(key)) {
+					if (['category', 'distributor'].includes(key)) {
 						var menuOption = (
 						  key === 'category' ? categoryMenu : 
 						  key === 'distributor' ? distributorMenu : 
-						  key === 'countBy' ? countByMenu : 
 						  null 
 						);						
 	    			rows.push(
@@ -103,18 +96,18 @@ class ProductTable extends React.Component {
 	    return rows
 	}
 
-	handleEdit = (tableMeta) => {
+	handleEdit = (tableMeta, event)  => {
+		event.stopPropagation()
 		let currentProductId = tableMeta.rowData[0]
 		this.setState(prevState => ({ 
 			isEditing: !prevState.isEditing, 
 			currentProductId: currentProductId,
 			name: tableMeta.rowData[1],
 			distributor: tableMeta.rowData[2],
-			countBy: tableMeta.rowData[3],
-			category: tableMeta.rowData[4],
-			caseQuantity: tableMeta.rowData[5],
-			markUp:tableMeta.rowData[6].slice(0, -1),		
-			price:tableMeta.rowData[7].substring(1)			
+			category: tableMeta.rowData[3],
+			caseQuantity: tableMeta.rowData[4],
+			markUp:tableMeta.rowData[5].slice(0, -1),		
+			price:tableMeta.rowData[6].substring(1)			
 		}))
 	}
 
@@ -126,13 +119,13 @@ class ProductTable extends React.Component {
 
 	handleSubmit = event => {
 		event.preventDefault()
+		event.stopPropagation()
 		this.setState({ isEditing: false })
 		this.props.onEditProduct(
 			this.state.currentProductId, 
 			this.state.name,
 			this.state.distributor,
 			this.state.category,
-			this.state.countBy,
 			this.state.price,
 			this.state.markUp,
 			this.state.caseQuantity,
@@ -140,26 +133,32 @@ class ProductTable extends React.Component {
 		)
 	}	
 
-
-	handleDelete = (tableMeta) => {
-		 if (window.confirm('Are you sure you wish to delete this item?')) {
+	handleDelete = (tableMeta, event) => {
+		event.stopPropagation()
+		if (window.confirm('Are you sure you wish to delete this item?')) {
 			let id = tableMeta.rowData[0]
 			this.props.onDeleteProduct(id)
-		 }
+		}
+	}
+
+	redirectToShow = (rowData) => {
+		let id = rowData[0];
+		if (!this.state.isEditing){
+			this.props.history.push(`/products/${id}`)
+		}
 	}
 
 	componentWillMount = () => {
 		this.props.onRequestProducts()
 		this.props.onRequestCategories()
 		this.props.onRequestDistributors()
-		this.props.onRequestCountBies()
 	}	
 
   render() {
   	const { products } = this.props.onGetProducts
 
 		const columns = [
-			"ID", "Name", "Distributor", "Count By", 
+			"ID", "Name", "Distributor", 
 			"Category", "Case Quantity", "Mark Up", "Price",
 				{
 	        name: "",
@@ -169,7 +168,7 @@ class ProductTable extends React.Component {
 	          	(this.state.isEditing && tableMeta.rowData && tableMeta.rowData[0] === this.state.currentProductId ) ? (
 	          		<Check style={{cursor:'pointer'}} onClick={this.handleSubmit}/>
 	          	) :(
-	          		<Edit style={{cursor:'pointer'}} onClick={ () => this.handleEdit(tableMeta) }/>
+	          		<Edit style={{cursor:'pointer'}} onClick={ (e) => this.handleEdit(tableMeta, e) }/>
 	          	)
 	          )
 	        }
@@ -179,7 +178,7 @@ class ProductTable extends React.Component {
 	        options: {
 	          filter: false,
 	          customBodyRender: (value, tableMeta, updateValue) => (
-	          	<Delete style={{cursor:'pointer'}} onClick={ () => this.handleDelete(tableMeta) }/>
+	          	<Delete style={{cursor:'pointer'}} onClick={ (e) => this.handleDelete(tableMeta, e) }/>
 	          )
 	        }
 	      },		
@@ -189,6 +188,9 @@ class ProductTable extends React.Component {
 		  	return this.getRows(product)
 		})
 	  const theme = createMuiTheme({
+		  typography: {
+		    useNextVariants: true,
+		  },	  	
 	    overrides: {
 	      MUIDataTable: {
 	        responsiveScroll: {
@@ -211,7 +213,8 @@ class ProductTable extends React.Component {
 				  options={{
 				    selectableRows: false,
 				    responsive: "scroll",
-				    rowsPerPage: 20,
+				    rowsPerPage: 100,
+				    onRowClick: rowData => this.redirectToShow(rowData)
 				  }}		  
 				/>     	
 				</MuiThemeProvider>
@@ -223,7 +226,6 @@ class ProductTable extends React.Component {
 
 const mapStateToProps = state => ({
   onGetProducts: state.productReducer,
-  onGetCountBies: state.countByReducer.countBies,
   onGetCategories: state.categoryReducer.categories,
   onGetDistributors: state.distributorReducer.distributors,  
 });
@@ -231,10 +233,9 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
   onRequestProducts: getProducts,
   onRequestCategories: getCategories,
-  onRequestCountBies: getCountBies,
   onRequestDistributors: getDistributors,  
   onDeleteProduct: deleteProduct,
-  onEditProduct: editProduct
+  onEditProduct: editProduct,
 };
 
 
