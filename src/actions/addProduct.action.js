@@ -3,7 +3,7 @@ import axios from "axios";
 import addProductMutation from '../mutations/products/addProduct';
 import { print } from 'graphql';
 
-export function addProduct(name, distributorId, categoryId, countById, price, markUp, caseQuantity, prepped) {
+export function addProduct(name, distributorId, categoryId, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, documentData) {
   return async (dispatch, getState) => {
     axios
     .post(`${process.env.REACT_APP_API_URL}graphql`, {
@@ -12,21 +12,22 @@ export function addProduct(name, distributorId, categoryId, countById, price, ma
         name: name,
         distributorId: parseInt(distributorId),
         categoryId: parseInt(categoryId),
-        countById: parseInt(countById),
         price: parseFloat(price),
         markUp: parseInt(markUp),
         caseQuantity: parseInt(caseQuantity),
         prepped: prepped,
+        barcode: parseInt(barcode),
+        description: description,
+        distributorNumber: parseInt(distributorNumber),
+        brand: brand,
+        unitSize: unitSize,
+        documentData: documentData
       },
     })
-    // .then((result) => {
-    //   if (result.data.errors) {
-    //       dispatch({
-    //         type: actionTypes.FORM_ERRORS,
-    //         payload: result.data
-    //       })       
-    //   }
-    // });  
+    .then((result) => {
+        console.log(result.data)
+    })
+    .catch(err => console.log(err))
     
   }
 }

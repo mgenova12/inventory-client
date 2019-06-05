@@ -60,7 +60,7 @@ const rejectStyle = {
   borderColor: '#ff1744'
 };
 
-function StyledDropzone(props) {
+function StyledDropzone(props, imgs) {
   const [files, setFiles] = useState([]);
   const {    
     getRootProps,
@@ -71,6 +71,7 @@ function StyledDropzone(props) {
   } = useDropzone({
     accept: 'image/*',
     onDrop: acceptedFiles => {
+      props.imgs(acceptedFiles)
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
@@ -103,7 +104,8 @@ function StyledDropzone(props) {
     // Make sure to revoke the data uris to avoid memory leaks
     files.forEach(file => URL.revokeObjectURL(file.preview));
   }, [files]);
-  console.log(files)
+
+  // console.log(files)
   return (
     <section>
       <div {...getRootProps({style})}>

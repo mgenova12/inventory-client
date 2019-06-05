@@ -13,7 +13,8 @@ export default gql`
     $description: String,
     $distributorNumber: Int, 
     $brand: String,
-    $unitSize: String
+    $unitSize: String,
+    $documentData: [String!]!
   ) {
     createProduct(input: { 
     	name: $name, 
@@ -27,7 +28,8 @@ export default gql`
       description: $description,
       distributorNumber: $distributorNumber,
       brand: $brand,
-      unitSize: $unitSize
+      unitSize: $unitSize,
+      documentData: $documentData
     }) {
       product {
         id

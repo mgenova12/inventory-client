@@ -49,7 +49,7 @@ class NewProductForm extends React.Component {
 			brand: '',
 			unitSize: '',
 			isSubmitted: false,
-			files: []        
+			imgs: []        
      };
      return initialState;
  	}	
@@ -67,10 +67,11 @@ class NewProductForm extends React.Component {
 	}
 
   handleSubmit = (event) => {
+  	console.log(this.state.imgs)
   	event.preventDefault()
   	this.setState({isSubmitted: true})
-  	const { name, distributor, category, price, markUp, caseQuantity, prepped } = this.state
-  	this.props.onAddProduct(name, distributor, category, price, markUp, caseQuantity, prepped)
+  	const { name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs } = this.state
+  	this.props.onAddProduct(name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs)
   	this.resetForm()
    	setTimeout(function(){
       this.setState({isSubmitted: false});
@@ -83,15 +84,23 @@ class NewProductForm extends React.Component {
 		}
   }
 
-	onDrop = (pictureFiles, pictureDataURLs) => {
-		this.setState({
-        pictures: this.state.pictures.concat(pictureFiles),
-    });
-	}  
-
 	generateBarcode = () => {
 		let barcode = Math.floor(Math.random() * 9000000000) + 1000000000;
 		this.setState({barcode: barcode})
+	}
+
+	getBase64 = (files) => {
+		files.forEach(file => {
+	   var reader = new FileReader();
+	   reader.readAsDataURL(file);
+	   reader.onload = function () {
+	   		var joined = this.state.imgs.concat(reader.result);
+				this.setState({ imgs: joined })
+	   }.bind(this);
+	   reader.onerror = function (error) {
+	     console.log('Error: ', error);
+	   };
+		})
 	}
 
 	componentDidMount = () => {
@@ -100,13 +109,13 @@ class NewProductForm extends React.Component {
 	}
 
 	render(){  	
+		console.log(this.state.imgs)
 	  	const categoryMenu = this.props.onGetCategories.map(category => {
 	  		return <option key={category.id} value={category.id}>{category.name}</option>
 	  	})
 	  	const distributorMenu = this.props.onGetDistributors.map(distributor => {
 	  		return <option key={distributor.id} value={distributor.id}>{distributor.name}</option>
 	  	})
-
 		return (
 			<div className='container'> 
 				{this.state.isSubmitted && <Notifications/>}
@@ -304,7 +313,7 @@ class NewProductForm extends React.Component {
 	          }}					  
 					/>
 					
-					<StyledDropzone/>
+					<StyledDropzone imgs={this.getBase64}/>
 
 			   <Button type='submit' variant="contained" color="primary">
 		        	Save Product
