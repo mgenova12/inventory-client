@@ -15,7 +15,14 @@ class ProductShow extends React.Component {
 	    return (
   			<div>
          {product && (
-          <h4>{product.name}</h4>
+          <div> 
+            <h2> {product.name} </h2> 
+            {
+              product.documents.map(img => 
+                <img key={img.id} width="200" height="200" alt="" src={`${process.env.REACT_APP_API_URL}${img.document}`}/>
+              )
+            }
+          </div>
          )}
   			</div>  
 	    )
@@ -24,12 +31,12 @@ class ProductShow extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  onGetProduct: state.productReducer,
+  onGetProduct: state.productReducer
  
 });
 
 const mapActionsToProps = {
-  onRequestProduct: getProduct,
+  onRequestProduct: getProduct
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(ProductShow);

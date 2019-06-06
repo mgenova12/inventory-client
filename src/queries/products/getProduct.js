@@ -15,7 +15,11 @@ export default gql`
       }   
       caseQuantity 
       markUp  
-      price                
+      price 
+      documents {
+        id
+        document
+      }                     
     }
 
   }
