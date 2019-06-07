@@ -16,6 +16,11 @@ export default gql`
       caseQuantity 
       markUp  
       price 
+      barcode
+      description
+      distributorNumber
+      brand 
+      unitSize
       documents {
         id
         document

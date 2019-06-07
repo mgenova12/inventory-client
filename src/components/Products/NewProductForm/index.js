@@ -67,7 +67,6 @@ class NewProductForm extends React.Component {
 	}
 
   handleSubmit = (event) => {
-  	console.log(this.state.imgs)
   	event.preventDefault()
   	this.setState({isSubmitted: true})
   	const { name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs } = this.state

@@ -19,7 +19,7 @@ class Home extends React.Component {
 				</div>
 
 	      <Stores/>
-
+	      <br/>
 	      <a href="/stores/new">
 	      	<Button variant="contained" color="primary">
 	        	Add Store
