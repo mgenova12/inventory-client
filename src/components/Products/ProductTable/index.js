@@ -3,10 +3,13 @@ import { connect } from 'react-redux'
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import Check from '@material-ui/icons/Check';
+import AddCircle from '@material-ui/icons/AddCircle';
 import MUIDataTable from "mui-datatables";
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+
+import PreppedProductForm from '../PreppedProductForm'
 
 import { getProducts } from '../../../actions/getProducts.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
@@ -26,6 +29,8 @@ class ProductTable extends React.Component {
 		markUp: '',
 		price: '',
 		prepped: false,
+		togglePreppedDrawer: false,
+		rowData: []
 	}
 
 	getRows = (obj) => {
@@ -96,10 +101,11 @@ class ProductTable extends React.Component {
 	    return rows
 	}
 
-	handleEdit = (tableMeta, event)  => {
+	handleEdit = tableMeta => event  => {
 		event.stopPropagation()
 		let currentProductId = tableMeta.rowData[0]
 		this.setState(prevState => ({ 
+			togglePreppedDrawer: false,
 			isEditing: !prevState.isEditing, 
 			currentProductId: currentProductId,
 			name: tableMeta.rowData[1],
@@ -136,9 +142,15 @@ class ProductTable extends React.Component {
 	handleDelete = (tableMeta, event) => {
 		event.stopPropagation()
 		if (window.confirm('Are you sure you wish to delete this item?')) {
+			this.setState({togglePreppedDrawer: false})
 			let id = tableMeta.rowData[0]
 			this.props.onDeleteProduct(id)
 		}
+	}
+
+	handlePreppedDrawer = tableMeta => event => {
+		event.stopPropagation()
+		this.setState({togglePreppedDrawer: true, rowData: tableMeta.rowData})
 	}
 
 	redirectToShow = (rowData) => {
@@ -168,7 +180,7 @@ class ProductTable extends React.Component {
 	          	(this.state.isEditing && tableMeta.rowData && tableMeta.rowData[0] === this.state.currentProductId ) ? (
 	          		<Check style={{cursor:'pointer'}} onClick={this.handleSubmit}/>
 	          	) :(
-	          		<Edit style={{cursor:'pointer'}} onClick={ (e) => this.handleEdit(tableMeta, e) }/>
+	          		<Edit style={{cursor:'pointer'}} onClick={ this.handleEdit(tableMeta) }/>
 	          	)
 	          )
 	        }
@@ -181,7 +193,16 @@ class ProductTable extends React.Component {
 	          	<Delete style={{cursor:'pointer'}} onClick={ (e) => this.handleDelete(tableMeta, e) }/>
 	          )
 	        }
-	      },		
+	      },
+	      {
+	        name: "",
+	        options: {
+	          filter: false,
+	          customBodyRender: (value, tableMeta, updateValue) => (
+	          	<AddCircle style={{cursor:'pointer'}} onClick={ this.handlePreppedDrawer(tableMeta) }/>
+	          )
+	        }
+	      },		      		
 		];
     
 		const data = products.map(product => {
@@ -205,6 +226,7 @@ class ProductTable extends React.Component {
     return (
 
       <div>
+      <PreppedProductForm togglePreppedDrawer={this.state.togglePreppedDrawer} rowData={this.state.rowData}/>
       <MuiThemeProvider theme={theme}>
 				<MUIDataTable
 				  title={"Global Products"}

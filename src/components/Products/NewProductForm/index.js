@@ -108,7 +108,6 @@ class NewProductForm extends React.Component {
 	}
 
 	render(){  	
-		console.log(this.state.imgs)
 	  	const categoryMenu = this.props.onGetCategories.map(category => {
 	  		return <option key={category.id} value={category.id}>{category.name}</option>
 	  	})
@@ -312,7 +311,7 @@ class NewProductForm extends React.Component {
 	          }}					  
 					/>
 					
-					<StyledDropzone imgs={this.getBase64}/>
+					<StyledDropzone imgs={this.getBase64} isSubmitted={this.state.isSubmitted}/>
 
 			   <Button type='submit' variant="contained" color="primary">
 		        	Save Product

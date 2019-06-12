@@ -60,7 +60,7 @@ const rejectStyle = {
   borderColor: '#ff1744'
 };
 
-function StyledDropzone(props, imgs) {
+function StyledDropzone(props, imgs, isSubmitted) {
   const [files, setFiles] = useState([]);
   const {    
     getRootProps,
@@ -69,7 +69,7 @@ function StyledDropzone(props, imgs) {
     isDragAccept,
     isDragReject
   } = useDropzone({
-    accept: 'image/*',
+    accept: 'image/*', 
     onDrop: acceptedFiles => {
       props.imgs(acceptedFiles)
       setFiles(acceptedFiles.map(file => Object.assign(file, {
@@ -105,7 +105,11 @@ function StyledDropzone(props, imgs) {
     files.forEach(file => URL.revokeObjectURL(file.preview));
   }, [files]);
 
-  // console.log(files)
+  console.log(props.isSubmitted)
+  if(props.isSubmitted) {
+    setFiles([])
+  }
+
   return (
     <section>
       <div {...getRootProps({style})}>
@@ -115,6 +119,7 @@ function StyledDropzone(props, imgs) {
       <aside style={thumbsContainer}>
         {thumbs}
       </aside>
+
     </section>
   );
 }
