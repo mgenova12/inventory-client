@@ -25,7 +25,7 @@ class Notifications extends React.Component {
   }
 
   componentDidMount = () => {
-	this.successNotification('Saved!', 'Product has been saved!', 'success')
+	 this.successNotification('Saved!', 'Product has been saved!', 'success')
   }
 	render() {
 

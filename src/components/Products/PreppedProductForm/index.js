@@ -3,12 +3,23 @@ import React from 'react';
 import MenuList from '@material-ui/core/MenuList';
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import TextField from '@material-ui/core/TextField';
-
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import AddBox from '@material-ui/icons/AddBox';
+import Button from '@material-ui/core/Button';
 
 class PreppedProductForm extends React.Component {
 
   state = { 
-  	drawer: false
+  	drawer: false,
+    prepped: true,
+    name: '',
+    category: '',
+    caseQuantity: '',
+    portionSize: '',
+    markUp: '',
+    barcode: '',
+    description: ''
   };
 
   toggleDrawer(open) {
@@ -17,11 +28,26 @@ class PreppedProductForm extends React.Component {
     });
   }
 
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };  
+
+  generateBarcode = () => {
+    let barcode = Math.floor(Math.random() * 9000000000) + 1000000000;
+    this.setState({barcode: barcode})
+  }  
+
   componentWillReceiveProps(props) {
     this.setState({ drawer: props.togglePreppedDrawer })
   }
 
   render() {
+    console.log(this.state)
+    const categoryMenu = this.props.categories.map(category => {
+      return <option key={category.id} value={category.id}>{category.name}</option>
+    })
     const drawerMenu = (
       <div className="container">
 
@@ -31,10 +57,11 @@ class PreppedProductForm extends React.Component {
           <form onSubmit={this.handleSubmit}>
               <TextField
                   required
-                  label="Product Name"
+                  label="Prepped Name"
                   value={this.state.name}
+                  onChange={this.handleChange('name')}
                   name="name"
-                  placeholder="Add Product Name"
+                  placeholder="Add Prepped Name"
                   fullWidth
                   margin="normal"
                   variant="outlined"
@@ -43,37 +70,48 @@ class PreppedProductForm extends React.Component {
                   }}
                 />  
               <TextField
-                  required
-                  label="Count By"
-                  value={this.state.name}
-                  name="name"
-                  placeholder="Add Product Name"
-                  fullWidth
-                  margin="normal"
-                  variant="outlined"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                /> 
-              <TextField
-                  required
+                  select
                   label="Category"
-                  value={this.state.name}
-                  name="name"
-                  placeholder="Add Product Name"
+                  name="category"
+                  value={this.state.category}
+                  placeholder="Select a Category"
                   fullWidth
+                  onChange={this.handleChange('category')}
                   margin="normal"
                   variant="outlined"
                   InputLabelProps={{
                     shrink: true,
                   }}
-                /> 
-              <TextField
                   required
+                  SelectProps={{
+                    native: true,
+                  }}              
+                >
+                <option key='' value=''></option>
+                {categoryMenu}
+                </TextField>
+              <TextField
                   label="Case Quantity"
-                  value={this.state.name}
-                  name="name"
-                  placeholder="Add Product Name"
+                  name="caseQuantity"
+                  value={this.state.caseQuantity}
+                  type="number"
+                  placeholder="Leave Blank If Not Case"
+                  fullWidth
+                  onChange={this.handleChange('caseQuantity')}
+                  margin="normal"
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />  
+              <TextField
+                  required
+                  type="number"
+                  label="Portion Size"
+                  value={this.state.portion_size}
+                  onChange={this.handleChange('portionSize')}
+                  name="portionSize"
+                  placeholder="Add Portion Size"
                   fullWidth
                   margin="normal"
                   variant="outlined"
@@ -83,18 +121,62 @@ class PreppedProductForm extends React.Component {
                 /> 
               <TextField
                   required
-                  label="Portion Size"
-                  value={this.state.name}
-                  name="name"
-                  placeholder="Add Product Name"
+                  label="Mark Up"
+                  name="markUp"
+                  type="number"
+                  value={this.state.markUp}
+                  placeholder="Add Mark Up"
                   fullWidth
+                  onChange={this.handleChange('markUp')}
                   margin="normal"
                   variant="outlined"
                   InputLabelProps={{
                     shrink: true,
-                  }}
-                />                                                 
+                  }}  
+                  InputProps={{
+                    startAdornment: <InputAdornment position="start">%</InputAdornment>,
+                  }}              
+                />                                                                
+                <TextField
+                  placeholder="Add or Generate Barcode"
+                  variant="outlined"
+                  type="number"
+                  margin="normal"
+                  label="Barcode"
+                  fullWidth
+                  value={this.state.barcode}
+                  onChange={this.handleChange('barcode')}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}    
+                  InputProps={{
+                    endAdornment: 
+                      <InputAdornment>
+                        <IconButton style={{ outline: 'none' }} onClick={this.generateBarcode}>
+                          <AddBox/>
+                        </IconButton>
+                      </InputAdornment>,
+                  }}                  
+                />   
+              <TextField
+                placeholder="Add Description"
+                variant="outlined"
+                margin="normal"
+                label="Description"
+                fullWidth
+                value={this.state.description}
+                onChange={this.handleChange('description')}
+                multiline={true}
+                rows={3}
+                rowsMax={5}
+                InputLabelProps={{
+                  shrink: true,
+                }}            
+              />  
 
+           <Button type='submit' variant="contained" color="primary">
+                Save Product
+           </Button>                               
           </form>
     		</MenuList>
 

@@ -16,6 +16,7 @@ export default gql`
 	    caseQuantity 
 	    markUp  
 	    price
+	    markedUpPrice
     }
   }
 `;

@@ -3,7 +3,7 @@ import axios from "axios";
 import editProductMutation from '../mutations/products/editProduct';
 import { print } from 'graphql';
 
-export function editProduct(id, name, distributor, category, price, markUp, caseQuantity, prepped) {
+export function editProduct(id, name, distributor, category, price, markUp, caseQuantity, prepped, markedUpPrice) {
   return async (dispatch, getState) => {
     axios
     .post(`${process.env.REACT_APP_API_URL}graphql`, {
@@ -17,6 +17,7 @@ export function editProduct(id, name, distributor, category, price, markUp, case
         markUp: parseInt(markUp),
         caseQuantity: parseInt(caseQuantity),
         prepped: prepped,
+        markedUpPrice: parseInt(markedUpPrice)
       },
     })
     .then((result) => {

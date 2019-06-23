@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import AddBox from '@material-ui/icons/AddBox';
+import { finalMarkUpPrice } from "../../../utils/markUpUtils";	
 
 import Button from '@material-ui/core/Button';
 import NumberFormat from 'react-number-format'
@@ -70,7 +71,8 @@ class NewProductForm extends React.Component {
   	event.preventDefault()
   	this.setState({isSubmitted: true})
   	const { name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs } = this.state
-  	this.props.onAddProduct(name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs)
+  	let markedUpPrice = finalMarkUpPrice(price, markUp)
+  	this.props.onAddProduct(name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs, markedUpPrice)
   	this.resetForm()
    	setTimeout(function(){
       this.setState({isSubmitted: false});

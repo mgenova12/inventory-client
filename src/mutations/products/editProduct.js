@@ -9,7 +9,8 @@ export default gql`
 	  $price: Float!, 
 	  $markUp: Int!, 
 	  $caseQuantity: Int, 
-	  $prepped: Boolean!
+	  $prepped: Boolean!,
+    $markedUpPrice: Int
   ) {
     editProduct(input: { 
       id: $id,
@@ -20,6 +21,7 @@ export default gql`
     	markUp: $markUp,
     	caseQuantity: $caseQuantity,
     	prepped: $prepped,
+      markedUpPrice: $markedUpPrice
     }) {
       product {
         id
@@ -35,6 +37,7 @@ export default gql`
         caseQuantity
         markUp
         price
+        markedUpPrice
       }
       errors
     }

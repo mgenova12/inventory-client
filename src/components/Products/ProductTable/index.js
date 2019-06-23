@@ -7,6 +7,8 @@ import AddCircle from '@material-ui/icons/AddCircle';
 import MUIDataTable from "mui-datatables";
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import { finalMarkUpPrice } from "../../../utils/markUpUtils";
+
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 import PreppedProductForm from '../PreppedProductForm'
@@ -47,7 +49,7 @@ class ProductTable extends React.Component {
 
 	    let rows = []
 	    for (var key in obj) {
-				if(this.state.isEditing && this.state.currentProductId === obj.id && key !== 'id'){
+				if(this.state.isEditing && this.state.currentProductId === obj.id && key !== 'id' && key !== 'markedUpPrice'){
 					if (['category', 'distributor'].includes(key)) {
 						var menuOption = (
 						  key === 'category' ? categoryMenu : 
@@ -67,7 +69,7 @@ class ProductTable extends React.Component {
 				        {menuOption}
 				      </TextField>	
 			       )
-					} else {
+					} else	 {
 						var adornment = (
 							key === 'price' ? {position:'startAdornment', symbol: '$'} :
 							key === 'markUp' ? {position:'endAdornment', symbol: '%'} :
@@ -91,7 +93,7 @@ class ProductTable extends React.Component {
 		           rows.push(obj[key].name)   
 		        } else if (key === "markUp") {
 		        	rows.push(`${obj[key]}%`)
-		        } else if(key === "price") {
+		        } else if(key === "price" || key === "markedUpPrice") {
 		        	rows.push(formatter.format(obj[key]))
 		        } else {
 		          rows.push(obj[key]);    
@@ -113,7 +115,7 @@ class ProductTable extends React.Component {
 			category: tableMeta.rowData[3],
 			caseQuantity: tableMeta.rowData[4],
 			markUp:tableMeta.rowData[5].slice(0, -1),		
-			price:tableMeta.rowData[6].substring(1)			
+			price:tableMeta.rowData[6].substring(1),		
 		}))
 	}
 
@@ -126,6 +128,10 @@ class ProductTable extends React.Component {
 	handleSubmit = event => {
 		event.preventDefault()
 		event.stopPropagation()
+		let markedUpPrice = finalMarkUpPrice(parseInt(this.state.price), parseInt(this.state.markUp))
+		console.log(this.state.price)
+		console.log(this.state.markUp)
+		console.log(markedUpPrice)
 		this.setState({ isEditing: false })
 		this.props.onEditProduct(
 			this.state.currentProductId, 
@@ -136,6 +142,7 @@ class ProductTable extends React.Component {
 			this.state.markUp,
 			this.state.caseQuantity,
 			this.state.prepped,
+			markedUpPrice
 		)
 	}	
 
@@ -171,8 +178,8 @@ class ProductTable extends React.Component {
 
 		const columns = [
 			"ID", "Name", "Distributor", 
-			"Category", "Case Quantity", "Mark Up", "Price",
-				{
+			"Category", "Case Quantity", "Mark Up", "Price", "Final Price",
+				{	
 	        name: "",
 	        options: {
 	          filter: false,
@@ -222,11 +229,14 @@ class ProductTable extends React.Component {
 	      },
 	    },
 	  })		
-
     return (
 
       <div>
-      <PreppedProductForm togglePreppedDrawer={this.state.togglePreppedDrawer} rowData={this.state.rowData}/>
+      <PreppedProductForm 
+      	togglePreppedDrawer={this.state.togglePreppedDrawer} 
+      	rowData={this.state.rowData}
+      	categories={this.props.onGetCategories}
+      	/>
       <MuiThemeProvider theme={theme}>
 				<MUIDataTable
 				  title={"Global Products"}
