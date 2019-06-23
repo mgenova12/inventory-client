@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'
 
 import MenuList from '@material-ui/core/MenuList';
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
@@ -7,10 +8,14 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import AddBox from '@material-ui/icons/AddBox';
 import Button from '@material-ui/core/Button';
+import { finalPreppedMarkUpPrice } from "../../../utils/markUpUtils";
+
+import { addProduct } from '../../../actions/addProduct.action';
 
 class PreppedProductForm extends React.Component {
 
   state = { 
+    isSubmitted: false,
   	drawer: false,
     prepped: true,
     name: '',
@@ -28,6 +33,15 @@ class PreppedProductForm extends React.Component {
     });
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.setState({isSubmitted: true, drawer: false})
+    const { name, category, markUp, caseQuantity, prepped, barcode, description, portionSize} = this.state
+    let markedUpPrice = finalPreppedMarkUpPrice(parseInt(this.props.rowData[6].substring(1)), parseInt(portionSize), parseInt(markUp))
+    this.props.onAddProduct(name, null, category, null, markUp, caseQuantity, prepped, barcode, description, null, null, null, [], markedUpPrice, portionSize)
+  } 
+
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -44,7 +58,6 @@ class PreppedProductForm extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     const categoryMenu = this.props.categories.map(category => {
       return <option key={category.id} value={category.id}>{category.name}</option>
     })
@@ -55,41 +68,41 @@ class PreppedProductForm extends React.Component {
 
           <h3>Add Prepped Product Version of {this.props.rowData[1]}</h3>     
           <form onSubmit={this.handleSubmit}>
-              <TextField
-                  required
-                  label="Prepped Name"
-                  value={this.state.name}
-                  onChange={this.handleChange('name')}
-                  name="name"
-                  placeholder="Add Prepped Name"
-                  fullWidth
-                  margin="normal"
-                  variant="outlined"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                />  
-              <TextField
-                  select
-                  label="Category"
-                  name="category"
-                  value={this.state.category}
-                  placeholder="Select a Category"
-                  fullWidth
-                  onChange={this.handleChange('category')}
-                  margin="normal"
-                  variant="outlined"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  required
-                  SelectProps={{
-                    native: true,
-                  }}              
-                >
-                <option key='' value=''></option>
-                {categoryMenu}
-                </TextField>
+            <TextField
+                required
+                label="Prepped Name"
+                value={this.state.name}
+                onChange={this.handleChange('name')}
+                name="name"
+                placeholder="Add Prepped Name"
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />  
+            <TextField
+                select
+                label="Category"
+                name="category"
+                value={this.state.category}
+                placeholder="Select a Category"
+                fullWidth
+                onChange={this.handleChange('category')}
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                required
+                SelectProps={{
+                  native: true,
+                }}              
+              >
+              <option key='' value=''></option>
+              {categoryMenu}
+              </TextField>
               <TextField
                   label="Case Quantity"
                   name="caseQuantity"
@@ -207,5 +220,10 @@ class PreppedProductForm extends React.Component {
   }
 }
 
-export default PreppedProductForm;
+const mapActionsToProps = {
+  onAddProduct: addProduct,
+};
+
+
+export default connect(null, mapActionsToProps)(PreppedProductForm);
 

@@ -3,9 +3,9 @@ import gql from 'graphql-tag';
 export default gql`
   mutation createProduct(
 	  $name: String!, 
-	  $distributorId: Int!, 
+	  $distributorId: Int, 
 	  $categoryId: Int!, 
-	  $price: Float!, 
+	  $price: Float, 
 	  $markUp: Int!, 
 	  $caseQuantity: Int, 
 	  $prepped: Boolean!,
@@ -14,7 +14,7 @@ export default gql`
     $distributorNumber: Int, 
     $brand: String,
     $unitSize: String,
-    $documentData: [String!]!
+    $documentData: [String!]
     $portionSize: Int,
     $markedUpPrice: Int
   ) {

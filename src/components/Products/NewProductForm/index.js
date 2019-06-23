@@ -71,7 +71,7 @@ class NewProductForm extends React.Component {
   	event.preventDefault()
   	this.setState({isSubmitted: true})
   	const { name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs } = this.state
-  	let markedUpPrice = finalMarkUpPrice(price, markUp)
+  	let markedUpPrice = finalMarkUpPrice(parseInt(price), parseInt(markUp))
   	this.props.onAddProduct(name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs, markedUpPrice)
   	this.resetForm()
    	setTimeout(function(){
