@@ -128,7 +128,7 @@ class ProductTable extends React.Component {
 	handleSubmit = event => {
 		event.preventDefault()
 		event.stopPropagation()
-		let markedUpPrice = finalMarkUpPrice(parseInt(this.state.price), parseInt(this.state.markUp))
+		let markedUpPrice = finalMarkUpPrice(parseFloat(this.state.price), parseInt(this.state.markUp))
 		console.log(this.state.price)
 		console.log(this.state.markUp)
 		console.log(markedUpPrice)

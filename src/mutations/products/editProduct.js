@@ -10,7 +10,7 @@ export default gql`
 	  $markUp: Int!, 
 	  $caseQuantity: Int, 
 	  $prepped: Boolean!,
-    $markedUpPrice: Int
+    $markedUpPrice: Float
   ) {
     editProduct(input: { 
       id: $id,

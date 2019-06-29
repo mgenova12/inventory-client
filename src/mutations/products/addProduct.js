@@ -16,7 +16,7 @@ export default gql`
     $unitSize: String,
     $documentData: [String!]
     $portionSize: Int,
-    $markedUpPrice: Int
+    $markedUpPrice: Float
   ) {
     createProduct(input: { 
     	name: $name, 

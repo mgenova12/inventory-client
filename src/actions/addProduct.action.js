@@ -22,7 +22,7 @@ export function addProduct(name, distributorId, categoryId, price, markUp, caseQ
         brand: brand,
         unitSize: unitSize,
         documentData: documentData,
-        markedUpPrice: parseInt(markedUpPrice),
+        markedUpPrice: parseFloat(markedUpPrice),
         portionSize: parseInt(portionSize)
       },
     })

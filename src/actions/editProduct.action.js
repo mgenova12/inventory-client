@@ -17,7 +17,7 @@ export function editProduct(id, name, distributor, category, price, markUp, case
         markUp: parseInt(markUp),
         caseQuantity: parseInt(caseQuantity),
         prepped: prepped,
-        markedUpPrice: parseInt(markedUpPrice)
+        markedUpPrice: parseFloat(markedUpPrice)
       },
     })
     .then((result) => {
