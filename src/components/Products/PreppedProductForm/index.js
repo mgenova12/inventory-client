@@ -37,7 +37,7 @@ class PreppedProductForm extends React.Component {
     event.preventDefault()
     this.setState({isSubmitted: true, drawer: false})
     const { name, category, markUp, caseQuantity, prepped, barcode, description, portionSize} = this.state
-    let markedUpPrice = finalPreppedMarkUpPrice(parseInt(this.props.rowData[6].substring(1)), parseInt(portionSize), parseInt(markUp))
+    let markedUpPrice = finalPreppedMarkUpPrice(parseFloat(this.props.rowData[6].substring(1)), parseInt(portionSize), parseInt(markUp))
     this.props.onAddProduct(name, null, category, null, markUp, caseQuantity, prepped, barcode, description, null, null, null, [], markedUpPrice, portionSize)
   } 
 

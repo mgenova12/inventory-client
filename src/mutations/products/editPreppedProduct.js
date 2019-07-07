@@ -1,42 +1,34 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation editProduct(
+  mutation editPreppedProduct(
     $id: Int!,
 	  $name: String!, 
-	  $distributor: String!, 
 	  $category: String!, 
-	  $price: Float!, 
-	  $markUp: Int!, 
 	  $caseQuantity: Int, 
-	  $prepped: Boolean!,
+	  $markUp: Int!, 
+    $portionSize: Int
     $markedUpPrice: Float,
   ) {
-    editProduct(input: { 
+    editPreppedProduct(input: { 
       id: $id,
     	name: $name, 
-    	distributor: $distributor,
     	category: $category,
-    	price: $price,
-    	markUp: $markUp,
     	caseQuantity: $caseQuantity,
-    	prepped: $prepped,
+    	markUp: $markUp,
+      portionSize: $portionSize
       markedUpPrice: $markedUpPrice,
     }) {
       product {
         id
         name
-        distributor {
-          id
-          name
-        }
         category {
           id
           name
         }
+        portionSize
         caseQuantity
         markUp
-        price
         markedUpPrice
       }
       errors
