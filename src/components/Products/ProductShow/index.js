@@ -10,7 +10,6 @@ class ProductShow extends React.Component {
  
 	render() {
       const {product} = this.props.onGetProduct
-      console.log(product)
 	    return (
   			<div>
          {product && (

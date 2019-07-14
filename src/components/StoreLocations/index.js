@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from 'react-redux'
 import { getStoreTypes } from '../../actions/getStoreTypes.action';
 
-class Stores extends React.Component {
+class StoreLocations extends React.Component {
 	
 	componentWillMount = () => {
 		this.props.onRequestStoreTypes()
@@ -14,7 +14,7 @@ class Stores extends React.Component {
 				<div key={storeType.id} className="list-group">
 					<h4>{storeType.name}</h4> 
 					{storeType.stores.map(store => 
-						<a key={store.id} href="/" className="list-group-item list-group-item-action list-group-item-light">{store.name}</a>
+						<a key={store.id} href={`/store/${store.id}/StoreGoods`} className="list-group-item list-group-item-action list-group-item-light">{store.name}</a>
 					)}
 				</div>
 			)
@@ -37,4 +37,4 @@ const mapStateToProps = state => ({
   onGetStoreTypes: state.storeTypesReducer.storeTypes
 });
 
-export default connect(mapStateToProps, mapActionsToProps)(Stores)
+export default connect(mapStateToProps, mapActionsToProps)(StoreLocations)

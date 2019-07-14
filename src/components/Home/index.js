@@ -2,7 +2,7 @@ import React from "react";
 import "./index.css";
 import Button from '@material-ui/core/Button';
 
-import Stores from '../Stores'
+import StoreLocations from '../StoreLocations'
 
 class Home extends React.Component {
 
@@ -18,7 +18,7 @@ class Home extends React.Component {
 		  			<a href="/" className="list-group-item list-group-item-action list-group-item-light">Manage Users</a>
 				</div>
 
-	      <Stores/>
+	      <StoreLocations/>
 	      <br/>
 	      <a href="/stores/new">
 	      	<Button variant="contained" color="primary">
