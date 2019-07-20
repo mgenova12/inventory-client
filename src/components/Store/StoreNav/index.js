@@ -31,7 +31,7 @@ class StoreNav extends React.Component {
           <Tab style={{textDecoration: 'inherit'}} label="Locations" to={`/store/${this.props.storeId}/Locations`} component={Link} />
 	      </Tabs>
 	    </Paper>
-     
+      <h4> {this.props.storeName}</h4>
      <Route path={`/store/:storeId/StoreGoods`} component={StoreGoods} exact/>
      <Route path={`/store/:storeId/Locations`} component={Locations} exact/>
 

@@ -1,7 +1,8 @@
 import actionTypes from '../actionTypes';
 
 const initialState = {
-  stores: []
+  stores: [],
+  currentStore: []
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -9,6 +10,9 @@ export default (state = initialState, { type, payload }) => {
 	switch (type) {
 		case actionTypes.ADD_STORE:
 		      newState.stores = payload.stores;
+		      return newState;
+		 case actionTypes.GET_STORE: 
+		      newState.currentStore = payload.getStore;
 		      return newState;
 		default: 
 			return state;

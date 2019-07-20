@@ -45,11 +45,9 @@ class LocationsTable extends React.Component {
 
 	componentDidMount = () => {
 		this.props.onRequestLocations(this.props.storeId)
-
 	}	
 
   render() {
-  	// console.log(this.props.onGetLocations)
     return (    
 
     	<div className="table-responsive">

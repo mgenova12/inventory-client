@@ -8,7 +8,7 @@ class Locations extends React.Component {
 
     return (    
 	    <div className="container-fluid"> 
-	    	<h3>Locations for {this.props.match.params.storeId}</h3>
+	    	<h5>Locations</h5>
 	    	<LocationsTable storeId={this.props.match.params.storeId}/>
 			</div>
     );
