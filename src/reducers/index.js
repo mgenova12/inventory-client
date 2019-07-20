@@ -6,6 +6,7 @@ import storeTypesReducer from './storeType.reducer'
 import countByReducer from './countBy.reducer'
 import categoryReducer from './category.reducer'
 import distributorReducer from './distributor.reducer'
+import locationReducer from './location.reducer'
 import errorReducer from './error.reducer'
 
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
 	countByReducer,
 	categoryReducer,
 	distributorReducer,
+	locationReducer,
 	errorReducer
 });
 

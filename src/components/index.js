@@ -9,12 +9,8 @@ import NewDistributorForm from './Distributors/NewDistributorForm'
 import ProductTable from "./Products/ProductTable";
 import PreppedProductTable from "./Products/PreppedProductTable";
 import ProductShow from "./Products/ProductShow";
-// import StoreGoods from "./Store/StoreGoods";
-
 import Store from "./Store";
 
-// import AddStoreGoods from "./StoreGoods/AddStoreGoods";
-// import Locations from "./Locations";
 
 
 class Router extends React.Component {
