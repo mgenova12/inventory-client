@@ -58,9 +58,11 @@ class PreppedProductForm extends React.Component {
   }
 
   render() {
+    
     const categoryMenu = this.props.categories.map(category => {
       return <option key={category.id} value={category.id}>{category.name}</option>
     })
+
     const drawerMenu = (
       <div className="container">
 

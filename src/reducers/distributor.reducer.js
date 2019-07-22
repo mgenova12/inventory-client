@@ -2,7 +2,7 @@ import actionTypes from '../actionTypes';
 import update from 'immutability-helper';
 
 const initialState = {
-  distributors: []
+  distributors: [],
 };
 
 export default (state = initialState, { type, payload }) => {

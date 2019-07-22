@@ -4,16 +4,32 @@ import { connect } from 'react-redux'
 import { getRemovedStoreGoods } from '../../../actions/getRemovedStoreGoods.action';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import AddCircle from '@material-ui/icons/AddCircle';
+import StoreGoodFormDrawer from './StoreGoodFormDrawer'
 
 class AddStoreGoodsTable extends React.Component {
+
+	state = {
+		togglePreppedDrawer: false,
+		rowData: []
+	}
 
 	getRows = (obj) => {
 	    let rows = []
 	    for (var key in obj) {
-	    	rows.push(obj[key]);
+	    	if (typeof obj[key] === "boolean"){
+	    		rows.push(obj[key].toString())
+	    	} else {
+	    		rows.push(obj[key]);
+	    	}
+
 	    }
 	    return rows
 	}
+
+	handleStoreGoodDrawer = tableMeta => event => {
+		event.stopPropagation()
+		this.setState({togglePreppedDrawer: true, rowData: tableMeta.rowData})
+	}	
 
 	componentDidMount = () => {
 		this.props.onRequestRemovedStoreGoods(this.props.storeId)
@@ -27,12 +43,18 @@ class AddStoreGoodsTable extends React.Component {
 	      	{
 		        name: "Name",
 	        },	
+	      	{
+		        name: "Brand",
+	        },
+	      	{
+		        name: "Prepped",
+	        },	        	        
 		      {
 		        name: "",
 		        options: {
 		          filter: false,
 		          customBodyRender: (value, tableMeta, updateValue) => (
-		          	<AddCircle style={{cursor:'pointer'}} />
+		          	<AddCircle style={{cursor:'pointer'}} onClick={ this.handleStoreGoodDrawer(tableMeta) }/>
 		          )
 		        }
 		      },			              	        
@@ -59,6 +81,11 @@ class AddStoreGoodsTable extends React.Component {
     return (    
 			<div > 
 			<MuiThemeProvider theme={theme}>
+	      <StoreGoodFormDrawer 
+	      	togglePreppedDrawer={this.state.togglePreppedDrawer} 
+	      	rowData={this.state.rowData}
+	      	storeId={this.props.storeId}
+	      	/>			
 				<MUIDataTable
 				  title={"Add Store Good"}
 				  data={data}
