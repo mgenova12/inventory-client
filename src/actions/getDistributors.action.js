@@ -12,7 +12,6 @@ export function getDistributors() {
         query: print(getDistributorsQuery)
       }
     }).then((result) => {
-      console.log(result)
           dispatch({
             type: actionTypes.GET_DISTRIBUTORS,
             payload: result.data.data

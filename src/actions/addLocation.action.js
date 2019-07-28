@@ -12,7 +12,6 @@ export function addLocation(name, storeId) {
         storeId: storeId
       },
     }).then((result) => {
-        console.log(result)
         dispatch({
           type: actionTypes.ADD_LOCATION,
           payload: result.data.data

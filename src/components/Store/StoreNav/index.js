@@ -28,7 +28,8 @@ class StoreNav extends React.Component {
         textColor="primary"
         centered	      
 	      >
-	        <Tab style={{textDecoration: 'inherit'}} label="Store Goods" to={`/store/${this.props.storeId}/StoreGoods`} component={Link} />
+
+          <a style={{color: 'black'}} href={`/store/${this.props.storeId}/StoreGoods`}> <Tab label="Store Goods"/></a>
           <Tab style={{textDecoration: 'inherit'}} label="Add Store Goods" to={`/store/${this.props.storeId}/StoreGoods/Add`} component={Link} />
           <Tab style={{textDecoration: 'inherit'}} label="Locations" to={`/store/${this.props.storeId}/Locations`} component={Link} />
 	      </Tabs>

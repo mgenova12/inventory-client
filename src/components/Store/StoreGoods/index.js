@@ -1,12 +1,13 @@
 import React from "react";
+import StoreGoodsTable from './StoreGoodsTable'
 
 
 class StoreGoods extends React.Component {
 
   render() {
     return (    
-	    <div className="container-fluid"> 
-	    	<h5>Store Goods</h5>				
+	    <div> 
+	    	<StoreGoodsTable storeId={this.props.match.params.storeId}/>	
 			</div>
     );
   }

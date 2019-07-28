@@ -11,6 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCountBies } from '../../../actions/getCountBies.action';
 import { getLocations } from '../../../actions/getLocations.action';
+import { addStoreGood } from '../../../actions/addStoreGood.action';
 
 class StoreGoodFormDrawer extends React.Component {
   
@@ -18,10 +19,10 @@ class StoreGoodFormDrawer extends React.Component {
     isSubmitted: false,
   	drawer: false,
   	maxAmount: '',
-  	location: '',
-  	localDistributor: '',
+  	locationId: '',
+  	localDistributorId: '',
   	deliveryDay: '',
-  	countBy: '',
+  	countById: '',
   	replenishByEach: false
   };
 
@@ -41,6 +42,14 @@ class StoreGoodFormDrawer extends React.Component {
   	this.setState({
       [name]: event.target.checked,
     });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.setState({isSubmitted: true, drawer: false})
+    const productId = this.props.rowData[0]
+    const { locationId, localDistributorId, countById, maxAmount, deliveryDay, replenishByEach } = this.state
+    this.props.onAddStoreGood(this.props.storeId, productId, locationId, localDistributorId, countById, maxAmount, replenishByEach, deliveryDay)
   }
 
   componentWillReceiveProps(props) {
@@ -65,7 +74,7 @@ class StoreGoodFormDrawer extends React.Component {
     const locationsMenu = this.props.onGetLocations.map(location => {
       return <option key={location.id} value={location.id}>{location.name}</option>
     })
-
+		
 		const drawerMenu = (
       <div className="container">
 
@@ -96,7 +105,7 @@ class StoreGoodFormDrawer extends React.Component {
                 value={this.state.location}
                 placeholder="Select Location"
                 fullWidth
-                onChange={this.handleChange('location')}
+                onChange={this.handleChange('locationId')}
                 margin="normal"
                 variant="outlined"
                 InputLabelProps={{
@@ -119,7 +128,7 @@ class StoreGoodFormDrawer extends React.Component {
                 value={this.state.localDistributor}
                 placeholder="Select Local Distributor"
                 fullWidth
-                onChange={this.handleChange('localDistributor')}
+                onChange={this.handleChange('localDistributorId')}
                 margin="normal"
                 variant="outlined"
                 InputLabelProps={{
@@ -167,7 +176,7 @@ class StoreGoodFormDrawer extends React.Component {
                 value={this.state.countBy}
                 placeholder="Select Count By"
                 fullWidth
-                onChange={this.handleChange('countBy')}
+                onChange={this.handleChange('countById')}
                 margin="normal"
                 variant="outlined"
                 InputLabelProps={{
@@ -235,7 +244,8 @@ const mapStateToProps = state => ({
 const mapActionsToProps = {
   onRequestDistributors: getDistributors,
   onRequestCountBies: getCountBies,
-  onRequestLocations: getLocations
+  onRequestLocations: getLocations,
+  onAddStoreGood: addStoreGood
 };
 
 

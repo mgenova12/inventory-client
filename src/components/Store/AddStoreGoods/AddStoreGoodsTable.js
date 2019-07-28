@@ -16,14 +16,17 @@ class AddStoreGoodsTable extends React.Component {
 	getRows = (obj) => {
 	    let rows = []
 	    for (var key in obj) {
-	    	if (typeof obj[key] === "boolean"){
-	    		rows.push(obj[key].toString())
-	    	} else {
-	    		rows.push(obj[key]);
-	    	}
-
-	    }
-	    return rows
+		    if (!obj[key]) {
+						rows.push('');
+	    		} else if (typeof obj[key] === "object") {
+	           rows.push(obj[key].name)   
+		    	} else if(typeof obj[key] === "boolean"){
+		    		rows.push(obj[key].toString())
+		    	} else {
+		    		rows.push(obj[key]);
+		    	}
+		    }
+		    return rows
 	}
 
 	handleStoreGoodDrawer = tableMeta => event => {
@@ -59,10 +62,12 @@ class AddStoreGoodsTable extends React.Component {
 		        }
 		      },			              	        
 		];
-		
+
+
 		const data = this.props.onGetRemovedStoreGoods.map(removedStoreGood => {
 		  	return this.getRows(removedStoreGood)
 		})
+		
 	  const theme = createMuiTheme({
 		  typography: {
 		    useNextVariants: true,
