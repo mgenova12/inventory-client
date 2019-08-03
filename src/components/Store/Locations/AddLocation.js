@@ -25,6 +25,7 @@ class AddLocation extends React.Component {
 		return (
 			<div> 
 				<div className='container'>
+				<h3>New Locations</h3>
 					<form onSubmit={this.handleSubmit}>
 				    	<TextField
 				          label="Name"

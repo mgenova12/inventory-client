@@ -9,7 +9,6 @@ class Locations extends React.Component {
 
     return (    
 	    <div className="container-fluid"> 
-	    	<h5>Locations</h5>
 	    	<AddLocation storeId={this.props.match.params.storeId}/>
 	    	<LocationsTable storeId={this.props.match.params.storeId}/>
 			</div>

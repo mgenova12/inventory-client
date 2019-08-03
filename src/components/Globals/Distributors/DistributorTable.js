@@ -9,6 +9,7 @@ import Check from '@material-ui/icons/Check';
 
 import { deleteDistributor } from '../../../actions/deleteDistributor.action';
 import { editDistributor } from '../../../actions/editDistributor.action';
+import { getDistributors } from '../../../actions/getDistributors.action';
 
 class DistributorTable extends React.Component {
 	state = {
@@ -57,6 +58,9 @@ class DistributorTable extends React.Component {
 		 }
 	}
 
+	componentDidMount = () => {
+		this.props.onRequestDistributors()
+	}	
 
 	render(){
 		const columns = [
@@ -90,7 +94,7 @@ class DistributorTable extends React.Component {
 		      },			              	        
 		];
 
-		const data = this.props.distributors.map(distributor => {
+		const data = this.props.onGetDistributors.map(distributor => {
 		  	return this.getRows(distributor)
 		})
 
@@ -112,13 +116,18 @@ class DistributorTable extends React.Component {
 	}
 }
 
+const mapStateToProps = state => ({
+  onGetDistributors: state.distributorReducer.distributors,
+});
+
 const mapActionsToProps = {
   onDeleteDistributor: deleteDistributor,
   onEditDistributor: editDistributor,
+  onRequestDistributors: getDistributors,
 };
 
 
-export default connect(null, mapActionsToProps)(DistributorTable)
+export default connect(mapStateToProps, mapActionsToProps)(DistributorTable)
 
 
 

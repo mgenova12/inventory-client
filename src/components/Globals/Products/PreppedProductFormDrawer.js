@@ -12,7 +12,7 @@ import { finalPreppedMarkUpPrice } from "../../../utils/markUpUtils";
 
 import { addProduct } from '../../../actions/addProduct.action';
 
-class PreppedProductForm extends React.Component {
+class PreppedProductFormDrawer extends React.Component {
 
   state = { 
     isSubmitted: false,
@@ -227,5 +227,5 @@ const mapActionsToProps = {
 };
 
 
-export default connect(null, mapActionsToProps)(PreppedProductForm);
+export default connect(null, mapActionsToProps)(PreppedProductFormDrawer);
 

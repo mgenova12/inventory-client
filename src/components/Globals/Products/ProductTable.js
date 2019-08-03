@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 import Edit from '@material-ui/icons/Edit';
 import Delete from '@material-ui/icons/Delete';
 import Check from '@material-ui/icons/Check';
@@ -11,12 +12,11 @@ import { finalMarkUpPrice } from "../../../utils/markUpUtils";
 
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
-import PreppedProductForm from '../PreppedProductForm'
+import PreppedProductFormDrawer from './PreppedProductFormDrawer'
 
 import { getProducts } from '../../../actions/getProducts.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCategories } from '../../../actions/getCategories.action';
-
 import { editProduct } from '../../../actions/editProduct.action';
 import { deleteProduct } from '../../../actions/deleteProduct.action';
 
@@ -160,7 +160,8 @@ class ProductTable extends React.Component {
 	redirectToShow = (rowData) => {
 		let id = rowData[0];
 		if (!this.state.isEditing){
-			this.props.history.push(`/products/${id}`)
+			console.log(this.props.history)
+			this.props.history.push(`/globals/products/${id}`)
 		}
 	}
 
@@ -229,7 +230,7 @@ class ProductTable extends React.Component {
     return (
 
       <div>
-      <PreppedProductForm 
+      <PreppedProductFormDrawer 
       	togglePreppedDrawer={this.state.togglePreppedDrawer} 
       	rowData={this.state.rowData}
       	categories={this.props.onGetCategories}
@@ -268,5 +269,5 @@ const mapActionsToProps = {
 };
 
 
-export default connect(mapStateToProps, mapActionsToProps)(ProductTable);
+export default connect(mapStateToProps, mapActionsToProps)(withRouter(ProductTable));
 

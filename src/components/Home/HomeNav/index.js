@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-class Navbar extends React.Component {
+class HomeNav extends React.Component {
 
 	render() {
 
@@ -10,26 +10,8 @@ class Navbar extends React.Component {
 				  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
 				    <span className="navbar-toggler-icon"></span>
 				  </button>
-				  <a className="navbar-brand" href="/">Rusticana Inventory</a>
+				  <a className="navbar-brand" href="/">Rusticana</a>
 
-				  <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-				    <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-				      <li className="nav-item">
-				        <a className="nav-link" href="/products">Products</a>
-				      </li>
-				      <li className="nav-item">
-				        <a className="nav-link" href="/prepped_products">Prepped Products</a>
-				      </li>			      
-				      <li className="nav-item">
-				        <a className="nav-link" href="/distributors/new">New Distributor</a>
-				      </li>			
-				      <li className="nav-item">
-				        <a className="nav-link" href="/products/new">New Product</a>
-				      </li>	 			      
-				    </ul>
-				  </div>
-
-				    
 				    <div className="collapse navbar-collapse " id="navbarTogglerDemo03">
 				        <ul className="navbar-nav ml-auto mt-2 mt-lg-0">
 				            <li className="nav-item">
@@ -46,4 +28,4 @@ class Navbar extends React.Component {
 
 }
 
-export default Navbar
+export default HomeNav
