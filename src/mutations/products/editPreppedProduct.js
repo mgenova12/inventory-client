@@ -7,7 +7,7 @@ export default gql`
 	  $category: String!, 
 	  $caseQuantity: Int, 
 	  $markUp: Int!, 
-    $portionSize: Int
+    $portionSize: Int,
     $markedUpPrice: Float,
   ) {
     editPreppedProduct(input: { 
@@ -16,7 +16,7 @@ export default gql`
     	category: $category,
     	caseQuantity: $caseQuantity,
     	markUp: $markUp,
-      portionSize: $portionSize
+      portionSize: $portionSize,
       markedUpPrice: $markedUpPrice,
     }) {
       product {

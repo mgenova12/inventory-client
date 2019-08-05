@@ -173,7 +173,6 @@ class ProductTable extends React.Component {
 
   render() {
   	const { products } = this.props.onGetProducts
-
 		const columns = [
 			"ID", "Name", "Distributor", 
 			"Category", "Case Quantity", "Mark Up", "Price", "Final Price",
