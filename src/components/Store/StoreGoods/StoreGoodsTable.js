@@ -81,11 +81,10 @@ class AddStoreGoodsTable extends React.Component {
 		    		)		    		
 		    	}
 
-
 		    } else {
 			    if (obj['product'] === null){   	
 				    	rows.push('DELETED');
-				    } else if (!obj[key]) {
+				    } else if (!obj[key] && typeof obj[key] !== "boolean") {
 							rows.push('');
 			    	} else if (typeof obj[key] === "object") {
 		        	rows.push(obj[key].name)   

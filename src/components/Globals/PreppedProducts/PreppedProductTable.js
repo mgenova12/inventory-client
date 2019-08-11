@@ -145,10 +145,10 @@ class PreppedProductTable extends React.Component {
 	}
 
 	redirectToShow = (rowData) => {
-		let id = rowData[0];
-		if (!this.state.isEditing){
-			this.props.history.push(`/products/${id}`)
-		}
+		// let id = rowData[0];
+		// if (!this.state.isEditing){
+		// 	this.props.history.push(`/products/${id}`)
+		// }
 	}
 
 	componentWillMount = () => {

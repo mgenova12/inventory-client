@@ -313,7 +313,7 @@ class NewProductForm extends React.Component {
 	          }}					  
 					/>
 					
-					<StyledDropzone imgs={this.getBase64} isSubmitted={this.state.isSubmitted}/>
+					{/* <StyledDropzone imgs={this.getBase64} isSubmitted={this.state.isSubmitted}/>*/}
 
 			   <Button type='submit' variant="contained" color="primary">
 		        	Save Product
