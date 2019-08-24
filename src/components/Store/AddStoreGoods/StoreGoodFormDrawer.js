@@ -168,7 +168,6 @@ class StoreGoodFormDrawer extends React.Component {
 
           </TextField>
 
-
             <TextField
                 select
                 label="Count By"

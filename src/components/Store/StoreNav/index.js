@@ -2,7 +2,9 @@ import React from 'react';
 import { Route } from "react-router-dom";
 import StoreGoods from "../StoreGoods"
 import AddStoreGoods from "../AddStoreGoods"
-import Locations from "../Locations"
+import Locations from "../Locations"  
+import DeliveryDay from "../Inventory"
+import InventoryTable from "../Inventory/InventoryTable"
 
 class StoreNav extends React.Component {
 
@@ -27,15 +29,18 @@ class StoreNav extends React.Component {
               </li>     
               <li className="nav-item">
                 <a className="nav-link" href={`/store/${this.props.storeId}/Locations`}>Locations</a>
-              </li>                                            
+              </li>  
+              <li className="nav-item">
+                <a className="nav-link" href={`/store/${this.props.storeId}/DeliveryDay`}>Inventory</a>
+              </li>                                                          
             </ul>
           </div>
-              
         </nav>  
          <Route path={`/store/:storeId/StoreGoods`} component={StoreGoods} exact/>
          <Route path={`/store/:storeId/StoreGoods/Add`} component={AddStoreGoods} exact/>
          <Route path={`/store/:storeId/Locations`} component={Locations} exact/>
-
+         <Route path={`/store/:storeId/DeliveryDay`} component={DeliveryDay} exact/>
+         <Route path={`/store/:storeId/Inventory/:deliveryDay`} component={InventoryTable}/>
       </div>
 
 

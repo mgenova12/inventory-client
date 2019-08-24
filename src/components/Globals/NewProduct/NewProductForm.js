@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import { connect } from 'react-redux'
-import StyledDropzone from '../../Common/StyledDropzone'
+// import StyledDropzone from '../../Common/StyledDropzone'
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';

@@ -1,0 +1,13 @@
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 45vh;
+}
+
+.location-header {
+	text-align: center;
+	background-color: #90a4ae;
+}
