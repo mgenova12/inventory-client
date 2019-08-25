@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux'
 import { getInventory } from '../../../actions/getInventory.action';
+import TextField from '@material-ui/core/TextField';
 
 class InventoryTable extends React.Component {
 
@@ -33,7 +34,24 @@ class InventoryTable extends React.Component {
 					        <tr key={invent.id}> 
 					          <td>{invent.storeGood.product.name}</td>
 					          <td>{invent.storeGood.countBy.name}</td>
-					          <td></td>
+					          
+					          <td>
+				            	<TextField
+				                required
+				                type="number"
+				                label="Quantity"
+				                // value={this.state.maxAmount}
+				                // onChange={this.handleChange('maxAmount')}
+				                name="name"
+				                placeholder=""
+				                fullWidth
+				                margin="normal"
+				                variant="outlined"
+				                InputLabelProps={{
+				                  shrink: true,
+				                }}
+				              />  					          	
+					          </td>
 					        </tr>
 					      	)
 				      	))}
