@@ -1,11 +1,9 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query getInventory($storeId: Int!) {   
-    getInventory(storeId: $storeId) {
-			id
-			name
-	    inventories{
+  mutation editInventory($id: Int!, $quantity: Int!) {
+    editInventory(input: {id: $id, quantity: $quantity }) {
+	    inventory{
 	      id
 				quantity
 				storeGood{
@@ -19,8 +17,7 @@ export default gql`
 	          name
 	        }
 	      }
-	    }
+	    }   	
     }
-
   }
 `;

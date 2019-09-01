@@ -1,17 +1,30 @@
 import React from "react";
 import { connect } from 'react-redux'
 import { getInventory } from '../../../actions/getInventory.action';
+import { editInventory } from '../../../actions/editInventory.action';
 import TextField from '@material-ui/core/TextField';
 
 class InventoryTable extends React.Component {
+	state = {
+		quantity: []
+	}
 
 	componentDidMount = () => {
 		let storeId = this.props.match.params.storeId
-		this.props.onRequestInventory(storeId)
+		this.props.onRequestInventory(storeId).then(() => console.log(this.props.onGetInventory))
 	}	
+
+	handleChange = (inventoryId) => event => {
+		this.setState({
+			quantity: { ...this.state.quantity, [inventoryId]: event.target.value }
+		})
+		this.props.onEditInventory(inventoryId, event.target.value)
+	}
 
   render() {
   	const deliveryDay = this.props.match.params.deliveryDay
+  	// console.log(this.state.quantity)
+  	// console.log(this.props.onGetInventory)
     return (    
     	<div> 
 	    	<h3 align="center"> Inventory For {deliveryDay} </h3>
@@ -34,14 +47,15 @@ class InventoryTable extends React.Component {
 					        <tr key={invent.id}> 
 					          <td>{invent.storeGood.product.name}</td>
 					          <td>{invent.storeGood.countBy.name}</td>
-					          
 					          <td>
+
 				            	<TextField
 				                required
 				                type="number"
 				                label="Quantity"
-				                // value={this.state.maxAmount}
-				                // onChange={this.handleChange('maxAmount')}
+				                defaultValue={invent.quantity}
+				                // value={this.state.quantity[invent.id] || ''}
+				                onChange={this.handleChange(invent.id)}
 				                name="name"
 				                placeholder=""
 				                fullWidth
@@ -50,7 +64,8 @@ class InventoryTable extends React.Component {
 				                InputLabelProps={{
 				                  shrink: true,
 				                }}
-				              />  					          	
+				              />  	
+
 					          </td>
 					        </tr>
 					      	)
@@ -77,6 +92,7 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = {
   onRequestInventory: getInventory,
+  onEditInventory: editInventory
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(InventoryTable);
