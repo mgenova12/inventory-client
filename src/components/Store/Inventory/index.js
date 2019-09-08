@@ -1,6 +1,6 @@
 import React from "react";
 import SelectDeliveryDay from './SelectDeliveryDay'
-import './index.css';
+import './index.scss';
 
 
 class Inventory extends React.Component {

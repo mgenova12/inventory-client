@@ -13,6 +13,7 @@ export default gql`
 	        product{
 	          id
 	          name
+	          caseQuantity
 	        }
 	        countBy{
 	          id

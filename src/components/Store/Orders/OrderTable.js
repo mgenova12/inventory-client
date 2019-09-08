@@ -6,8 +6,11 @@ import { getOrders } from '../../../actions/getOrders.action';
 
 class OrderTable extends React.Component {
 
-	handleClick = () => {
-		console.log('click')
+	handleClick = (orderId, status) => {
+		if(status !== 'incomplete'){
+  		let storeId = this.props.match.params.storeId
+  		this.props.history.push(`/store/${storeId}/order/${orderId}`)
+		}
 	}
 
 	componentDidMount = () => {
@@ -16,7 +19,6 @@ class OrderTable extends React.Component {
 	}	
 
   render() {
-  	console.log(this.props.onGetOrders)
     return (    
    	<div> 
 	    	<h3 align="center"> Orders </h3>
@@ -34,7 +36,7 @@ class OrderTable extends React.Component {
 	
 				    <tbody>
 				    {this.props.onGetOrders.map((order) => (
-				      <tr key={order.id} onClick={()=> this.handleClick()}>
+				      <tr key={order.id} onClick={()=> this.handleClick(order.id, order.status)} >
 				        <td>{order.id}</td>
 				        <td>{order.createdAt}</td>
 				        <td>{order.store.name}</td>

@@ -34,7 +34,7 @@ class SelectDeliveryDay extends React.Component {
   }
 
 
-	componentWillMount = () => {
+	componentDidMount = () => {
 		let storeId = this.props.match.params.storeId
 		this.props.onRequestStoreInventory(storeId).then(() => {
 			if(this.props.onGetStoreInventory){

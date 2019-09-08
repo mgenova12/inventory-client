@@ -6,12 +6,13 @@ import Locations from "../Locations"
 import DeliveryDay from "../Inventory"
 import Orders from "../Orders"
 import InventoryTable from "../Inventory/InventoryTable"
+import InventorySuccess from "../Inventory/InventorySuccess"
+import OrderShow from "../Orders/OrderShow"
 
 class StoreNav extends React.Component {
 
 	render() {
-    console.log(this.props.storeType)
-  return (
+    return (
 
       <div> 
         <nav className="navbar navbar-expand-lg navbar-dark">
@@ -47,14 +48,15 @@ class StoreNav extends React.Component {
          <Route path={`/store/:storeId/Locations`} component={Locations} exact/>
          <Route path={`/store/:storeId/Orders`} component={Orders} exact/>
          <Route path={`/store/:storeId/DeliveryDay`} component={DeliveryDay} exact/>
+         <Route path={`/store/:storeId/Success`} component={InventorySuccess}/>
          <Route path={`/store/:storeId/Inventory/:deliveryDay`} component={InventoryTable}/>
+         <Route path={`/store/:storeId/order/:orderId`} component={OrderShow}/>
+
       </div>
 
 
-
-
-  );
-}
+    );
+  }
 }
 
 export default StoreNav;

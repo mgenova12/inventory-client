@@ -11,12 +11,12 @@ export function editInventoryQuantityNeeded(storeId) {
         storeId: parseInt(storeId)
       },
     }).then((result) => {
-          // console.log(result)
+          // console.log(result.data.data.editInventoryQuantityNeeded.orderId)
           // dispatch({
           //   type: actionTypes.EDIT_INVENTORY,
           //   payload: result.data.data
           // })       
-    });
+    }).catch(err => console.log(err))
     
   }
 }

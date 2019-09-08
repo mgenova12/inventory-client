@@ -1,7 +1,8 @@
 import actionTypes from '../actionTypes';
 
 const initialState = {
-  orders: []
+  orders: [],
+  inventoryOrder: []
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -10,6 +11,9 @@ export default (state = initialState, { type, payload }) => {
 		case actionTypes.GET_ORDERS:
 		      newState.orders = payload.orders;
 		      return newState;
+		case actionTypes.GET_INVENTORY_ORDER:
+		      newState.inventoryOrder = payload.getInventoryOrder;
+		      return newState;		      
 		default: 
 			return state;
 	}

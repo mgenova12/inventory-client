@@ -18,11 +18,10 @@ export function editStoreGood(id, location, distributor, countBy, maxAmount, rep
         deliveryDay: deliveryDay
       },
     }).then((result) => {
-          console.log(result)
-          dispatch({
-            type: actionTypes.EDIT_STORE_GOOD,
-            payload: result.data.data
-          })       
+        dispatch({
+          type: actionTypes.EDIT_STORE_GOOD,
+          payload: result.data.data
+        })       
     }).catch(err => console.log(err))
     
   }

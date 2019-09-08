@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 import { getInventory } from '../../../actions/getInventory.action';
 import { editInventory } from '../../../actions/editInventory.action';
 import { editInventoryQuantityNeeded } from '../../../actions/editInventoryQuantityNeeded.action';
@@ -26,8 +27,7 @@ class InventoryTable extends React.Component {
 	handleSubmit = (event) => {
 		event.preventDefault()
 		let storeId = this.props.match.params.storeId
-		this.props.onEditInventoryQuantityNeeded(storeId)
-		console.log('submitted')
+		this.props.onEditInventoryQuantityNeeded(storeId).then(() => this.props.history.push(`/store/${storeId}/Success`))
 	}
 
   render() {
@@ -64,7 +64,7 @@ class InventoryTable extends React.Component {
 				                defaultValue={invent.quantity}
 				                onChange={this.handleChange(invent.id)}
 				                name="name"
-				                placeholder=""
+				                placeholder={  invent.storeGood.product.caseQuantity ? `${invent.storeGood.product.caseQuantity} in each case. Count by Item.` : '' }
 				                fullWidth
 				                margin="normal"
 				                variant="outlined"
@@ -137,4 +137,4 @@ const mapActionsToProps = {
   onEditInventoryQuantityNeeded: editInventoryQuantityNeeded
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(InventoryTable);
+export default connect(mapStateToProps, mapActionsToProps)(withRouter(InventoryTable));
