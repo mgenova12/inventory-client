@@ -9,6 +9,7 @@ import distributorReducer from './distributor.reducer'
 import locationReducer from './location.reducer'
 import storeGoodsReducer from './storeGoods.reducer'
 import inventoryReducer from './inventory.reducer'
+import orderReducer from './order.reducer'
 import errorReducer from './error.reducer'
 
 
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
 	locationReducer,
 	storeGoodsReducer,
 	inventoryReducer,
+	orderReducer,
 	errorReducer
 });
 

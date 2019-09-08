@@ -12,10 +12,10 @@ class Store extends React.Component {
   render() {
     return (    
     	<div>
-
 	    	<StoreNav 
 	    		storeId={this.props.match.params.storeId}
 	    		storeName={this.props.onGetStore.name}
+	    		storeType={this.props.onGetStore.storeType ? this.props.onGetStore.storeType.name : ''}
 	    	 />
 
 		    <div className="container-fluid"> 

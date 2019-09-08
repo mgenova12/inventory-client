@@ -4,12 +4,13 @@ import StoreGoods from "../StoreGoods"
 import AddStoreGoods from "../AddStoreGoods"
 import Locations from "../Locations"  
 import DeliveryDay from "../Inventory"
+import Orders from "../Orders"
 import InventoryTable from "../Inventory/InventoryTable"
 
 class StoreNav extends React.Component {
 
 	render() {
-
+    console.log(this.props.storeType)
   return (
 
       <div> 
@@ -32,13 +33,19 @@ class StoreNav extends React.Component {
               </li>  
               <li className="nav-item">
                 <a className="nav-link" href={`/store/${this.props.storeId}/DeliveryDay`}>Inventory</a>
-              </li>                                                          
+              </li>  
+              {this.props.storeType === 'Prepcenter' &&
+                <li className="nav-item">
+                  <a className="nav-link" href={`/store/${this.props.storeId}/Orders`}>Orders</a>
+                </li>
+              }
             </ul>
           </div>
         </nav>  
          <Route path={`/store/:storeId/StoreGoods`} component={StoreGoods} exact/>
          <Route path={`/store/:storeId/StoreGoods/Add`} component={AddStoreGoods} exact/>
          <Route path={`/store/:storeId/Locations`} component={Locations} exact/>
+         <Route path={`/store/:storeId/Orders`} component={Orders} exact/>
          <Route path={`/store/:storeId/DeliveryDay`} component={DeliveryDay} exact/>
          <Route path={`/store/:storeId/Inventory/:deliveryDay`} component={InventoryTable}/>
       </div>
