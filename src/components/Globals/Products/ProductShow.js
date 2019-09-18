@@ -25,7 +25,7 @@ class ProductShow extends React.Component {
             <hr/>
             </div>
 
-            <ul >
+            <ul>
               <li>Distributor: {product.distributor.name}</li>
               <li>Category: {product.category.name}</li>
               <li>Case Quantity: {product.caseQuantity}</li>

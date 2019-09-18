@@ -3,7 +3,7 @@ import axios from "axios";
 import addStoreGoodMutation from '../mutations/storeGoods/addStoreGood';
 import { print } from 'graphql';
 
-export function addStoreGood(storeId, productId, locationId, distributorId, countById, maxAmount, replenishByEach, deliveryDay) {
+export function addStoreGood(storeId, productId, locationId, distributorId, countById, maxAmount, replenishBy, deliveryDay) {
   return async (dispatch, getState) => {
     await axios.post(`${process.env.REACT_APP_API_URL}graphql`, {
       query: print(addStoreGoodMutation),
@@ -14,10 +14,11 @@ export function addStoreGood(storeId, productId, locationId, distributorId, coun
         distributorId: parseInt(distributorId),
         countById: parseInt(countById),
         maxAmount: parseInt(maxAmount),
-        replenishByEach: replenishByEach,
+        replenishBy: replenishBy,
         deliveryDay: deliveryDay
       },
     }).then((result) => {
+        console.log(result)
         dispatch({
           type: actionTypes.ADD_STORE_GOOD,
           payload: result.data.data

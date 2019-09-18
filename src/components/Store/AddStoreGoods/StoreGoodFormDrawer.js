@@ -4,10 +4,6 @@ import MenuList from '@material-ui/core/MenuList';
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCountBies } from '../../../actions/getCountBies.action';
 import { getLocations } from '../../../actions/getLocations.action';
@@ -23,7 +19,7 @@ class StoreGoodFormDrawer extends React.Component {
   	localDistributorId: '',
   	deliveryDay: '',
   	countById: '',
-  	replenishByEach: false
+  	replenishBy: ''
   };
 
   toggleDrawer(open) {
@@ -48,8 +44,8 @@ class StoreGoodFormDrawer extends React.Component {
     event.preventDefault()
     this.setState({isSubmitted: true, drawer: false})
     const productId = this.props.rowData[0]
-    const { locationId, localDistributorId, countById, maxAmount, deliveryDay, replenishByEach } = this.state
-    this.props.onAddStoreGood(this.props.storeId, productId, locationId, localDistributorId, countById, maxAmount, replenishByEach, deliveryDay)
+    const { locationId, localDistributorId, countById, maxAmount, deliveryDay, replenishBy } = this.state
+    this.props.onAddStoreGood(this.props.storeId, productId, locationId, localDistributorId, countById, maxAmount, replenishBy, deliveryDay)
   }
 
   componentWillReceiveProps(props) {
@@ -69,6 +65,10 @@ class StoreGoodFormDrawer extends React.Component {
 
     const countBiesMenu = this.props.onGetCountBies.map(countBy => {
       return <option key={countBy.id} value={countBy.id}>{countBy.name}</option>
+    })
+
+    const ReplenishByMenu = this.props.onGetCountBies.map(countBy => {
+      return <option key={countBy.id} value={countBy.name}>{countBy.name}</option>
     })
 
     const locationsMenu = this.props.onGetLocations.map(location => {
@@ -190,13 +190,27 @@ class StoreGoodFormDrawer extends React.Component {
               { countBiesMenu }
           </TextField> 
 
-		        <FormLabel component="legend">Assign Replenish By Each</FormLabel>
-		        <FormGroup>
-		          <FormControlLabel
-		            control={<Checkbox checked={this.state.replenishByEach} onChange={this.handleChecked('replenishByEach')} />}
-		            label="Replenish By Each"
-		          />
-		          </FormGroup>
+            <TextField
+                select
+                label="Replenish By"
+                name="replenishBy"
+                value={this.state.replenishBy}
+                placeholder="Select Replenish By"
+                fullWidth
+                onChange={this.handleChange('replenishBy')}
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                required
+                SelectProps={{
+                  native: true,
+                }}              
+              >
+              <option key='' value=''></option>
+              { ReplenishByMenu }
+          </TextField>
 
 
 

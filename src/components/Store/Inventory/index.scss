@@ -12,66 +12,66 @@
 	background-color: #90a4ae;
 }
 
-.body {
-  background: #ede7cd;
-  text-align: center;
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
-  position: fixed;
-}
+// .body {
+//   background: #ede7cd;
+//   text-align: center;
+//   height: 100%;
+//   width: 100%;
+//   overflow: hidden;
+//   position: fixed;
+// }
 
-@function makelongshadow($color) {
-  $val: 0px 0px $color;
-  @for $i from 1 through 300 {
-    $val: #{$val}, #{$i}px #{$i}px #{$color};
-  }
-  @return $val;
-}
+// @function makelongshadow($color) {
+//   $val: 0px 0px $color;
+//   @for $i from 1 through 300 {
+//     $val: #{$val}, #{$i}px #{$i}px #{$color};
+//   }
+//   @return $val;
+// }
 
-$color: #aeb;
+// $color: #aeb;
 
-.text {
-  margin-left: -10px; /* optical correction */
-}
+// .text {
+//   margin-left: -10px; /* optical correction */
+// }
 
-p {
-  margin-top:30vh;
-  width: 45px;
-  display: inline-block;
-  color:#fff;
-}
+// p {
+//   margin-top:30vh;
+//   width: 45px;
+//   display: inline-block;
+//   color:#fff;
+// }
 
-@for $i from 1 to 10 {
-  p:nth-child(#{$i}) { 
-  text-shadow: makelongshadow(adjust-hue($color, $i * 30));
-  animation: showup 5s infinite $i * 0.20s; }
-}
+// @for $i from 1 to 10 {
+//   p:nth-child(#{$i}) { 
+//   text-shadow: makelongshadow(adjust-hue($color, $i * 30));
+//   animation: showup 5s infinite $i * 0.20s; }
+// }
 
-@keyframes showup {
-  0% {
-    font-size:0px;
-    transform:rotate(90deg);
-  }
-  5% {
-    font-size:60px;
+// @keyframes showup {
+//   0% {
+//     font-size:0px;
+//     transform:rotate(90deg);
+//   }
+//   5% {
+//     font-size:60px;
     
-  }
-  10% {
-    font-size:66px;
-    transform:rotate(0deg);
-  }
-  60% {
-    font-size:66px;
-    opacity: 1; 
-  }
-  71% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-    font-size:66px;
-    transform:rotate(0deg);
-  }
-}
+//   }
+//   10% {
+//     font-size:66px;
+//     transform:rotate(0deg);
+//   }
+//   60% {
+//     font-size:66px;
+//     opacity: 1; 
+//   }
+//   71% {
+//     opacity: 0;
+//   }
+//   100% {
+//     opacity: 0;
+//     font-size:66px;
+//     transform:rotate(0deg);
+//   }
+// }
 

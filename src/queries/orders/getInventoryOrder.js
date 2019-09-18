@@ -8,6 +8,7 @@ export default gql`
 	    quantityNeeded
 			storeGood{
 	      id
+	      replenishBy
 	      countBy{
 	        id
 	        name
@@ -17,7 +18,6 @@ export default gql`
 	        name
 	        caseQuantity
 	      }
-	      replenishByEach
 	    }
     }
 

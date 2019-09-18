@@ -96,8 +96,8 @@ class AddStoreGoodsTable extends React.Component {
 				  data={data}
 				  columns={columns}
 				  options={{
-				    selectableRows: false,
-				    responsive: "scroll",
+				    selectableRows: "none",
+				    responsive: "scrollFullHeight",
 				    rowsPerPage: 100,			    	    
 				  }}		  
 				/>  

@@ -6,17 +6,17 @@ import { getInventoryOrder } from '../../../actions/getInventoryOrder.action';
 
 class OrderShow extends React.Component {
 	
-	measuementLabel = (inventoryOrder) => {
-		if (inventoryOrder.storeGood.replenishByEach){
-			return 'EA'
-		} else if (inventoryOrder.storeGood.product.caseQuantity){
-			return 'CASE'
-		} else if(inventoryOrder.storeGood.countBy.name === '%'){
-			return 'percent???????'
-		} else {
-			return `${inventoryOrder.storeGood.countBy.name}`
-		}
-	}
+	// measuementLabel = (inventoryOrder) => {
+	// 	if(inventoryOrder.storeGood.countBy.name === '%'){
+	// 		return 'EA'
+	// 	} else if (inventoryOrder.storeGood.replenishByEach){
+	// 		return 'EA'
+	// 	} else if (inventoryOrder.storeGood.product.caseQuantity){
+	// 		return 'CASE'
+	// 	} else {
+	// 		return `${inventoryOrder.storeGood.countBy.name}`
+	// 	}
+	// }
 
 	componentDidMount = () => {
 		let storeId = this.props.match.params.storeId
@@ -25,7 +25,6 @@ class OrderShow extends React.Component {
 	}	
 
   render() {
-  	console.log(this.props.onGetInventoryOrder)
     return (    
    	<div> 
 	    	<h3 align="center"> Final Order </h3>
@@ -43,8 +42,8 @@ class OrderShow extends React.Component {
 					    {this.props.onGetInventoryOrder.map((inventoryOrder) => (
 				      <tr key={inventoryOrder.id} >
 				        <td>{inventoryOrder.storeGood.product.name}</td>
-				        <td>{inventoryOrder.quantity}</td>
-				        <td>{inventoryOrder.quantityNeeded} {this.measuementLabel(inventoryOrder)}</td>
+				        <td>{inventoryOrder.quantity} {inventoryOrder.storeGood.countBy.name}</td>
+				        <td>{inventoryOrder.quantityNeeded} {inventoryOrder.storeGood.replenishBy}</td>
 				      </tr>
 				    ))}
 				    </tbody>

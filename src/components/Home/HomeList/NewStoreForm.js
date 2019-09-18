@@ -24,7 +24,7 @@ class NewStoreForm extends React.Component {
 		this.setState({ storeTypeId: event.nativeEvent.target.dataset.value })
 	}
 
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.onRequestStoreTypes()
 	}
 

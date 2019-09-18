@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-
 import MenuList from '@material-ui/core/MenuList';
 import Drawer from "@material-ui/core/es/Drawer/Drawer";
 import TextField from '@material-ui/core/TextField';
@@ -40,7 +39,6 @@ class PreppedProductFormDrawer extends React.Component {
     let markedUpPrice = finalPreppedMarkUpPrice(parseFloat(this.props.rowData[6].substring(1)), parseInt(portionSize), parseInt(markUp))
     this.props.onAddProduct(name, null, category, null, markUp, caseQuantity, prepped, barcode, description, null, null, null, [], markedUpPrice, portionSize)
   } 
-
 
   handleChange = name => event => {
     this.setState({
@@ -200,7 +198,6 @@ class PreppedProductFormDrawer extends React.Component {
 
     return (
       <div>
-
         <Drawer
           open={this.state.drawer}
           onClose={() => this.toggleDrawer(false)}
@@ -215,7 +212,6 @@ class PreppedProductFormDrawer extends React.Component {
             {drawerMenu}
           </div>
         </Drawer>
-
 
       </div>
     );

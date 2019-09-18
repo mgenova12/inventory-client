@@ -7,7 +7,7 @@ export default gql`
 	  $distributor: String!, 
 	  $maxAmount: Int!, 
 	  $countBy: String!, 
-    $replenishByEach: Boolean!,
+    $replenishBy: String!,
     $deliveryDay: String!,
   ) {
     editStoreGood(input: { 
@@ -16,7 +16,7 @@ export default gql`
     	distributor: $distributor,
     	maxAmount: $maxAmount,
     	countBy: $countBy,
-      replenishByEach: $replenishByEach,
+      replenishBy: $replenishBy,
       deliveryDay: $deliveryDay,
     }) {
       storeGood {
@@ -38,7 +38,7 @@ export default gql`
           name
         }        
         maxAmount
-        replenishByEach
+        replenishBy
         deliveryDay
       }
       errors

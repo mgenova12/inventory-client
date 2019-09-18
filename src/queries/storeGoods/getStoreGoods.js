@@ -21,7 +21,7 @@ export default gql`
         name
       }        
       maxAmount
-      replenishByEach
+      replenishBy
       deliveryDay          
     }
 

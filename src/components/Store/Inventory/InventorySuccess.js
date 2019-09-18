@@ -9,15 +9,7 @@ class InventorySuccess extends React.Component {
     return (   
 	    <div className="body">
 				<div className="text"> 
-				  <p>T</p>
-				  <p>H</p>
-				  <p>A</p>
-				  <p>N</p>
-				  <p>K</p>
-				  &nbsp;
-				  <p>Y</p>
-				  <p>O</p>
-				  <p>U</p>
+				  <p>THANKS!</p>
 				</div>
 			</div>
     );

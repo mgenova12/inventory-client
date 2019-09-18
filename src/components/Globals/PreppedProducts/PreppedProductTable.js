@@ -96,6 +96,7 @@ class PreppedProductTable extends React.Component {
 	handleEdit = tableMeta => event  => {
 		event.stopPropagation()
 		let currentProductId = tableMeta.rowData[0]
+		console.log(tableMeta.rowData[6].substring(1))
 		this.setState(prevState => ({ 
 			togglePreppedDrawer: false,
 			isEditing: !prevState.isEditing, 
@@ -151,7 +152,7 @@ class PreppedProductTable extends React.Component {
 		// }
 	}
 
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.onRequestPreppedProducts()
 		this.props.onRequestCategories()
 	}	
@@ -211,8 +212,8 @@ class PreppedProductTable extends React.Component {
 				  data={data}
 				  columns={columns}
 				  options={{
-				    selectableRows: false,
-				    responsive: "scroll",
+				    selectableRows: "none",
+				    responsive: "scrollFullHeight",
 				    rowsPerPage: 100,
 				    onRowClick: rowData => this.redirectToShow(rowData)
 				  }}		  

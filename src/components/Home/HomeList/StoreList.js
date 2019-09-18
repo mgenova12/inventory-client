@@ -4,7 +4,7 @@ import { getStoreTypes } from '../../../actions/getStoreTypes.action';
 
 class StoreList extends React.Component {
 	
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.onRequestStoreTypes()
 	}
 

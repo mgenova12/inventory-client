@@ -7,7 +7,7 @@ export default gql`
   	$locationId: Int!, 
   	$distributorId: Int!,
   	$maxAmount: Int!, 
-  	$replenishByEach: Boolean!,
+  	$replenishBy: String!,
   	$deliveryDay: String!,
     $countById: Int! 
   ) {
@@ -17,7 +17,7 @@ export default gql`
     	locationId: $locationId,
     	distributorId: $distributorId,
     	maxAmount: $maxAmount,
-    	replenishByEach: $replenishByEach,
+    	replenishBy: $replenishBy,
     	deliveryDay: $deliveryDay,
       countById: $countById
     }) {
@@ -44,7 +44,7 @@ export default gql`
           name
         }        
         maxAmount
-        replenishByEach
+        replenishBy
         deliveryDay
       }
     }

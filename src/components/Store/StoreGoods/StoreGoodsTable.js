@@ -25,7 +25,7 @@ class AddStoreGoodsTable extends React.Component {
 		distributor: '',
 		countBy: '',
 		maxAmount: '',
-		replenishByEach: '',
+		replenishBy: '',
 		deliveryDay: '',
 	}
 
@@ -44,20 +44,19 @@ class AddStoreGoodsTable extends React.Component {
 	  	const deliveryDayMenu = ["Tuesday","Friday","Both"].map(day => {
 	  		return <option key={day} value={day}>{day}</option>
 	  	})
-	  	const replenishByEachMenu = [true, false].map(bool => {
-	  		return <option key={bool} value={bool}>{bool.toString()}</option>
-	  	})	  	
+	    const ReplenishByMenu = this.props.onGetCountBies.map(countBy => {
+	      return <option key={countBy.id} value={countBy.name}>{countBy.name}</option>
+	    })  	
 
 	    for (var key in obj) {
 		    if(this.state.isEditing && this.state.currentStoreGoodId === obj.id && key !== 'id' && key !== 'product'){
-		    
-		    	if(['distributor', 'countBy', 'location', 'deliveryDay', 'replenishByEach'].includes(key)){
+		    	if(['distributor', 'countBy', 'location', 'deliveryDay', 'replenishBy'].includes(key)){
 						var menuOption = (
 						  key === 'distributor' ? distributorMenu : 
 						  key === 'countBy' ? countByMenu : 
 						  key === 'location' ? locationMenu : 
 						  key === 'deliveryDay' ? deliveryDayMenu : 
-						  key === 'replenishByEach' ? replenishByEachMenu : 
+						  key === 'replenishBy' ? ReplenishByMenu : 
 						  null 
 						);	
 	    			rows.push(
@@ -109,7 +108,7 @@ class AddStoreGoodsTable extends React.Component {
 			this.state.distributor,
 			this.state.countBy,
 			this.state.maxAmount,
-			this.stringToBoolean(this.state.replenishByEach),
+			this.state.replenishBy,
 			this.state.deliveryDay,
 		)
 	}
@@ -130,7 +129,7 @@ class AddStoreGoodsTable extends React.Component {
 			distributor: tableMeta.rowData[3],
 			countBy: tableMeta.rowData[4],
 			maxAmount: tableMeta.rowData[5],
-			replenishByEach: tableMeta.rowData[6],
+			replenishBy: tableMeta.rowData[6],
 			deliveryDay: tableMeta.rowData[7] 		
 		}))
 	}
@@ -150,7 +149,7 @@ class AddStoreGoodsTable extends React.Component {
 	  return a[val];
 	}
 
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.onRequestStoreGoods(parseInt(this.props.storeId))
 		this.props.onRequestDistributors()
 		this.props.onRequestLocations(parseInt(this.props.storeId))
@@ -179,7 +178,7 @@ class AddStoreGoodsTable extends React.Component {
 	        name: "Max Amount",
         },	 								 
         {
-	        name: "Replenish By Each",
+	        name: "Replenish By",
         },	 	      
         {
 	        name: "Delivery Day",
@@ -234,8 +233,8 @@ class AddStoreGoodsTable extends React.Component {
 				  data={data}
 				  columns={columns}
 				  options={{
-				    selectableRows: false,
-				    responsive: "scroll",
+				    selectableRows: "none",
+				    responsive: "scrollFullHeight",
 				    rowsPerPage: 100,			    	    
 				  }}		  
 				/>  

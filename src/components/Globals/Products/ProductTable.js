@@ -160,12 +160,11 @@ class ProductTable extends React.Component {
 	redirectToShow = (rowData) => {
 		let id = rowData[0];
 		if (!this.state.isEditing){
-			console.log(this.props.history)
 			this.props.history.push(`/globals/products/${id}`)
 		}
 	}
 
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.onRequestProducts()
 		this.props.onRequestCategories()
 		this.props.onRequestDistributors()
@@ -240,12 +239,12 @@ class ProductTable extends React.Component {
 				  data={data}
 				  columns={columns}
 				  options={{
-				    selectableRows: false,
-				    responsive: "scroll",
+				    selectableRows: "none",
+				    responsive: "scrollFullHeight",
 				    rowsPerPage: 100,
 				    onRowClick: rowData => this.redirectToShow(rowData)
-				  }}		  
-				/>     	
+				  }}
+				/>
 				</MuiThemeProvider>
       </div>
 

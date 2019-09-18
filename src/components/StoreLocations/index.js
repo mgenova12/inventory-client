@@ -4,7 +4,7 @@ import { getStoreTypes } from '../../actions/getStoreTypes.action';
 
 class StoreLocations extends React.Component {
 	
-	componentWillMount = () => {
+	componentDidMount = () => {
 		this.props.onRequestStoreTypes()
 	}
 
