@@ -18,6 +18,10 @@ export default gql`
 	        name
 	        caseQuantity
 	      }
+	      distributor {
+	      	id
+	      	name
+	      }
 	    }
     }
 

@@ -1,0 +1,5 @@
+.orderRow tr:hover {
+	background-color: #ffff99;
+	cursor: pointer;
+}
+

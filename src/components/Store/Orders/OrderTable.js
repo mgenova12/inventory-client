@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { getOrders } from '../../../actions/getOrders.action';
+import './index.css'
 
 
 class OrderTable extends React.Component {
@@ -23,7 +24,7 @@ class OrderTable extends React.Component {
    	<div> 
 	    	<h3 align="center"> Orders </h3>
 	    	<div className="table-responsive">
-				  <table className="table table-striped">
+				  <table className="table">
 				    <thead>
 				      <tr>
 				        <th>ID</th>
@@ -33,8 +34,8 @@ class OrderTable extends React.Component {
 				        <th>Status</th>
 				      </tr>
 				    </thead>
-	
-				    <tbody>
+
+				    <tbody className="orderRow">
 				    {this.props.onGetOrders.map((order) => (
 				      <tr key={order.id} onClick={()=> this.handleClick(order.id, order.status)} >
 				        <td>{order.id}</td>

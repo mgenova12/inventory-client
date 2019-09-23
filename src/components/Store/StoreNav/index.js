@@ -35,18 +35,16 @@ class StoreNav extends React.Component {
               <li className="nav-item">
                 <a className="nav-link" href={`/store/${this.props.storeId}/DeliveryDay`}>Inventory</a>
               </li>  
-              {this.props.storeType === 'Prepcenter' &&
-                <li className="nav-item">
-                  <a className="nav-link" href={`/store/${this.props.storeId}/Orders`}>Orders</a>
-                </li>
-              }
+              <li className="nav-item">
+                <a className="nav-link" href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/Orders`}>Orders</a>
+              </li>
             </ul>
           </div>
         </nav>  
          <Route path={`/store/:storeId/StoreGoods`} component={StoreGoods} exact/>
          <Route path={`/store/:storeId/StoreGoods/Add`} component={AddStoreGoods} exact/>
          <Route path={`/store/:storeId/Locations`} component={Locations} exact/>
-         <Route path={`/store/:storeId/Orders`} component={Orders} exact/>
+         <Route path={`/store/:storeId/:storeType/:storeType/Orders`} component={Orders} exact/>
          <Route path={`/store/:storeId/DeliveryDay`} component={DeliveryDay} exact/>
          <Route path={`/store/:storeId/Success`} component={InventorySuccess}/>
          <Route path={`/store/:storeId/Inventory/:deliveryDay`} component={InventoryTable}/>

@@ -8,6 +8,7 @@ export default gql`
 	    createdAt
 	    deliveryDay
 	    store{
+	    	id
 	      name
 	    }
     }
