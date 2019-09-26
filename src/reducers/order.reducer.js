@@ -11,6 +11,9 @@ export default (state = initialState, { type, payload }) => {
 		case actionTypes.GET_ORDERS:
 		      newState.orders = payload.orders;
 		      return newState;
+		case actionTypes.GET_STORE_ORDERS:
+		      newState.orders = payload.storeOrders;
+		      return newState;		      
 		case actionTypes.GET_INVENTORY_ORDER:
 		      newState.inventoryOrder = payload.getInventoryOrder;
 		      return newState;		      

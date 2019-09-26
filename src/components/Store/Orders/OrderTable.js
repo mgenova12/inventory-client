@@ -39,7 +39,7 @@ class OrderTable extends React.Component {
 				    {this.props.onGetOrders.map((order) => (
 				      <tr key={order.id} onClick={()=> this.handleClick(order.id, order.status)} >
 				        <td>{order.id}</td>
-				        <td>{order.createdAt}</td>
+				        <td>{new Date(order.createdAt).toLocaleString()}</td>
 				        <td>{order.store.name}</td>
 				        <td>{order.deliveryDay}</td>
 				        <td style={{ color: order.status === "incomplete" ? "red" : order.status === "pending" ? "orange" : "green" }}>

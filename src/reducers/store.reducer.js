@@ -14,6 +14,9 @@ export default (state = initialState, { type, payload }) => {
 		 case actionTypes.GET_STORE: 
 		      newState.currentStore = payload.getStore;
 		      return newState;
+		 case actionTypes.GET_STORES: 
+		      newState.stores = payload.stores;
+		      return newState;		      
 		default: 
 			return state;
 	}
