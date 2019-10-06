@@ -9,6 +9,7 @@ export default gql`
 	  $countBy: String!, 
     $replenishBy: String!,
     $deliveryDay: String!,
+    $amountInStock: Int!
   ) {
     editStoreGood(input: { 
       id: $id,
@@ -18,6 +19,7 @@ export default gql`
     	countBy: $countBy,
       replenishBy: $replenishBy,
       deliveryDay: $deliveryDay,
+      amountInStock: $amountInStock
     }) {
       storeGood {
         id
@@ -40,6 +42,7 @@ export default gql`
         maxAmount
         replenishBy
         deliveryDay
+        amountInStock
       }
       errors
     }

@@ -8,7 +8,7 @@ import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCountBies } from '../../../actions/getCountBies.action';
 import { getLocations } from '../../../actions/getLocations.action';
 
-class StoreGoodsTable extends React.Component {
+class AddToInventoryTable extends React.Component {
     state = {
         columns: [
           { title: 'ID', field: 'id', editable: 'never' },
@@ -88,6 +88,7 @@ class StoreGoodsTable extends React.Component {
     }    
 
   render() {
+    
     return (    
 			<div> 
       <link
@@ -95,12 +96,17 @@ class StoreGoodsTable extends React.Component {
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />      
         <MaterialTable
-          title="Store Goods"
+          title="Add To Inventory"
           columns={this.state.columns}
           data={this.state.data}
           options={{
             paging: false,
-            actionsColumnIndex: -1
+            actionsColumnIndex: -1,
+            searchFieldStyle: {
+              width: '100vh',
+              fontSize: 35,
+              marginRight: '50vh'
+            }
           }}
           editable={{
             onRowUpdate: (newData, oldData) =>
@@ -156,7 +162,7 @@ const mapActionsToProps = {
 };
 
 
-export default connect(mapStateToProps, mapActionsToProps)(StoreGoodsTable);
+export default connect(mapStateToProps, mapActionsToProps)(AddToInventoryTable);
 
 
 

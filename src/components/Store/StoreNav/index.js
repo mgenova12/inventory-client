@@ -5,6 +5,7 @@ import AddStoreGoods from "../AddStoreGoods"
 import Locations from "../Locations"  
 import DeliveryDay from "../Inventory"
 import Orders from "../Orders"
+import AddToInventory from "../AddToInventory"
 import StoreOrders from "../Orders/StoreOrders"
 import InventoryTable from "../Inventory/InventoryTable"
 import InventorySuccess from "../Inventory/InventorySuccess"
@@ -40,9 +41,14 @@ class StoreNav extends React.Component {
                 <a className="nav-link" href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/Orders`}>Orders</a>
               </li>
               {this.props.storeType === 'Prepcenter' &&
+              <React.Fragment>
                 <li className="nav-item">
                   <a className="nav-link" href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/StoreOrders`}>Store Orders</a>
                 </li>  
+                <li className="nav-item">
+                  <a className="nav-link" href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/AddToInventory`}>Add To Inventory</a>
+                </li>                 
+              </React.Fragment>
               }
             </ul>
           </div>
@@ -52,6 +58,7 @@ class StoreNav extends React.Component {
          <Route path={`/store/:storeId/Locations`} component={Locations} exact/>
          <Route path={`/store/:storeId/:storeType/:storeType/Orders`} component={Orders} exact/>
          <Route path={`/store/:storeId/:storeType/:storeType/StoreOrders`} component={StoreOrders} exact/>
+         <Route path={`/store/:storeId/:storeType/:storeType/AddToInventory`} component={AddToInventory} exact/>
          <Route path={`/store/:storeId/DeliveryDay`} component={DeliveryDay} exact/>
          <Route path={`/store/:storeId/Success`} component={InventorySuccess}/>
          <Route path={`/store/:storeId/Inventory/:deliveryDay`} component={InventoryTable}/>

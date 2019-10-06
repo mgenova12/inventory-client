@@ -16,6 +16,7 @@ export default gql`
         id
         name
       }
+      amountInStock
       countBy {
         id
         name
