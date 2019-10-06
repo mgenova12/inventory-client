@@ -34,18 +34,13 @@ class StoreGoodFormDrawer extends React.Component {
     });
   };  
 
-  handleChecked = name => event => {
-  	this.setState({
-      [name]: event.target.checked,
-    });
-  }
-
   handleSubmit = (event) => {
     event.preventDefault()
     this.setState({isSubmitted: true, drawer: false})
-    const productId = this.props.rowData[0]
+    const productId = this.props.rowData.id
     const { locationId, localDistributorId, countById, maxAmount, deliveryDay, replenishBy } = this.state
     this.props.onAddStoreGood(this.props.storeId, productId, locationId, localDistributorId, countById, maxAmount, replenishBy, deliveryDay)
+    this.props.onSubmitAddStoreGood(this.props.rowData)
   }
 
   componentWillReceiveProps(props) {
@@ -79,7 +74,7 @@ class StoreGoodFormDrawer extends React.Component {
       <div className="container">
 
     		<MenuList>
-          <h3>Add <u>{this.props.rowData[1]}</u> To Store</h3>     
+          <h3>Add <u>{this.props.rowData.name}</u> To Store</h3>     
           
           <form onSubmit={this.handleSubmit}>
             <TextField
@@ -119,7 +114,6 @@ class StoreGoodFormDrawer extends React.Component {
               <option key='' value=''></option>
               {locationsMenu}
           	</TextField>
-
 
             <TextField
                 select
@@ -211,8 +205,6 @@ class StoreGoodFormDrawer extends React.Component {
               <option key='' value=''></option>
               { ReplenishByMenu }
           </TextField>
-
-
 
            <Button type='submit' variant="contained" color="primary">
                 Add To Store

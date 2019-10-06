@@ -1,107 +1,72 @@
 import React from "react";
-import MUIDataTable from "mui-datatables";
+import MaterialTable from 'material-table';
 import { connect } from 'react-redux'
 import { getRemovedStoreGoods } from '../../../actions/getRemovedStoreGoods.action';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import AddCircle from '@material-ui/icons/AddCircle';
 import StoreGoodFormDrawer from './StoreGoodFormDrawer'
 
 class AddStoreGoodsTable extends React.Component {
+    state = {
+        columns: [
+          { title: 'ID', field: 'id' },
+          { title: 'Name', field: 'name' },
+          { title: 'Brand', field: 'brand' },
+          { title: 'Prepped', field: 'prepped', type: 'boolean' },
+        ],
+        data: [],
+        togglePreppedDrawer: false,
+        rowData: []
+    }
 
-	state = {
-		togglePreppedDrawer: false,
-		rowData: []
-	}
+    getRows = (removedStoreGoods) => {
+      removedStoreGoods.forEach(storeGood => {
+      	const data = [...this.state.data];
+        data.push(storeGood);
+        this.setState({ ...this.state, data });
+      })
+    }
 
-	getRows = (obj) => {
-	    let rows = []
-	    for (var key in obj) {
-		    if (!obj[key]) {
-						rows.push('');
-	    		} else if (typeof obj[key] === "object") {
-	           rows.push(obj[key].name)   
-		    	} else if(typeof obj[key] === "boolean"){
-		    		rows.push(obj[key].toString())
-		    	} else {
-		    		rows.push(obj[key]);
-		    	}
-		    }
-		    return rows
-	}
+    handleSubmit = (rowData) => {
+      const data = [...this.state.data];
+      data.splice(data.indexOf(rowData), 1);
+      this.setState({ ...this.state, data });    	
+    }
 
-	handleStoreGoodDrawer = tableMeta => event => {
-		event.stopPropagation()
-		this.setState({togglePreppedDrawer: true, rowData: tableMeta.rowData})
-	}	
-
-	componentDidMount = () => {
-		this.props.onRequestRemovedStoreGoods(this.props.storeId)
-	}	
+    componentDidMount = () => {
+      this.props.onRequestRemovedStoreGoods(this.props.storeId).then(() => this.getRows(this.props.onGetRemovedStoreGoods))
+    }
 
   render() {
-		const columns = [
-	      	{
-		        name: "ID",
-	        },
-	      	{
-		        name: "Name",
-	        },	
-	      	{
-		        name: "Brand",
-	        },
-	      	{
-		        name: "Prepped",
-	        },	        	        
-		      {
-		        name: "",
-		        options: {
-		          filter: false,
-		          customBodyRender: (value, tableMeta, updateValue) => (
-		          	<AddCircle style={{cursor:'pointer'}} onClick={ this.handleStoreGoodDrawer(tableMeta) }/>
-		          )
-		        }
-		      },			              	        
-		];
-
-
-		const data = this.props.onGetRemovedStoreGoods.map(removedStoreGood => {
-		  	return this.getRows(removedStoreGood)
-		})
-		
-	  const theme = createMuiTheme({
-		  typography: {
-		    useNextVariants: true,
-		  },	  	
-	    overrides: {
-	      MUIDataTable: {
-	        responsiveScroll: {
-	          overflowX: 'none',
-	          height: 'auto',
-	          maxHeight: 'auto',
-	        },
-	      },
-	    },
-	  })		
-
     return (    
-			<div > 
-			<MuiThemeProvider theme={theme}>
+			<div> 
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />      
 	      <StoreGoodFormDrawer 
 	      	togglePreppedDrawer={this.state.togglePreppedDrawer} 
 	      	rowData={this.state.rowData}
 	      	storeId={this.props.storeId}
-	      	/>			
-				<MUIDataTable
-				  title={"Add Store Good"}
-				  data={data}
-				  columns={columns}
-				  options={{
-				    selectableRows: "none",
-				    responsive: "scrollFullHeight",
-				    rowsPerPage: 100,			    	    
-				  }}		  
-				/>  
-				</MuiThemeProvider>  
+	      	onSubmitAddStoreGood={this.handleSubmit}
+	      	/>	      
+        <MaterialTable
+          title="Add To Store"
+          columns={this.state.columns}
+          data={this.state.data}
+          options={{
+            paging: false,
+            actionsColumnIndex: -1,
+          }}
+				  actions={[
+				    {
+				      icon: 'add',
+				      tooltip: 'Add Product',
+				      onClick: (event, rowData) => {
+				      	event.stopPropagation()
+				        this.setState({togglePreppedDrawer: true, rowData: rowData})
+				      }
+				    }
+				  ]}
+        />
 			</div>
     );
   }
@@ -117,3 +82,7 @@ const mapActionsToProps = {
 
 
 export default connect(mapStateToProps, mapActionsToProps)(AddStoreGoodsTable);
+
+
+
+

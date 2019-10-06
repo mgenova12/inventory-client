@@ -14,8 +14,8 @@ export default (state = initialState, { type, payload }) => {
 						return removedStoreGood.id === payload.createStoreGood.storeGood.product.id
 				})
 				return {
-					removedStoreGoods: newState.removedStoreGoods.filter(removedStoreGood => removedStoreGood !== currentRemovedStoreGood)
-				}		  
+					removedStoreGoods: newState.removedStoreGoods.filter(removedStoreGood => parseInt(removedStoreGood.id) !== parseInt(currentRemovedStoreGood.id))
+				}
 			case actionTypes.EDIT_STORE_GOOD:
 				let storeGoodIndex = newState.storeGoods.findIndex(storeGood => storeGood.id === payload.editStoreGood.storeGood.id)
 				return {
@@ -31,7 +31,7 @@ export default (state = initialState, { type, payload }) => {
 		 	case actionTypes.GET_STORE_GOODS:
 		     	newState.storeGoods = payload.getStoreGoods;
 		    return newState;		 		
-		 	case actionTypes.GET_REMOVED_STORE_GOODS: 
+		 	case actionTypes.GET_REMOVED_STORE_GOODS:
 		      newState.removedStoreGoods = payload.getRemovedStoreGoods;
 		    return newState;
 			default: 

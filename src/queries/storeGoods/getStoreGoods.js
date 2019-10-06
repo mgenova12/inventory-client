@@ -7,6 +7,7 @@ export default gql`
       product{
 				id
         name
+        barcode
       }
       location {
         id
