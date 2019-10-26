@@ -46,7 +46,7 @@ class StoreNav extends React.Component {
                   <a className="nav-link" href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/StoreOrders`}>Store Orders</a>
                 </li>  
                 <li className="nav-item">
-                  <a className="nav-link" href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/AddToInventory`}>Add To Inventory</a>
+                  <a className="nav-link" href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/AddToInventory`}>Adjust Inventory</a>
                 </li>                 
               </React.Fragment>
               }
