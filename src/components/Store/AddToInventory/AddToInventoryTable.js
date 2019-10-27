@@ -58,9 +58,9 @@ class AddToInventoryTable extends React.Component {
         let listCopy = [...this.state.data]
         listCopy.filter((item) => { 
           if (item.id === this.state.currentId) {
-           item.amountInStock = item.amountInStock + amount;
+           item.amountInStock = parseInt(item.amountInStock) + parseInt(amount);
           }
-          return item;            
+          return item;
         })
         this.props.onUpdateAmountInStock(this.state.rowData.id, amount)
         this.setState({openModal: false, amount: 0, data: listCopy})        
@@ -69,9 +69,9 @@ class AddToInventoryTable extends React.Component {
         let listCopy = [...this.state.data]
         listCopy.filter((item) => { 
           if (item.id === this.state.currentId) {
-           item.amountInStock = item.amountInStock + amount;
+           item.amountInStock = parseInt(item.amountInStock) + parseInt(amount);
           }
-          return item;            
+          return item;
         })
         this.props.onUpdateAmountInStock(this.state.rowData.id, amount)
         this.setState({openModal: false, amount: 0, data: listCopy})

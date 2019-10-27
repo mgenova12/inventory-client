@@ -35,7 +35,7 @@ class StoreNav extends React.Component {
                 <a className="nav-link" href={`/store/${this.props.storeId}/Locations`}>Locations</a>
               </li>  
               <li className="nav-item">
-                <a className="nav-link" href={`/store/${this.props.storeId}/DeliveryDay`}>Inventory</a>
+                <a className="nav-link" href={`/store/${this.props.storeId}/${this.props.storeType}/DeliveryDay`}>Inventory</a>
               </li>  
               <li className="nav-item">
                 <a className="nav-link" href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/Orders`}>Orders</a>
@@ -59,7 +59,7 @@ class StoreNav extends React.Component {
          <Route path={`/store/:storeId/:storeType/:storeType/Orders`} component={Orders} exact/>
          <Route path={`/store/:storeId/:storeType/:storeType/StoreOrders`} component={StoreOrders} exact/>
          <Route path={`/store/:storeId/:storeType/:storeType/AddToInventory`} component={AddToInventory} exact/>
-         <Route path={`/store/:storeId/DeliveryDay`} component={DeliveryDay} exact/>
+         <Route path={`/store/:storeId/:storeType/DeliveryDay`} component={DeliveryDay} exact/>
          <Route path={`/store/:storeId/Success`} component={InventorySuccess}/>
          <Route path={`/store/:storeId/Inventory/:deliveryDay`} component={InventoryTable}/>
          <Route path={`/store/:storeId/order/:orderId`} component={OrderShow}/>

@@ -32,9 +32,14 @@ class InventoryTable extends React.Component {
 
   render() {
   	const deliveryDay = this.props.match.params.deliveryDay
+  	let title  = (
+		  deliveryDay === 'true' ? 'Prepped' :  
+		  deliveryDay === 'false' ? 'Non-Prepped' :  
+		  deliveryDay
+		);
     return (    
     	<div> 
-	    	<h3 align="center"> Inventory For {deliveryDay} </h3>
+	    	<h3 align="center"> Inventory For {title} </h3>
 	    	<div className="table-responsive">
 	    	<form onSubmit={this.handleSubmit}>
 				  <table className="table table-striped">
@@ -64,7 +69,7 @@ class InventoryTable extends React.Component {
 				                defaultValue={invent.quantity}
 				                onChange={this.handleChange(invent.id)}
 				                name="name"
-				                placeholder={  invent.storeGood.product.caseQuantity ? `${invent.storeGood.product.caseQuantity} in each case. Count by Item.` : '' }
+				                placeholder={invent.storeGood.product.caseQuantity ? `${invent.storeGood.product.caseQuantity} in each case. Count by Item.` : '' }
 				                fullWidth
 				                margin="normal"
 				                variant="outlined"

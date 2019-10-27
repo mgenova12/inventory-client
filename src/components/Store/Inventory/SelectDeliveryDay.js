@@ -5,6 +5,7 @@ import Grow from '@material-ui/core/Grow';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { getStoreInventory } from '../../../actions/getStoreInventory.action';
+import { deleteInventory } from '../../../actions/deleteInventory.action';
 import { addInventory } from '../../../actions/addInventory.action';
 
 
@@ -23,6 +24,12 @@ class SelectDeliveryDay extends React.Component {
     });
   };
 
+  cancelInventory = () => {
+  	if (window.confirm("ARE YOU SURE YOU WANT TO DELETE THIS INVENTORY?")) {
+  		this.props.onDeleteInventory(this.props.match.params.storeId).then(() => window.location.reload())
+  	}
+  }
+
   createRedirect = () => {	
     let storeId = this.props.match.params.storeId
   	this.props.onAddInventory(storeId, this.state.deliveryDay).then(() => this.props.history.push(`/store/${storeId}/Inventory/${this.state.deliveryDay}`)) 	
@@ -32,7 +39,6 @@ class SelectDeliveryDay extends React.Component {
   	let storeId = this.props.match.params.storeId
   	this.props.history.push(`/store/${storeId}/Inventory/${this.state.deliveryDay}`)
   }
-
 
 	componentDidMount = () => {
 		let storeId = this.props.match.params.storeId
@@ -70,9 +76,20 @@ class SelectDeliveryDay extends React.Component {
 		          native: true,
 		        }}              
 		      >
-		      	<option key='' value=''></option>
-		      	<option key='Tuesday' value='Tuesday'>Tuesday</option>
-		      	<option key='Friday' value='Friday'>Friday</option>
+		      	{this.props.match.params.storeType === 'Prepcenter' ? (
+		      		<React.Fragment>
+		      			<option key='' value=''></option>
+		      			<option key='Prepped' value='true'>Prepped Inventory</option>
+		      			<option key='Distributor' value='false'>Distributor Inventory</option>
+		      		</React.Fragment>
+		      		) : (
+		      		<React.Fragment>
+		      			<option key='' value=''></option>
+		      			<option key='Tuesday' value='Tuesday'>Tuesday</option>
+		      			<option key='Friday' value='Friday'>Friday</option>
+		      		</React.Fragment>
+		      	)}
+
 	        </TextField> 
 	        
 	        {this.state.deliveryDaySelected &&
@@ -85,12 +102,17 @@ class SelectDeliveryDay extends React.Component {
            	</Grow>
 	        }
 				</div>
-      ) : (
+      ) : (		           	 
       	<div className="center-screen"> 
       		<h1> An Inventory Has Already Been Started! </h1>
-		           <Button type='submit' variant="contained" color="primary" size="large" onClick={this.redirect}>
-		                Go To Inventory
-		           </Button>      		 
+           <div className="buttons"> 
+           <Button className="button" type='submit' variant="contained" color="primary" size="large" onClick={this.redirect}>
+                Go To Inventory
+           </Button>      	
+	         <Button className="button" type='submit' variant="contained" color="secondary" size="large" onClick={this.cancelInventory}>
+	              Cancel Inventory
+	         </Button> 
+	         </div>
       	</div>
       )}
      </div>
@@ -104,7 +126,8 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = {
   onRequestStoreInventory: getStoreInventory,
-  onAddInventory: addInventory
+  onAddInventory: addInventory,
+  onDeleteInventory: deleteInventory
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(withRouter(SelectDeliveryDay));
