@@ -295,7 +295,32 @@ class NewProductForm extends React.Component {
 		            	</IconButton>
 		            </InputAdornment>,
 	          }}          			  
-					/>							
+					/>	
+
+		    	<TextField
+		    			select
+		          label="Jetro Aisle Number"
+		          name="aisleNumber"
+		          value={this.state.aisleNumber}
+		          placeholder="Select a Aisle Number"
+		          fullWidth
+		          onChange={this.handleChange('aisleNumber')}
+		          margin="normal"
+		          variant="outlined"
+		          InputLabelProps={{
+		            shrink: true,
+		          }}
+		          SelectProps={{
+		            native: true,
+		          }}		          
+		        >
+
+		        <option key='' value=''></option>
+		       	{Array.from(Array(20), (e, i) => {
+		        	return <option key={i} value={i}>{i}</option>
+		       	})}
+
+		      </TextField>	
 
 					<TextField
 					  placeholder="Add Description"

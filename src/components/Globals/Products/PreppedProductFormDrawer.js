@@ -23,7 +23,8 @@ class PreppedProductFormDrawer extends React.Component {
     portionSize: '',
     markUp: '',
     barcode: '',
-    description: ''
+    description: '',
+    daysTillExpire: ''
   };
 
   toggleDrawer(open) {
@@ -35,9 +36,9 @@ class PreppedProductFormDrawer extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault()
     this.setState({isSubmitted: true, drawer: false})
-    const { name, category, markUp, caseQuantity, prepped, barcode, description, portionSize} = this.state
+    const { name, category, markUp, caseQuantity, prepped, barcode, description, portionSize, daysTillExpire} = this.state
     let markedUpPrice = finalPreppedMarkUpPrice(parseFloat(this.props.rowData[6].substring(1)), parseInt(portionSize), parseInt(markUp))
-    this.props.onAddProduct(name, null, category, null, markUp, caseQuantity, prepped, barcode, description, null, null, null, [], markedUpPrice, portionSize)
+    this.props.onAddProduct(name, null, category, null, markUp, caseQuantity, prepped, barcode, description, null, null, null, [], markedUpPrice, portionSize, daysTillExpire)
   } 
 
   handleChange = name => event => {
@@ -171,6 +172,31 @@ class PreppedProductFormDrawer extends React.Component {
                       </InputAdornment>,
                   }}                  
                 />   
+
+              <TextField
+                  select
+                  label="Days Till Expire"
+                  name="daysTillExpire"
+                  value={this.state.daysTillExpire}
+                  placeholder="Select a Day Till Expire"
+                  fullWidth
+                  onChange={this.handleChange('daysTillExpire')}
+                  margin="normal"
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  SelectProps={{
+                    native: true,
+                  }}              
+                >
+                <option key='' value=''></option>
+                <option key='7' value='7'>7 Days</option>
+                <option key='14' value='14'>14 Days</option>
+                <option key='30' value='30'>30 Days</option>
+
+              </TextField>
+
               <TextField
                 placeholder="Add Description"
                 variant="outlined"
