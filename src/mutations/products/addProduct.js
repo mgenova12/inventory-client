@@ -17,7 +17,8 @@ export default gql`
     $documentData: [String!]
     $portionSize: Int,
     $markedUpPrice: Float,
-    $daysTillExpire: Int
+    $daysTillExpire: Int,
+    $aisleNumber: Int
   ) {
     createProduct(input: { 
     	name: $name, 
@@ -35,7 +36,8 @@ export default gql`
       documentData: $documentData,
       portionSize: $portionSize,
       markedUpPrice: $markedUpPrice,
-      daysTillExpire: $daysTillExpire
+      daysTillExpire: $daysTillExpire,
+      aisleNumber: $aisleNumber
     }) {
       product {
         id

@@ -50,6 +50,7 @@ class NewProductForm extends React.Component {
 			brand: '',
 			unitSize: '',
 			isSubmitted: false,
+			aisleNumber: '',
 			imgs: []        
      };
      return initialState;
@@ -70,14 +71,15 @@ class NewProductForm extends React.Component {
   handleSubmit = (event) => {
   	event.preventDefault()
   	this.setState({isSubmitted: true})
-  	const { name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs } = this.state
+  	const { name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs, aisleNumber } = this.state
   	let markedUpPrice = finalMarkUpPrice(parseInt(price), parseInt(markUp))
-  	this.props.onAddProduct(name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs, markedUpPrice)
+  	this.props.onAddProduct(name, distributor, category, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, imgs, markedUpPrice, null, null, aisleNumber)
   	this.resetForm()
    	setTimeout(function(){
       this.setState({isSubmitted: false});
     }.bind(this),2000)
   }	
+    // this.props.onAddProduct(name, null, category, null, markUp, caseQuantity, prepped, barcode, description, null, null, null, [], markedUpPrice, portionSize, daysTillExpire)
 
   handleKeyPress = (event) => {
 		if (event.which === 13) {
