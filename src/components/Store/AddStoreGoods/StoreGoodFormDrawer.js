@@ -8,6 +8,7 @@ import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCountBies } from '../../../actions/getCountBies.action';
 import { getLocations } from '../../../actions/getLocations.action';
 import { addStoreGood } from '../../../actions/addStoreGood.action';
+import { getContainerTypes } from '../../../actions/getContainerTypes.action';
 
 class StoreGoodFormDrawer extends React.Component {
   
@@ -19,7 +20,8 @@ class StoreGoodFormDrawer extends React.Component {
   	localDistributorId: '',
   	deliveryDay: '',
   	countById: '',
-  	replenishBy: ''
+  	replenishBy: '',
+    containerType: ''
   };
 
   toggleDrawer(open) {
@@ -38,8 +40,8 @@ class StoreGoodFormDrawer extends React.Component {
     event.preventDefault()
     this.setState({isSubmitted: true, drawer: false})
     const productId = this.props.rowData.id
-    const { locationId, localDistributorId, countById, maxAmount, deliveryDay, replenishBy } = this.state
-    this.props.onAddStoreGood(this.props.storeId, productId, locationId, localDistributorId, countById, maxAmount, replenishBy, deliveryDay)
+    const { locationId, localDistributorId, countById, maxAmount, deliveryDay, replenishBy, containerType } = this.state
+    this.props.onAddStoreGood(this.props.storeId, productId, locationId, localDistributorId, countById, maxAmount, replenishBy, deliveryDay, containerType)
     this.props.onSubmitAddStoreGood(this.props.rowData)
   }
 
@@ -51,6 +53,7 @@ class StoreGoodFormDrawer extends React.Component {
 		this.props.onRequestDistributors()
 		this.props.onRequestCountBies()
 		this.props.onRequestLocations(this.props.storeId)
+    this.props.onRequestGetContainerTypes()
 	}	
 
   render() {  
@@ -68,6 +71,10 @@ class StoreGoodFormDrawer extends React.Component {
 
     const locationsMenu = this.props.onGetLocations.map(location => {
       return <option key={location.id} value={location.id}>{location.name}</option>
+    })
+
+    const containerTypeMenu = this.props.onGetContainerTypes.map(contanerType => {
+      return <option key={contanerType.id} value={contanerType.id}>{contanerType.name}</option>
     })
 		
 		const drawerMenu = (
@@ -206,6 +213,27 @@ class StoreGoodFormDrawer extends React.Component {
               { ReplenishByMenu }
           </TextField>
 
+            <TextField
+                select
+                label="Container Type"
+                name="containerType"
+                value={this.state.containerType}
+                placeholder="Select Replenish By"
+                fullWidth
+                onChange={this.handleChange('containerType')}
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                SelectProps={{
+                  native: true,
+                }}              
+              >
+              <option key='' value=''></option>
+              { containerTypeMenu }
+          </TextField>
+
            <Button type='submit' variant="contained" color="primary">
                 Add To Store
            </Button>
@@ -244,10 +272,12 @@ const mapStateToProps = state => ({
   onGetDistributors: state.distributorReducer.distributors,
   onGetCountBies: state.countByReducer.countBies,
   onGetLocations: state.locationReducer.locations,
+  onGetContainerTypes: state.containerTypeReducer.containerTypes,
 });
 
 const mapActionsToProps = {
   onRequestDistributors: getDistributors,
+  onRequestGetContainerTypes: getContainerTypes,
   onRequestCountBies: getCountBies,
   onRequestLocations: getLocations,
   onAddStoreGood: addStoreGood

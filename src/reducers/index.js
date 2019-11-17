@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 
 import productReducer from './product.reducer'
+import containerTypeReducer from './containerType.reducer'
 import storeReducer from './store.reducer'
 import storeTypesReducer from './storeType.reducer'
 import countByReducer from './countBy.reducer'
@@ -15,6 +16,7 @@ import errorReducer from './error.reducer'
 
 
 const rootReducer = combineReducers({
+	containerTypeReducer,
 	productReducer,
 	storeReducer,
 	storeTypesReducer,

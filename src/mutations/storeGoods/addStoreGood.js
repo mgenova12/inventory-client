@@ -9,7 +9,8 @@ export default gql`
   	$maxAmount: Int!, 
   	$replenishBy: String!,
   	$deliveryDay: String!,
-    $countById: Int! 
+    $countById: Int!,
+    $containerTypeId: Int!
   ) {
     createStoreGood(input: { 
     	storeId: $storeId, 
@@ -19,7 +20,8 @@ export default gql`
     	maxAmount: $maxAmount,
     	replenishBy: $replenishBy,
     	deliveryDay: $deliveryDay,
-      countById: $countById
+      countById: $countById,
+      containerTypeId: $containerTypeId
     }) {
 			storeGood {
         id
@@ -46,6 +48,7 @@ export default gql`
         maxAmount
         replenishBy
         deliveryDay
+        containerType
       }
     }
   }
