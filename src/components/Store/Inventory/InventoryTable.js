@@ -50,12 +50,12 @@ class InventoryTable extends React.Component {
 				        <th>Quantity</th>
 				      </tr>
 				    </thead>
-				    { this.props.onGetInventory.map((inventory) => (
-				     <thead key={inventory.id}>
+				    { this.props.onGetInventory.map((location) => (
+				     <thead key={location.id}>
 				        <tr > 
-				          <th className="location-header" colSpan="3">{inventory.name}</th>
+				          <th className="location-header" colSpan="3">{location.name}</th>
 				        </tr>
-				        { inventory.inventories.map((invent) => (
+				        { location.inventories.map((invent) => (
 				        	(invent.storeGood &&
 					        <tr key={invent.id}> 
 					          <td>{invent.storeGood.product.name}</td>
@@ -79,6 +79,7 @@ class InventoryTable extends React.Component {
 				              />  	
 
 				              ) : (
+				              
 					            <TextField
 					                select
 					                label="Quantity"

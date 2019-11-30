@@ -17,6 +17,11 @@ export default gql`
 	        id
 	        name
 	        caseQuantity
+	        aisleNumber
+	        category {
+	        	id
+	        	name
+	        }
 	      }
 	      distributor {
 	      	id

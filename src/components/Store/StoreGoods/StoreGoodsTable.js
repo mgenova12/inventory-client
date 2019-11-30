@@ -110,6 +110,7 @@ class StoreGoodsTable extends React.Component {
                   const data = [...this.state.data];
                   data[data.indexOf(oldData)] = newData;
                   this.setState({ ...this.state, data });
+                  console.log(newData)
                   this.props.onEditStoreGood(
                     newData.id, 
                     newData.location,
