@@ -857,7 +857,7 @@
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@mars/heroku-js-runtime-env/-/heroku-js-runtime-env-3.0.2.tgz#e5b8480ed82b54046474a08a139b8d9560af3a28"
 
-"@material-ui/core@next":
+"@material-ui/core@^4.0.0-rc.0":
   version "4.0.0-rc.0"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.0.0-rc.0.tgz#313ba18cdf4baeaa6c2efb1e38a88ac5b064dce4"
   dependencies:
@@ -5477,6 +5477,11 @@ js-yaml@^3.12.0, js-yaml@^3.13.1, js-yaml@^3.7.0:
   dependencies:
     argparse "^1.0.7"
     esprima "^4.0.0"
+
+jsbarcode@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/jsbarcode/-/jsbarcode-3.11.0.tgz#20623e008b101ef45d0cce9c8022cdf49be28547"
+  integrity sha512-/ozCd7wsa+VIHo9sUc03HneVEQrH7cVWfJolUT/WOW1m8mJ2e3iYZje6C9X3LFHdczlesqFHRpxLtbVsNtjyow==
 
 jsbn@~0.1.0:
   version "0.1.1"

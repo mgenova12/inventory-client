@@ -1,14 +1,19 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query getStoreGoods($id: Int!) {   
-    getStoreGoods(id: $id) {
+  query getStoreGood($id: Int!) {   
+    getStoreGood(id: $id) {
     	id
       product{
 				id
         name
         barcode
         prepped
+        daysTillExpire
+        category{
+          id
+          name
+        }         
       }
       location {
         id
@@ -22,10 +27,10 @@ export default gql`
       countBy {
         id
         name
-      }        
+      }       
       maxAmount
       replenishBy
-      deliveryDay          
+      deliveryDay  
     }
 
   }

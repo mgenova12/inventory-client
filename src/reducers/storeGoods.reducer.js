@@ -3,7 +3,8 @@ import update from 'immutability-helper';
 
 const initialState = {
   storeGoods: [],
-  removedStoreGoods: []
+  removedStoreGoods: [],
+  storeGood: ''
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -39,6 +40,9 @@ export default (state = initialState, { type, payload }) => {
 		 	case actionTypes.GET_REMOVED_STORE_GOODS:
 		      newState.removedStoreGoods = payload.getRemovedStoreGoods;
 		    return newState;
+		  case actionTypes.GET_STORE_GOOD:
+					newState.storeGood = payload.getStoreGood
+					return newState		  	
 			default: 
 				return state;
 	}

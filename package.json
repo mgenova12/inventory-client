@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@mars/heroku-js-runtime-env": "^3.0.2",
-    "@material-ui/core": "next",
+    "@material-ui/core": "^4.0.0-rc.0",
     "@material-ui/icons": "^4.4.3",
     "apollo-boost": "^0.3.1",
     "apollo-link-batch-http": "^1.2.11",
@@ -16,6 +16,7 @@
     "immutability-helper": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jquery": "^3.4.1",
+    "jsbarcode": "^3.11.0",
     "material-table": "^1.51.0",
     "module-alias": "^2.2.0",
     "mui-datatables": "^2.0.0",
