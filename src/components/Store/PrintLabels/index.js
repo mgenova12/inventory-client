@@ -1,6 +1,6 @@
 import React from "react";
 import PrintLabelsTable from './PrintLabelsTable'
-import './index.css';
+
 
 
 class PrintLabels extends React.Component {

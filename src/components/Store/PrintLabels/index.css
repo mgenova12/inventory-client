@@ -1,22 +1,29 @@
 
-.label {
-    width: 2in;
-    height: 2in;
-    border: solid 1px #aaa;
-    margin: 0; padding: 0	
-}
+/*.label {
+	border: 1px solid black;
+	width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;	
+}*/
+
 
 @media print {
+  .print-button, .no-print *
+  {
+      display: none !important;
+  }	
 	h3 {
 		font-size: 12pt
 	}
-
 	h4 {
 		font-size: 9pt;
 	}
+
 	@page { 
 		margin: 0; 
 		size: 2.0in 2.0in;
 	}
-	body { margin: 1.6cm; }
+	body { margin: 0.5cm; }
 }

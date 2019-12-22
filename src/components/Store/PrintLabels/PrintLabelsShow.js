@@ -1,7 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux'
 import { getStoreGood } from '../../../actions/getStoreGood.action';
-import JsBarcode from "jsbarcode";
+import Barcode from 'react-barcode'
+import Button from '@material-ui/core/Button';
+import './index.css';
 
 class PrintLabelsShow extends React.Component {
 
@@ -19,7 +21,6 @@ class PrintLabelsShow extends React.Component {
 
   componentDidMount = () => {
     this.props.onRequestStoreGood(parseInt(this.props.match.params.productId))
-    JsBarcode(".barcode").init();
   }   
 
   render() {
@@ -31,9 +32,10 @@ class PrintLabelsShow extends React.Component {
   	}
     return (    
 	    <div> 
-    		<script src="JsBarcode.all.min.js"></script>
+    		<script src="https://cdn.jsdelivr.net/jsbarcode/3.3.20/JsBarcode.all.min.js"></script>
 		    {storeGood && (
-		    	<div>
+		    <div>	
+		    	<div className='label'>
 			    	<h3> {storeGood.product.name} </h3>
 			    	<h4> {currentDate} </h4>
 			    	<h4> CATEGORY: {storeGood.product.category.name} </h4>
@@ -41,16 +43,12 @@ class PrintLabelsShow extends React.Component {
 			    	<h4> USE BY DATE: {this.getUsebyDate(storeGood.product.daysTillExpire)} </h4>
 			    	<h4> POST THAW ________________________ </h4>
 			    	<h4>{this.showRefrigeratedLabel(storeGood.product.category.name)} </h4>
-			    	<h4> {storeGood.product.barcode} </h4>
-			      <svg
-			        class="barcode"
-			        jsbarcode-format="CODE128"
-			        jsbarcode-value={this.props.value}
-			        jsbarcode-textmargin="0"
-			        jsbarcode-fontoptions="bold"
-			      />
-
+			    	<div className='barcode'> <Barcode value={storeGood.product.barcode} height={50} /> </div>
 		    	</div>
+		    	<div className="print-button">
+         		<Button variant="contained" color="primary" onClick={() => window.print()}> Print Label </Button> 
+         	</div>
+         </div>
 				)}
 			</div>
     );

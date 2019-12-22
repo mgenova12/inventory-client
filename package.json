@@ -23,6 +23,7 @@
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-apollo": "^2.5.5",
+    "react-barcode": "^1.4.0",
     "react-dom": "^16.8.6",
     "react-dropzone": "^10.1.5",
     "react-notifications-component": "^1.1.1",
