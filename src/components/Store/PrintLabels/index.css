@@ -8,22 +8,26 @@
   padding: 20px;	
 }*/
 
-
 @media print {
   .print-button, .no-print *
   {
-      display: none !important;
+    display: none !important;
   }	
+	header, footer, aside, nav, form, iframe, .menu, .hero, .adslot {
+	  display: none !important;
+	}
 	h3 {
-		font-size: 12pt
+		font-size: 12pt;
 	}
 	h4 {
 		font-size: 9pt;
 	}
-
 	@page { 
 		margin: 0; 
 		size: 2.0in 2.0in;
 	}
-	body { margin: 0.5cm; }
+	body {
+  	margin: 0.25cm 0cm 0cm 0.8cm;
+  	padding: 0;
+}
 }

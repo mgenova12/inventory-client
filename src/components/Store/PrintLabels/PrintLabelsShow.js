@@ -36,7 +36,7 @@ class PrintLabelsShow extends React.Component {
 		    {storeGood && (
 		    <div>	
 		    	<div className='label'>
-			    	<h3> {storeGood.product.name} </h3>
+			    	<h3><span> {storeGood.product.name}</span> </h3>
 			    	<h4> {currentDate} </h4>
 			    	<h4> CATEGORY: {storeGood.product.category.name} </h4>
 			    	<h4> DAYS TILL EXPIRE: {storeGood.product.daysTillExpire} </h4>
@@ -45,9 +45,11 @@ class PrintLabelsShow extends React.Component {
 			    	<h4>{this.showRefrigeratedLabel(storeGood.product.category.name)} </h4>
 			    	<div className='barcode'> <Barcode value={storeGood.product.barcode} height={50} /> </div>
 		    	</div>
+		    	
 		    	<div className="print-button">
          		<Button variant="contained" color="primary" onClick={() => window.print()}> Print Label </Button> 
          	</div>
+
          </div>
 				)}
 			</div>
