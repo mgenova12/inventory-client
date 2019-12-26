@@ -7,6 +7,17 @@
   margin-right: auto;
   padding: 20px;	
 }*/
+h3 span {
+	background-color: black;
+	color: white;
+}
+h4 span {
+	background-color: black;
+	color: white;
+}
+.print-button{
+	margin: 5px;
+}
 
 @media print {
   .print-button, .no-print *
@@ -17,16 +28,17 @@
 	  display: none !important;
 	}
 	h3 {
-		font-size: 12pt;
+		font-size: 15pt;
 	}
 	h4 {
-		font-size: 9pt;
+		font-size: 13pt;
 	}
 	@page { 
 		margin: 0; 
 		size: 2.0in 2.0in;
 	}
 	body {
+		-webkit-print-color-adjust: exact !important;
   	margin: 0.25cm 0cm 0cm 0.8cm;
   	padding: 0;
 }

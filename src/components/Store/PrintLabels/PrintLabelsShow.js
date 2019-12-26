@@ -15,7 +15,7 @@ class PrintLabelsShow extends React.Component {
 
 	showRefrigeratedLabel = (category) => {
 		if(category !== 'Dry'){
-			return 'KEEP REFRIGERATED'
+			return 'KEEP REFRIGERATED!'
 		}
 	}
 
@@ -40,10 +40,10 @@ class PrintLabelsShow extends React.Component {
 			    	<h4> {currentDate} </h4>
 			    	<h4> CATEGORY: {storeGood.product.category.name} </h4>
 			    	<h4> DAYS TILL EXPIRE: {storeGood.product.daysTillExpire} </h4>
-			    	<h4> USE BY DATE: {this.getUsebyDate(storeGood.product.daysTillExpire)} </h4>
-			    	<h4> POST THAW ________________________ </h4>
+			    	<h4><span> USE BY DATE: {this.getUsebyDate(storeGood.product.daysTillExpire)} </span></h4>
+			    	<h4> POST THAW ____________________</h4>
 			    	<h4>{this.showRefrigeratedLabel(storeGood.product.category.name)} </h4>
-			    	<div className='barcode'> <Barcode value={storeGood.product.barcode} height={50} /> </div>
+			    	<div className='barcode'> <Barcode value={storeGood.product.barcode} height={25} margin={0} /> </div>
 		    	</div>
 		    	
 		    	<div className="print-button">
