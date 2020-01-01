@@ -1,15 +1,23 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query storeOrders($storeId: Int!) {   
-    storeOrders(storeId: $storeId) {
+  query storeOrders {   
+    storeOrders {
 			id
-			status
-	    createdAt
-	    deliveryDay
-	    store{
-	    	id
-	      name
+	    deliveryDate
+	    status			
+			orders{
+	      id
+	      storeId
+	      status
+	      store{
+	        id
+	        name
+	        inventories{
+	          id
+	          quantityNeeded
+	        }	        
+	      }
 	    }
     }
 

@@ -3,3 +3,16 @@
 	cursor: pointer;
 }
 
+.badge {
+  height: 35px;
+  width: 35px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  border: 0.1875em solid #0F1C3F;
+  background-color: green;
+}
+
+.badge:hover {
+  background-color: red;
+}

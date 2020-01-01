@@ -12,6 +12,10 @@ import StoreOrders from "../Orders/StoreOrders"
 import InventoryTable from "../Inventory/InventoryTable"
 import InventorySuccess from "../Inventory/InventorySuccess"
 import OrderShow from "../Orders/OrderShow"
+import CombindedOrderTable from "../Orders/StoreOrders/CombindedOrderTable"
+
+import StoreOrderShow from "../Orders/StoreOrders/StoreOrderShow"
+
 
 class StoreNav extends React.Component {
 
@@ -73,6 +77,9 @@ class StoreNav extends React.Component {
          <Route path={`/store/:storeId/order/:orderId`} component={OrderShow}/>
         
          <Route path={`/store/:storeId/storeType/:storeType/PrintLabels/:productId`} component={PrintLabelsShow}/>
+         <Route path={`/store/:storeId/CombindedOrder/storeOrder/:storeOrderId`} component={CombindedOrderTable} exact/>
+         
+         <Route path={`/store/:storeId/storeOrder/:orderId/:currentStoreId`} component={StoreOrderShow} exact/>
 
       </div>
 

@@ -8,6 +8,11 @@ export default gql`
 	    quantityNeeded
 			storeGood{
 	      id
+	      containerTypeId
+	      containerType{
+	      	id
+	      	name
+	      }
 	      replenishBy
 	      countBy{
 	        id
