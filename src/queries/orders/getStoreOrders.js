@@ -9,7 +9,26 @@ export default gql`
 			orders{
 	      id
 	      storeId
-	      status
+	      status      
+        inventories{
+          id
+          quantityNeeded
+		      store {
+		        id
+		        name
+		      }	          
+          storeGood{
+          	id
+          	distributor{
+          		id
+          		name
+          	}
+          	product{
+          		id
+          		name
+          	}
+          }
+        }		      
 	      store{
 	        id
 	        name

@@ -19,6 +19,7 @@ export function addStoreGood(storeId, productId, locationId, distributorId, coun
         containerTypeId: parseInt(containerTypeId)
       },
     }).then((result) => {
+        console.log(result)
         dispatch({
           type: actionTypes.ADD_STORE_GOOD,
           payload: result.data.data

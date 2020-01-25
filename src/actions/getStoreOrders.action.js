@@ -5,7 +5,7 @@ import { print } from 'graphql';
 
 export function getStoreOrders() {
   return async (dispatch, getState) => {
-    axios({
+    await axios({
       url: `${process.env.REACT_APP_API_URL}graphql`,
       method: 'post',
       data: {
