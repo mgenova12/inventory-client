@@ -45,6 +45,7 @@ getAmountInStock = (storeGood) => {
 			if(this.state.data.find(p => p.product === storeGood.product.name)){
 				let finder = data.find(p => p.product === storeGood.product.name)
 				finder['onHand'] = storeGood.amountInStock
+				finder['Need'] = finder['total'] - finder['onHand']
 			}
 			this.setState({ ...this.state, data });
 		})	
