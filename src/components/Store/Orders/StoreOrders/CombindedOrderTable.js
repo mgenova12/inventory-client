@@ -40,6 +40,7 @@ getRows = (storeOrders) => {
 }
 
 getAmountInStock = (storeGood) => {
+		console.log('getAmountInStock')
 		this.props.onGetStoreGoods.map(storeGood => {
 			const data = [...this.state.data]
 			if(this.state.data.find(p => p.product === storeGood.product.name)){
@@ -54,11 +55,9 @@ getAmountInStock = (storeGood) => {
 	componentDidMount = () => {
 		this.props.onRequestStoreOrders().then(() => this.getRows(this.props.onGetStoreOrders))
 		this.props.onRequestStoreGoods(this.props.match.params.storeId).then(() => this.getAmountInStock(this.props.onGetStoreGoods))
-		
 	}	
 
   render() {
-  	console.log(this.props.onGetStoreGoods)
     return (    
 	    	<div>
       <link

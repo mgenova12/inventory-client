@@ -17,6 +17,8 @@ import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
 import Print from '@material-ui/icons/Print';
 import NoteAdd from '@material-ui/icons/NoteAdd';
 import ChromeReaderMode from '@material-ui/icons/ChromeReaderMode';
+import Home from '@material-ui/icons/Home';
+import EventNote from '@material-ui/icons/EventNote';
 import { Link } from "react-router-dom"
 
 class StoreNav extends React.Component {
@@ -35,9 +37,13 @@ class StoreNav extends React.Component {
     const drawerNav = (
       <List>
           <ListItem>
-            <ListItemText primary={'GLOBALS'} />
+            <ListItemText primary={`Rusticana-${this.props.storeName}`} />
           </ListItem>
           <Divider />
+          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/`} key={'Home'}>
+            <ListItemIcon><Home/> </ListItemIcon>
+            <ListItemText primary={'Home'} />
+          </ListItem>
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/StoreGoods`} key={'Store Goods'}>
             <ListItemIcon><LocalDining/> </ListItemIcon>
             <ListItemText primary={'Store Goods'} />
@@ -53,7 +59,12 @@ class StoreNav extends React.Component {
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/${this.props.storeType}/DeliveryDay`} key={'Inventory'}>
             <ListItemIcon><Description/> </ListItemIcon>
             <ListItemText primary={'Inventory'} />
-          </ListItem>                 
+          </ListItem>     
+          
+          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/storeType/${this.props.storeType}/Orders`} key={'Orders'}>
+            <ListItemIcon><EventNote/> </ListItemIcon>
+            <ListItemText primary={'Orders'} />
+          </ListItem>                          
       
       {this.props.storeType === 'Prepcenter' &&
         <React.Fragment>

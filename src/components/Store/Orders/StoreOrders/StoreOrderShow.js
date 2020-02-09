@@ -6,6 +6,10 @@ import { getDistributors } from '../../../../actions/getDistributors.action';
 import { getContainerTypes } from '../../../../actions/getContainerTypes.action';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 
 class StoreOrderShow extends React.Component {
@@ -33,7 +37,44 @@ class StoreOrderShow extends React.Component {
   render() {
     return (    
    	<div> 
-	    	<h3 align="center"> Store Order </h3>			      
+	    	<h3 align="center"> Store Order </h3>		
+					<form onSubmit={this.handleSubmit}>
+			    	<TextField
+			          label="Search Product by barcode"
+			          required
+			          // value={this.state.name}
+			          name="name"
+			          placeholder="Search Product by barcode"
+			          fullWidth
+			          onChange={this.handleChange}
+			          margin="normal"
+			          variant="outlined"
+			          InputLabelProps={{
+			            shrink: true,
+			          }}
+			        />	
+		        </form>	    		   
+		      <AppBar position="static" color="default">
+		        <Tabs
+		          value={this.state.value}
+		          indicatorColor="primary"
+		          textColor="primary"
+		          variant="scrollable"
+		          scrollButtons="auto"
+		          aria-label="scrollable auto tabs example"
+		        >
+		          <Tab 
+		          	// onClick={() => this.handleChange(0, null)} 
+		          	label='UnScanned' 
+		          	style={{outlineStyle:'none'}} />
+		        ))}	
+			        <Tab 
+			        	label={'Scanned'}
+			        	// onClick={() => this.handleChange(1, 'Jetroo')}
+			        	style={{outlineStyle:'none'}}
+			        />	        
+		        </Tabs>	        
+		      </AppBar>		           
 	    	<div className="table-responsive">
 				  <table className="table table-striped">
 				    <thead>
