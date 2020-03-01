@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { getInventoryOrder } from '../../../../actions/getInventoryOrder.action';
 import { getDistributors } from '../../../../actions/getDistributors.action';
 import { getContainerTypes } from '../../../../actions/getContainerTypes.action';
+import { updateScanned } from '../../../../actions/updateScanned.action';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
@@ -17,7 +18,9 @@ class StoreOrderShow extends React.Component {
 	state = {
 		value: 0,
 		distributor: null,
-		isChecked: false
+		isChecked: false,
+		barcode: '',
+		scanned: false
 	}
 
 	componentDidMount = () => {
@@ -34,6 +37,25 @@ class StoreOrderShow extends React.Component {
 		})
 	}
 
+	handleChange = (event) => {
+		this.setState({ barcode: event.target.value })
+	}	
+
+	handleChangeTab = (idx, scanned) => {
+		this.setState({
+			value: idx,
+			scanned: scanned
+		})
+	}	
+
+	handleSubmit = event => {
+		event.preventDefault()
+		let storeId = this.props.match.params.currentStoreId
+		let orderId = this.props.match.params.orderId		
+		this.props.onUpdateScanned(this.state.barcode, storeId, orderId)
+		this.setState({ barcode: '' })
+	}
+
   render() {
     return (    
    	<div> 
@@ -42,12 +64,13 @@ class StoreOrderShow extends React.Component {
 			    	<TextField
 			          label="Search Product by barcode"
 			          required
-			          // value={this.state.name}
-			          name="name"
+			          value={this.state.barcode}
+			          name="barcode"
 			          placeholder="Search Product by barcode"
 			          fullWidth
 			          onChange={this.handleChange}
 			          margin="normal"
+			          type="number"
 			          variant="outlined"
 			          InputLabelProps={{
 			            shrink: true,
@@ -64,13 +87,13 @@ class StoreOrderShow extends React.Component {
 		          aria-label="scrollable auto tabs example"
 		        >
 		          <Tab 
-		          	// onClick={() => this.handleChange(0, null)} 
+		          	onClick={() => this.handleChangeTab(0, false)} 
 		          	label='UnScanned' 
 		          	style={{outlineStyle:'none'}} />
 		        ))}	
 			        <Tab 
 			        	label={'Scanned'}
-			        	// onClick={() => this.handleChange(1, 'Jetroo')}
+			        	onClick={() => this.handleChangeTab(1, true)}
 			        	style={{outlineStyle:'none'}}
 			        />	        
 		        </Tabs>	        
@@ -80,6 +103,7 @@ class StoreOrderShow extends React.Component {
 				    <thead>
 				      <tr>
 				        <th>Checked</th>
+				        <th>Barcode</th>
 				        <th>Product</th>
 				        <th>Current Quantity</th>
 				        <th>Quantity Needed</th>
@@ -91,11 +115,17 @@ class StoreOrderShow extends React.Component {
 						    		return (
 							    		<tbody key={containerType.id}>
 										      <tr>
-										        <th className="text-center text-light bg-dark" colSpan="4">{containerType.name}</th>
+										        <th className="text-center text-light bg-dark" colSpan="5">{containerType.name}</th>
 										      </tr>
 								    		{
 								    			this.props.onGetInventoryOrder.filter((inventoryOrder) => {
-											    		return inventoryOrder.storeGood.distributor.name === 'Trappe'
+											    		if(inventoryOrder.storeGood.distributor.name === 'Trappe'){
+											    			if(this.state.scanned){
+											    				return inventoryOrder.scanned
+											    			} else {
+											    				return !inventoryOrder.scanned
+											    			}
+											    		}
 											    }).map((stortedInventoryOrder) => {
 
 									    			if(containerType.id === stortedInventoryOrder.storeGood.containerTypeId){
@@ -108,6 +138,7 @@ class StoreOrderShow extends React.Component {
 																        }
 																      />		
 															      </td>
+														        <td>{stortedInventoryOrder.storeGood.product.barcode.toString()}</td>
 														        <td>{stortedInventoryOrder.storeGood.product.name}</td>
 														        <td>{stortedInventoryOrder.quantity} {stortedInventoryOrder.storeGood.countBy.name}</td>
 														        <td>{stortedInventoryOrder.quantityNeeded} {stortedInventoryOrder.storeGood.replenishBy}</td>
@@ -143,6 +174,7 @@ const mapActionsToProps = {
   onRequestInventoryOrder: getInventoryOrder,
   onRequestDistributors: getDistributors,
   onRequestContainerTypes: getContainerTypes,
+  onUpdateScanned: updateScanned
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(withRouter(StoreOrderShow));

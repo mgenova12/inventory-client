@@ -6,6 +6,7 @@ export default gql`
 			id
 	    quantity
 	    quantityNeeded
+	    scanned
 			storeGood{
 	      id
 	      containerTypeId
@@ -23,6 +24,7 @@ export default gql`
 	        name
 	        caseQuantity
 	        aisleNumber
+	        barcode
 	        category {
 	        	id
 	        	name

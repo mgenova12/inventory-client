@@ -1,4 +1,5 @@
 import actionTypes from '../actionTypes';
+import update from 'immutability-helper';
 
 const initialState = {
   orders: [],
@@ -16,7 +17,12 @@ export default (state = initialState, { type, payload }) => {
 		      return newState;		      
 		case actionTypes.GET_INVENTORY_ORDER:
 		      newState.inventoryOrder = payload.getInventoryOrder;
-		      return newState;		      
+		      return newState;	
+		case actionTypes.UPDATE_SCANNED:
+				let invetoryIdx = newState.inventoryOrder.findIndex(inventory => inventory.id === payload.updateScanned.inventory.id)
+				return {
+					inventoryOrder: update(newState.inventoryOrder, { $splice: [[invetoryIdx, 1, payload.updateScanned.inventory]] })
+				}			      	      
 		default: 
 			return state;
 	}
