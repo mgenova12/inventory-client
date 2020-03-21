@@ -14,6 +14,7 @@ import LocalPizza from '@material-ui/icons/LocalPizza';
 import Restaurant from '@material-ui/icons/Restaurant';
 import LocalShipping from '@material-ui/icons/LocalShipping';
 import AddShoppingCart from '@material-ui/icons/AddShoppingCart';
+import Home from '@material-ui/icons/Home';
 import { Link } from "react-router-dom"
 
 class GlobalNav extends React.Component {
@@ -35,6 +36,10 @@ class GlobalNav extends React.Component {
             <ListItemText primary={'GLOBALS'} />
           </ListItem>
       		<Divider />
+          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/`} key={'Home'}>
+            <ListItemIcon><Home/> </ListItemIcon>
+            <ListItemText primary={'Home'} />
+          </ListItem>          
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to="/globals/products" key={'Products'}>
             <ListItemIcon><Restaurant/> </ListItemIcon>
             <ListItemText primary={'Products'} />

@@ -19,6 +19,7 @@ class OrderTable extends React.Component {
 		this.props.onRequestOrders(storeId)
 	}	
 
+
   render() {
     return (    
    	<div> 

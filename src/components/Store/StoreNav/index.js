@@ -60,18 +60,18 @@ class StoreNav extends React.Component {
             <ListItemIcon><Description/> </ListItemIcon>
             <ListItemText primary={'Inventory'} />
           </ListItem>     
-          
-          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/storeType/${this.props.storeType}/Orders`} key={'Orders'}>
+          <a href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/Orders`}><ListItem onClick={() => this.toggleDrawer(false)} button key={'Orders'}>
             <ListItemIcon><EventNote/> </ListItemIcon>
             <ListItemText primary={'Orders'} />
           </ListItem>                          
-      
+          </a>
       {this.props.storeType === 'Prepcenter' &&
         <React.Fragment>
-            <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/storeType/${this.props.storeType}/StoreOrders`} key={'Store Orders'}>
+            <a href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/StoreOrders`}><ListItem onClick={() => this.toggleDrawer(false)} button key={'Store Orders'}>
               <ListItemIcon><ChromeReaderMode/> </ListItemIcon>
               <ListItemText primary={'Store Orders'} />
             </ListItem>  
+            </a>
             <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/storeType/${this.props.storeType}/AddToInventory`} key={'Adjust Inventory'}>
               <ListItemIcon><NoteAdd/> </ListItemIcon>
               <ListItemText primary={'Adjust Inventory'} />

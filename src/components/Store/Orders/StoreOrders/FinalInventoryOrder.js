@@ -7,21 +7,16 @@ import { getContainerTypes } from '../../../../actions/getContainerTypes.action'
 import { updateScanned } from '../../../../actions/updateScanned.action';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
 import Button from '@material-ui/core/Button';
-import Tab from '@material-ui/core/Tab';
 
 
-class StoreOrderShow extends React.Component {
+class FinalInventoryOrder extends React.Component {
 	
 	state = {
 		value: 0,
 		distributor: null,
 		isChecked: false,
 		barcode: '',
-		scanned: false
 	}
 
 	componentDidMount = () => {
@@ -38,77 +33,20 @@ class StoreOrderShow extends React.Component {
 		})
 	}
 
-	handleChange = (event) => {
-		this.setState({ barcode: event.target.value })
-	}	
-
-	handleChangeTab = (idx, scanned) => {
-		this.setState({
-			value: idx,
-			scanned: scanned
-		})
-	}	
 
 	handleSubmit = event => {
-		event.preventDefault()
-		let storeId = this.props.match.params.currentStoreId
-		let orderId = this.props.match.params.orderId		
-		this.props.onUpdateScanned(this.state.barcode, storeId, orderId)
-		this.setState({ barcode: '' })
+
 	}
 
-	redirectToReasonCodes = () => {
-		let currentStoreId = this.props.match.params.currentStoreId
-		let orderId = this.props.match.params.orderId	
-		let storeId = this.props.match.params.storeId	
-		this.props.history.push(`/store/${storeId}/storeOrder/${orderId}/${currentStoreId}/ReasonCodes`)
-	}
 
   render() {
     return (    
    	<div> 
 	    	<h3 align="center"> Store Order </h3>		
 	    	<div align="center">
-	    	<Button onClick={() => this.redirectToReasonCodes()} variant="contained" color="primary" > Next > </Button> 
+	    	<Button onClick={() => this.handleSubmit()} variant="contained" color="primary" > Submit! > </Button> 
 	    	</div>
-					<form onSubmit={this.handleSubmit}>
-			    	<TextField
-			          label="Search Product by barcode"
-			          required
-			          value={this.state.barcode}
-			          name="barcode"
-			          placeholder="Search Product by barcode"
-			          fullWidth
-			          onChange={this.handleChange}
-			          margin="normal"
-			          type="number"
-			          variant="outlined"
-			          InputLabelProps={{
-			            shrink: true,
-			          }}
-			        />	
-		        </form>
-		      <AppBar position="static" color="default">
-		        <Tabs
-		          value={this.state.value}
-		          indicatorColor="primary"
-		          textColor="primary"
-		          variant="scrollable"
-		          scrollButtons="auto"
-		          aria-label="scrollable auto tabs example"
-		        >
-		          <Tab
-		          	onClick={() => this.handleChangeTab(0, false)} 
-		          	label='UnScanned' 
-		          	style={{outlineStyle:'none'}} />
-		        ))}	
-			        <Tab 
-			        	label={'Scanned'}
-			        	onClick={() => this.handleChangeTab(1, true)}
-			        	style={{outlineStyle:'none'}}
-			        />	        
-		        </Tabs>	
-		      </AppBar>		           
+           
 	    	<div className="table-responsive">
 				  <table className="table table-striped">
 				    <thead>
@@ -131,11 +69,7 @@ class StoreOrderShow extends React.Component {
 								    		{
 								    			this.props.onGetInventoryOrder.filter((inventoryOrder) => {
 											    		if(inventoryOrder.storeGood.distributor.name === 'Trappe'){
-											    			if(this.state.scanned){
-											    				return inventoryOrder.scanned
-											    			} else {
-											    				return !inventoryOrder.scanned
-											    			}
+											    			return inventoryOrder.scanned
 											    		}
 											    }).map((stortedInventoryOrder) => {
 
@@ -162,9 +96,34 @@ class StoreOrderShow extends React.Component {
 							    		</tbody>
 						    		)
 						    	})
-
 					    }
 
+					    <tbody>
+				      <tr>
+				        <th className="text-center text-danger bg-dark" colSpan="5">Not Scanned!</th>
+				      </tr>								    		
+				      {
+				      	this.props.onGetInventoryOrder.map((inventoryOrder) => {
+					    		if(inventoryOrder.storeGood.distributor.name === 'Trappe' && !inventoryOrder.scanned){
+					    			return (
+								      <tr key={inventoryOrder.id} >
+									      <td>
+										      <FormControlLabel
+										        control={
+										          <Checkbox value="checkedA" />
+										        }
+										      />		
+									      </td>
+								        <td>{inventoryOrder.storeGood.product.barcode.toString()}</td>
+								        <td>{inventoryOrder.storeGood.product.name}</td>
+								        <td>{inventoryOrder.quantity} {inventoryOrder.storeGood.countBy.name}</td>
+								        <td>{inventoryOrder.reasonCode}</td>
+								      </tr>		
+					    			)
+					    		}
+				      	})
+				      }
+				      </tbody>
 				  </table>
 
 			  </div>
@@ -186,4 +145,4 @@ const mapActionsToProps = {
   onUpdateScanned: updateScanned
 };
 
-export default connect(mapStateToProps, mapActionsToProps)(withRouter(StoreOrderShow));
+export default connect(mapStateToProps, mapActionsToProps)(withRouter(FinalInventoryOrder));

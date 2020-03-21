@@ -7,6 +7,7 @@ export default gql`
 	    quantity
 	    quantityNeeded
 	    scanned
+	    reasonCode
 			storeGood{
 	      id
 	      containerTypeId

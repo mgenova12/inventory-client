@@ -40,7 +40,6 @@ getRows = (storeOrders) => {
 }
 
 getAmountInStock = (storeGood) => {
-		console.log('getAmountInStock')
 		this.props.onGetStoreGoods.map(storeGood => {
 			const data = [...this.state.data]
 			if(this.state.data.find(p => p.product === storeGood.product.name)){
