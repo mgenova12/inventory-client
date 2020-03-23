@@ -5,7 +5,8 @@ export default gql`
     storeOrders {
 			id
 	    deliveryDate
-	    status			
+	    status
+	    updatedAt
 			orders{
 	      id
 	      storeId

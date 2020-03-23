@@ -40,48 +40,59 @@ class StoreNav extends React.Component {
             <ListItemText primary={`Rusticana-${this.props.storeName}`} />
           </ListItem>
           <Divider />
+
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/`} key={'Home'}>
             <ListItemIcon><Home/> </ListItemIcon>
             <ListItemText primary={'Home'} />
           </ListItem>
-          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/StoreGoods`} key={'Store Goods'}>
-            <ListItemIcon><LocalDining/> </ListItemIcon>
-            <ListItemText primary={'Store Goods'} />
-          </ListItem>
-          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/StoreGoods/Add`} key={'Add Store Goods'}>
-            <ListItemIcon><AddShoppingCart/> </ListItemIcon>
-            <ListItemText primary={'Add Store Goods'} />
-          </ListItem>
-          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/Locations`} key={'Locations'}>
-            <ListItemIcon><LocationCity/> </ListItemIcon>
-            <ListItemText primary={'Locations'} />
-          </ListItem>
-          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/${this.props.storeType}/DeliveryDay`} key={'Inventory'}>
-            <ListItemIcon><Description/> </ListItemIcon>
-            <ListItemText primary={'Inventory'} />
-          </ListItem>     
-          <a href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/Orders`}><ListItem onClick={() => this.toggleDrawer(false)} button key={'Orders'}>
-            <ListItemIcon><EventNote/> </ListItemIcon>
-            <ListItemText primary={'Orders'} />
-          </ListItem>                          
-          </a>
-      {this.props.storeType === 'Prepcenter' &&
-        <React.Fragment>
+
+          {this.props.storeType === 'Prepcenter' &&
             <a href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/StoreOrders`}><ListItem onClick={() => this.toggleDrawer(false)} button key={'Store Orders'}>
               <ListItemIcon><ChromeReaderMode/> </ListItemIcon>
               <ListItemText primary={'Store Orders'} />
             </ListItem>  
             </a>
-            <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/storeType/${this.props.storeType}/AddToInventory`} key={'Adjust Inventory'}>
-              <ListItemIcon><NoteAdd/> </ListItemIcon>
-              <ListItemText primary={'Adjust Inventory'} />
-            </ListItem>  
+          }
+
+          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/${this.props.storeType}/DeliveryDay`} key={'Inventory'}>
+            <ListItemIcon><Description/> </ListItemIcon>
+            <ListItemText primary={'Start Inventory'} />
+          </ListItem> 
+
+          <a href={`/store/${this.props.storeId}/storeType/${this.props.storeType}/Orders`}><ListItem onClick={() => this.toggleDrawer(false)} button key={'Orders'}>
+            <ListItemIcon><EventNote/> </ListItemIcon>
+            <ListItemText primary={'Submitted Inventory'} />
+          </ListItem>                          
+          </a>
+
+          {this.props.storeType === 'Prepcenter' &&
             <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/storeType/${this.props.storeType}/PrintLabels`} key={'Print Labels'}>
               <ListItemIcon><Print/> </ListItemIcon>
               <ListItemText primary={'Print Labels'} />
             </ListItem> 
-        </React.Fragment>                     
-      }
+          }
+
+          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/StoreGoods`} key={'Store Goods'}>
+            <ListItemIcon><LocalDining/> </ListItemIcon>
+            <ListItemText primary={'Store Goods'} />
+          </ListItem>
+
+          {this.props.storeType === 'Prepcenter' &&
+            <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/storeType/${this.props.storeType}/AddToInventory`} key={'Adjust Inventory'}>
+              <ListItemIcon><NoteAdd/> </ListItemIcon>
+              <ListItemText primary={'Adjust Inventory'} />
+            </ListItem>  
+          }
+
+          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/StoreGoods/Add`} key={'Add Store Goods'}>
+            <ListItemIcon><AddShoppingCart/> </ListItemIcon>
+            <ListItemText primary={'Add Store Goods'} />
+          </ListItem>
+
+          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/store/${this.props.storeId}/Locations`} key={'Locations'}>
+            <ListItemIcon><LocationCity/> </ListItemIcon>
+            <ListItemText primary={'Locations'} />
+          </ListItem>
 
       </List>
     )

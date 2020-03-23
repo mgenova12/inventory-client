@@ -43,9 +43,9 @@ class Store extends React.Component {
          <Route path={`/store/:storeId/order/:orderId`} component={OrderShow} exact/>
          
          <Route path={`/store/:storeId/storeType/:storeType/StoreOrders`} component={StoreOrderTable} exact/>
-         <Route path={`/store/:storeId/storeOrder/:orderId/:currentStoreId`} component={StoreOrderShow} exact/>
+         <Route path={`/store/:storeId/order/:orderId/currentStore/:currentStoreId/storeOrder/:storeOrderId`} component={StoreOrderShow} exact/>
+         <Route path={`/store/:storeId/order/:orderId/currentStore/:currentStoreId/storeOrder/:storeOrderId/ReasonCodes`} component={StoreOrderReasonCodes} exact/>
 
-         <Route path={`/store/:storeId/storeOrder/:orderId/:currentStoreId/ReasonCodes`} component={StoreOrderReasonCodes} exact/>
          <Route path={`/store/:storeId/storeOrder/:orderId/:currentStoreId/FinalInventoryOrder`} component={FinalInventoryOrder} exact/>
 
          <Route path={`/store/:storeId/storeType/:storeType/AddToInventory`} component={AddToInventory} exact/>

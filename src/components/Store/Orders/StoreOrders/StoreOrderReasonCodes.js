@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom';
 import { getInventoryOrder } from '../../../../actions/getInventoryOrder.action';
 import { updateReasonCode } from '../../../../actions/updateReasonCode.action';
+import { updateFinalInventoryOrder } from '../../../../actions/updateFinalInventoryOrder.action';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
@@ -24,9 +25,13 @@ class StoreOrderReasonCodes extends React.Component {
 
 	redirectToFinalInventoryOrder = () => {
 		let currentStoreId = this.props.match.params.currentStoreId
+		let storeOrderId = this.props.match.params.storeOrderId
 		let orderId = this.props.match.params.orderId	
 		let storeId = this.props.match.params.storeId	
 		this.props.history.push(`/store/${storeId}/storeOrder/${orderId}/${currentStoreId}/FinalInventoryOrder`)
+		console.log(orderId)
+		console.log(storeOrderId)
+		this.props.onUpdateFinalInventoryOrder(orderId, storeOrderId)
 	}
 
   render() {
@@ -35,8 +40,9 @@ class StoreOrderReasonCodes extends React.Component {
 	    <div>
 	    <h3 align="center"> Reason Codes </h3>	
 	    	<div align="center">
-	    		<Button onClick={() => this.redirectToFinalInventoryOrder()} variant="contained" color="primary" > Next > </Button> 
+	    		<Button onClick={() => this.redirectToFinalInventoryOrder()} variant="contained" color="primary" > Submit Order </Button> 
 	    	</div>
+	    	<br/>
 	    	<div className="table-responsive">
 				  <table className="table">
 				    <thead>
@@ -87,8 +93,6 @@ class StoreOrderReasonCodes extends React.Component {
 												        <option key={inventoryOrder.reasonCode} value={inventoryOrder.reasonCode}>{inventoryOrder.reasonCode}</option>
 									        }
 
-
-
 									        </TextField>	
 							        </td>
 							      </tr>
@@ -111,7 +115,8 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = {
   onRequestInventoryOrder: getInventoryOrder,
-  onUpdateReasonCode: updateReasonCode
+  onUpdateReasonCode: updateReasonCode,
+  onUpdateFinalInventoryOrder: updateFinalInventoryOrder
 };
 
 export default connect(mapStateToProps, mapActionsToProps)(withRouter(StoreOrderReasonCodes));

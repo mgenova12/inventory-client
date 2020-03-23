@@ -32,7 +32,6 @@ class OrderTable extends React.Component {
 				        <th>Time Placed</th>
 				        <th>Store</th>
 				        <th>Delivery Day</th>
-				        <th>Status</th>
 				      </tr>
 				    </thead>
 
@@ -42,10 +41,8 @@ class OrderTable extends React.Component {
 				        <td>{order.id}</td>
 				        <td>{new Date(order.createdAt).toLocaleString()}</td>
 				        <td>{order.store.name}</td>
-				        <td>{order.deliveryDay}</td>
-				        <td style={{ color: order.status === "incomplete" ? "red" : order.status === "pending" ? "orange" : "green" }}>
-				        	{order.status}
-				        </td>
+				        <td>{order.deliveryDay ? 'Prepped' : 'Distributor'}</td>
+
 				      </tr>
 				    ))}
 				    </tbody>

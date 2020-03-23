@@ -61,7 +61,8 @@ class StoreOrderShow extends React.Component {
 		let currentStoreId = this.props.match.params.currentStoreId
 		let orderId = this.props.match.params.orderId	
 		let storeId = this.props.match.params.storeId	
-		this.props.history.push(`/store/${storeId}/storeOrder/${orderId}/${currentStoreId}/ReasonCodes`)
+		let storeOrderId = this.props.match.params.storeOrderId
+		this.props.history.push(`/store/${storeId}/order/${orderId}/currentStore/${currentStoreId}/storeOrder/${storeOrderId}/ReasonCodes`)
 	}
 
   render() {

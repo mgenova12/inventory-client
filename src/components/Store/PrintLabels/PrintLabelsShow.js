@@ -30,8 +30,34 @@ class PrintLabelsShow extends React.Component {
 	  	const today = new Date();
 	  	var currentDate = today.toLocaleString()
   	}
-    return (    
+    return ( 
 	    <div> 
+			<style dangerouslySetInnerHTML={{__html: `
+				@media print {
+				  .print-button, .no-print *
+				  {
+				    display: none !important;
+				  }	
+					header, footer, aside, nav, form, iframe, .menu, .hero, .adslot {
+					  display: none !important;
+					}
+					h3 {
+						font-size: 15pt;
+					}
+					h4 {
+						font-size: 13pt;
+					}
+					@page { 
+						margin: 0; 
+						size: 2.0in 2.0in;
+					}
+					body {
+						-webkit-print-color-adjust: exact !important;
+				  	margin: 0.25cm 0cm 0cm 0.8cm;
+				  	padding: 0;
+					}
+				}
+			`}}/>	    	
     		<script src="https://cdn.jsdelivr.net/jsbarcode/3.3.20/JsBarcode.all.min.js"></script>
 		    {storeGood && (
 		    <div>	

@@ -13,11 +13,11 @@ class StoreOrderTable extends React.Component {
 		store: null
 	}
 
-	redirectToOrder = (orderId, status, currentStoreId, event) => {
+	redirectToOrder = (orderId, status, currentStoreId, storeOrderId, event) => {
 		event.stopPropagation()
 		let storeId = this.props.match.params.storeId
 		if(status !== 'incomplete'){
-  		this.props.history.push(`/store/${storeId}/storeOrder/${orderId}/${currentStoreId}`)
+  		this.props.history.push(`/store/${storeId}/order/${orderId}/currentStore/${currentStoreId}/storeOrder/${storeOrderId}`)
 		}
 	}
 
@@ -51,8 +51,10 @@ class StoreOrderTable extends React.Component {
 				    <thead>
 				      <tr>
 				        <th>ID</th>
-				        <th>Status</th>
+				        <th>Store Inventory Status</th>
 				        <th>Delivery Day</th>
+				        <th>Status</th>
+				        <th>Last Updated</th>
 				      </tr>
 				    </thead>
 
@@ -64,11 +66,14 @@ class StoreOrderTable extends React.Component {
 
 				        <td> 
                 	{storeOrder.orders.sort((a, b) => a.store.name.localeCompare(b.store.name)).map((order, index) => {
-                    return <span onClick={(e) => this.redirectToOrder(order.id, order.status, order.storeId, e)} className='badge' key={ index }>{order.store.name[0]}</span>;
+                    return <span onClick={(e) => this.redirectToOrder(order.id, order.status, order.storeId, storeOrder.id, e)} className='badge' key={ index }>{order.store.name[0]}</span>;
                   })}
 				        </td>
 
 				        <td>{new Date(storeOrder.deliveryDate).toLocaleDateString("en-US", { weekday: 'long'})} {new Date(storeOrder.deliveryDate).toLocaleDateString()}</td>
+				        <td>{storeOrder.status} </td>
+				        <td>{new Date(storeOrder.updatedAt).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</td>
+
 				      </tr>
 				    ))}
 

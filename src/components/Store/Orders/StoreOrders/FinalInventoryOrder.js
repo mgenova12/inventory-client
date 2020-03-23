@@ -33,20 +33,14 @@ class FinalInventoryOrder extends React.Component {
 		})
 	}
 
-
-	handleSubmit = event => {
-
-	}
-
-
   render() {
     return (    
    	<div> 
 	    	<h3 align="center"> Store Order </h3>		
 	    	<div align="center">
-	    	<Button onClick={() => this.handleSubmit()} variant="contained" color="primary" > Submit! > </Button> 
+	    	<Button onClick={() => window.print()} variant="contained" color="primary" > Print Page </Button> 
 	    	</div>
-           
+        <br/>
 	    	<div className="table-responsive">
 				  <table className="table table-striped">
 				    <thead>
@@ -100,7 +94,7 @@ class FinalInventoryOrder extends React.Component {
 
 					    <tbody>
 				      <tr>
-				        <th className="text-center text-danger bg-dark" colSpan="5">Not Scanned!</th>
+				        <th className="text-center text-danger bg-dark" colSpan="5">Not Delivered!</th>
 				      </tr>								    		
 				      {
 				      	this.props.onGetInventoryOrder.map((inventoryOrder) => {

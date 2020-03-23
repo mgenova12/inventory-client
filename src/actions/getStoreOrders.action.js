@@ -12,6 +12,7 @@ export function getStoreOrders() {
         query: print(getStoreOrdersQuery)
       }
     }).then((result) => {
+          console.log(result)
           dispatch({
             type: actionTypes.GET_STORE_ORDERS,
             payload: result.data.data
