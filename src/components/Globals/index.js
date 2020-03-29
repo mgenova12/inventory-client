@@ -6,6 +6,7 @@ import PreppedProducts from "./PreppedProducts"
 import NewProduct from "./NewProduct"
 import Distributors from "./Distributors"
 import ProductShow from "./Products/ProductShow"
+import Invoices from "./Invoices";
 
 class Globals extends React.Component {
 
@@ -20,6 +21,7 @@ class Globals extends React.Component {
 		      <Route exact path="/globals/products/:id" component={ProductShow} />
 		      <Route exact path="/globals/prepped_products" component={PreppedProducts} />
 		      <Route exact path="/globals/distributors" component={Distributors} />
+					<Route exact path='/globals/invoices' component={Invoices} />
 				</Switch>
 
 	    </div>	    	

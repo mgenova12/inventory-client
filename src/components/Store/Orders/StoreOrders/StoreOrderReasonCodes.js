@@ -29,8 +29,6 @@ class StoreOrderReasonCodes extends React.Component {
 		let orderId = this.props.match.params.orderId	
 		let storeId = this.props.match.params.storeId	
 		this.props.history.push(`/store/${storeId}/storeOrder/${orderId}/${currentStoreId}/FinalInventoryOrder`)
-		console.log(orderId)
-		console.log(storeOrderId)
 		this.props.onUpdateFinalInventoryOrder(orderId, storeOrderId)
 	}
 

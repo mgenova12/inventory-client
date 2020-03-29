@@ -16,8 +16,10 @@ class StoreOrderTable extends React.Component {
 	redirectToOrder = (orderId, status, currentStoreId, storeOrderId, event) => {
 		event.stopPropagation()
 		let storeId = this.props.match.params.storeId
-		if(status !== 'incomplete'){
+		if(status === 'pending'){
   		this.props.history.push(`/store/${storeId}/order/${orderId}/currentStore/${currentStoreId}/storeOrder/${storeOrderId}`)
+		} else if (status === 'complete'){
+			this.props.history.push(`/store/${storeId}/storeOrder/${orderId}/${currentStoreId}/FinalInventoryOrder`)
 		}
 	}
 
