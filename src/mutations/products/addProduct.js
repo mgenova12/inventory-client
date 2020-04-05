@@ -18,7 +18,8 @@ export default gql`
     $portionSize: Int,
     $markedUpPrice: Float,
     $daysTillExpire: Int,
-    $aisleNumber: Int
+    $aisleNumber: Int,
+    $pId: Int
   ) {
     createProduct(input: { 
     	name: $name, 
@@ -37,11 +38,13 @@ export default gql`
       portionSize: $portionSize,
       markedUpPrice: $markedUpPrice,
       daysTillExpire: $daysTillExpire,
-      aisleNumber: $aisleNumber
+      aisleNumber: $aisleNumber,
+      pId: $pId
     }) {
       product {
         id
         name
+        pId
       }
       errors
     }

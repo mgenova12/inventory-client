@@ -3,9 +3,9 @@ import axios from "axios";
 import addProductMutation from '../mutations/products/addProduct';
 import { print } from 'graphql';
 
-export function addProduct(name, distributorId, categoryId, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, documentData, markedUpPrice, portionSize, daysTillExpire, aisleNumber) {
+export function addProduct(name, distributorId, categoryId, price, markUp, caseQuantity, prepped, barcode, description, distributorNumber, brand, unitSize, documentData, markedUpPrice, portionSize, daysTillExpire, aisleNumber, pId) {
   return async (dispatch, getState) => {
-    axios
+    await axios
     .post(`${process.env.REACT_APP_API_URL}graphql`, {
       query: print(addProductMutation),
       variables: {
@@ -25,7 +25,8 @@ export function addProduct(name, distributorId, categoryId, price, markUp, caseQ
         markedUpPrice: parseFloat(markedUpPrice),
         portionSize: parseInt(portionSize),
         daysTillExpire: parseInt(daysTillExpire),
-        aisleNumber: parseInt(aisleNumber)
+        aisleNumber: parseInt(aisleNumber),
+        pId: parseInt(pId)
       },
     })
     .then((result) => {

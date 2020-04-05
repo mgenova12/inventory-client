@@ -82,7 +82,7 @@ class ProductTable extends React.Component {
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
-                  this.props.onDeleteProduct(oldData.id, oldData.prepped)
+                  this.props.onDeleteProduct(oldData.id, false)
                 }, 600);
               }), 
             }}

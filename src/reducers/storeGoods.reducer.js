@@ -17,11 +17,19 @@ export default (state = initialState, { type, payload }) => {
 				return {
 					removedStoreGoods: newState.removedStoreGoods.filter(removedStoreGood => parseInt(removedStoreGood.id) !== parseInt(currentRemovedStoreGood.id))
 				}
+
 			case actionTypes.EDIT_STORE_GOOD:
-				let storeGoodIndex = newState.storeGoods.findIndex(storeGood => storeGood.id === payload.editStoreGood.storeGood.id)
+				let editStoreGood = payload.editStoreGood.storeGood
+       	editStoreGood.countBy = editStoreGood.countBy.name
+       	editStoreGood.location = editStoreGood.location.name
+       	editStoreGood.distributor = editStoreGood.distributor.name
+       	editStoreGood.product = editStoreGood.product.name
+
+				let storeGoodIndex = newState.storeGoods.findIndex(storeGood => storeGood.id === editStoreGood.id)
 				return {
-					storeGoods: update(newState.storeGoods, { $splice: [[storeGoodIndex, 1, payload.editStoreGood.storeGood]] })
+					storeGoods: update(newState.storeGoods, { $splice: [[storeGoodIndex, 1, editStoreGood]] })
 				}					
+				
 			case actionTypes.UPDATE_AMOUNT_IN_STOCK:
 				let storeGoodIdx = newState.storeGoods.findIndex(storeGood => storeGood.id === payload.updateAmountInStock.storeGood.id)
 				return {
@@ -35,8 +43,14 @@ export default (state = initialState, { type, payload }) => {
 					storeGoods: newState.storeGoods.filter(storeGood => storeGood !== currentStoreGood)
 				}					
 		 	case actionTypes.GET_STORE_GOODS:
-		     	newState.storeGoods = payload.getStoreGoods;
-		    return newState;		 		
+					newState.storeGoods = payload.getStoreGoods.filter((sg) => sg.product ).map((storeGood)=> {
+		         storeGood.countBy = storeGood.countBy.name
+		         storeGood.location = storeGood.location.name
+		         storeGood.distributor = storeGood.distributor.name
+		         storeGood.product = storeGood.product.name
+		         return storeGood
+		      })		   
+		      return newState;	 		
 		 	case actionTypes.GET_REMOVED_STORE_GOODS:
 		      newState.removedStoreGoods = payload.getRemovedStoreGoods;
 		    return newState;

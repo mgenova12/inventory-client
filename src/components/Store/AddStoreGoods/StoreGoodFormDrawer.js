@@ -42,7 +42,6 @@ class StoreGoodFormDrawer extends React.Component {
     const productId = this.props.rowData.id
     const { locationId, localDistributorId, countById, maxAmount, deliveryDay, replenishBy, containerType } = this.state
     this.props.onAddStoreGood(this.props.storeId, productId, locationId, localDistributorId, countById, maxAmount, replenishBy, deliveryDay, containerType)
-    this.props.onSubmitAddStoreGood(this.props.rowData)
   }
 
   componentWillReceiveProps(props) {

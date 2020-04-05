@@ -8,7 +8,6 @@ export default gql`
 	  $caseQuantity: Int, 
 	  $markUp: Int!, 
     $portionSize: Int,
-    $markedUpPrice: Float,
   ) {
     editPreppedProduct(input: { 
       id: $id,
@@ -17,7 +16,6 @@ export default gql`
     	caseQuantity: $caseQuantity,
     	markUp: $markUp,
       portionSize: $portionSize,
-      markedUpPrice: $markedUpPrice,
     }) {
       product {
         id

@@ -12,30 +12,16 @@ class AddStoreGoodsTable extends React.Component {
           { title: 'Brand', field: 'brand' },
           { title: 'Prepped', field: 'prepped', type: 'boolean' },
         ],
-        data: [],
         togglePreppedDrawer: false,
         rowData: []
     }
 
-    getRows = (removedStoreGoods) => {
-      removedStoreGoods.forEach(storeGood => {
-      	const data = [...this.state.data];
-        data.push(storeGood);
-        this.setState({ ...this.state, data });
-      })
-    }
-
-    handleSubmit = (rowData) => {
-      const data = [...this.state.data];
-      data.splice(data.indexOf(rowData), 1);
-      this.setState({ ...this.state, data });    	
-    }
-
     componentDidMount = () => {
-      this.props.onRequestRemovedStoreGoods(this.props.storeId).then(() => this.getRows(this.props.onGetRemovedStoreGoods))
+      this.props.onRequestRemovedStoreGoods(this.props.storeId)
     }
 
   render() {
+    let removedStoreGoods = this.props.onGetRemovedStoreGoods
     return (    
 			<div> 
       <link
@@ -46,12 +32,11 @@ class AddStoreGoodsTable extends React.Component {
 	      	togglePreppedDrawer={this.state.togglePreppedDrawer} 
 	      	rowData={this.state.rowData}
 	      	storeId={this.props.storeId}
-	      	onSubmitAddStoreGood={this.handleSubmit}
 	      	/>	      
         <MaterialTable
           title="Add To Store"
           columns={this.state.columns}
-          data={this.state.data}
+          data={removedStoreGoods}
           options={{
             paging: false,
             actionsColumnIndex: -1,

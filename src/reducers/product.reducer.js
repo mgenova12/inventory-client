@@ -17,12 +17,18 @@ export default (state = initialState, { type, payload }) => {
 		         return product
 		      })		      
 		      return newState;
+
 		case actionTypes.GET_PREPPED_PRODUCTS:
-		      newState.preppedProducts = payload.preppedProducts;
+					newState.preppedProducts = payload.preppedProducts.map((preppedProduct)=> {
+		         preppedProduct.category = preppedProduct.category.name
+		         return preppedProduct
+		      })		      
 		      return newState;		      
+
 		case actionTypes.GET_PRODUCT:
 					newState.product = payload.getProduct
 					return newState
+
 		case actionTypes.EDIT_PRODUCT: 
 				let editProduct = payload.editProduct.product
         editProduct.distributor = editProduct.distributor.name
@@ -31,11 +37,16 @@ export default (state = initialState, { type, payload }) => {
 				return {
 					products: update(newState.products, { $splice: [[productIndex, 1, editProduct]] })
 				}
+
 		case actionTypes.EDIT_PREPPED_PRODUCT: 
-				let preppedProductIndex = newState.preppedProducts.findIndex(product => product.id === payload.editPreppedProduct.product.id)
+				let editPreppedProduct = payload.editPreppedProduct.product
+				editPreppedProduct.category = editPreppedProduct.category.name
+				let preppedProductIndex = newState.preppedProducts.findIndex(product => product.id === editPreppedProduct.id)
+
 				return {
-					preppedProducts: update(newState.preppedProducts, { $splice: [[preppedProductIndex, 1, payload.editPreppedProduct.product]] })
+					preppedProducts: update(newState.preppedProducts, { $splice: [[preppedProductIndex, 1, editPreppedProduct]] })
 				}				
+
 		case actionTypes.DELETE_PRODUCT:
 				let currentProduct = newState.products.find(product => {
 						return product.id === payload
