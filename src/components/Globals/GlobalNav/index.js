@@ -44,10 +44,13 @@ class GlobalNav extends React.Component {
             <ListItemIcon><Restaurant/> </ListItemIcon>
             <ListItemText primary={'Products'} />
           </ListItem>
-          <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to="/globals/prepped_products" key={'Prepped Products'}>
-            <ListItemIcon><LocalPizza/> </ListItemIcon>
+
+          <a href="/globals/prepped_products"><ListItem onClick={() => this.toggleDrawer(false)} button key={'Prepped Products'}>
+            <ListItemIcon><LocalPizza/></ListItemIcon>
             <ListItemText primary={'Prepped Products'} />
-          </ListItem>
+          </ListItem>                          
+          </a>
+
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to="/globals/distributors" key={'Distributors'}>
             <ListItemIcon><LocalShipping/> </ListItemIcon>
             <ListItemText primary={'Distributors'} />

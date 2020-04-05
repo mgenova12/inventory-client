@@ -37,8 +37,10 @@ class PreppedProductFormDrawer extends React.Component {
     event.preventDefault()
     this.setState({isSubmitted: true, drawer: false})
     const { name, category, markUp, caseQuantity, prepped, barcode, description, portionSize, daysTillExpire} = this.state
-    let markedUpPrice = finalPreppedMarkUpPrice(parseFloat(this.props.rowData[6].substring(1)), parseInt(portionSize), parseInt(markUp))
+    let markedUpPrice = finalPreppedMarkUpPrice(parseFloat(this.props.rowData.price), parseInt(portionSize), parseInt(markUp))
     this.props.onAddProduct(name, null, category, null, markUp, caseQuantity, prepped, barcode, description, null, null, null, [], markedUpPrice, portionSize, daysTillExpire)
+
+    this.setState({name: "", category: "", caseQuantity: "", portionSize: "", markUp: "", barcode: "", daysTillExpire: "", description: ""});
   } 
 
   handleChange = name => event => {
@@ -122,7 +124,7 @@ class PreppedProductFormDrawer extends React.Component {
                   required
                   type="number"
                   label="Portion Size"
-                  value={this.state.portion_size}
+                  value={this.state.portionSize}
                   onChange={this.handleChange('portionSize')}
                   name="portionSize"
                   placeholder="Add Portion Size"

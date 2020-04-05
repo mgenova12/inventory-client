@@ -26,6 +26,7 @@ export default gql`
 	        caseQuantity
 	        aisleNumber
 	        barcode
+	        price
 	        category {
 	        	id
 	        	name

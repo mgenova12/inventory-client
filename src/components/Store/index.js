@@ -21,6 +21,8 @@ import StoreOrderTable from "./Orders/StoreOrders/StoreOrderTable"
 import StoreOrderReasonCodes from "./Orders/StoreOrders/StoreOrderReasonCodes"
 import FinalInventoryOrder from "./Orders/StoreOrders/FinalInventoryOrder"
 
+import InvoiceShow from "../Globals/Invoices/InvoiceShow"
+
 class Store extends React.Component {
 
 	componentDidMount = () => {
@@ -47,6 +49,7 @@ class Store extends React.Component {
          <Route path={`/store/:storeId/order/:orderId/currentStore/:currentStoreId/storeOrder/:storeOrderId/ReasonCodes`} component={StoreOrderReasonCodes} exact/>
 
          <Route path={`/store/:storeId/storeOrder/:orderId/:currentStoreId/FinalInventoryOrder`} component={FinalInventoryOrder} exact/>
+         <Route path={`/store/:storeId/storeOrder/:orderId/:currentStoreId/InvoiceShow`} component={InvoiceShow} exact/>
 
          <Route path={`/store/:storeId/storeType/:storeType/AddToInventory`} component={AddToInventory} exact/>
          <Route path={`/store/:storeId/storeType/:storeType/PrintLabels`} component={PrintLabels} exact/>

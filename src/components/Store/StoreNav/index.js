@@ -33,11 +33,10 @@ class StoreNav extends React.Component {
   }
 
   render() {
-
     const drawerNav = (
       <List>
           <ListItem>
-            <ListItemText primary={`Rusticana-${this.props.storeName}`} />
+            <ListItemText primary={this.props.storeName ? `Rusticana-${this.props.storeName}` : 'Rusticana'} />
           </ListItem>
           <Divider />
 

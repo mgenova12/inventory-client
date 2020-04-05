@@ -9,6 +9,7 @@ export default gql`
 	    createdAt
 	    deliveryDay
 	    saleTotal
+	    paid
 	    store{
 	    	id
 	      name

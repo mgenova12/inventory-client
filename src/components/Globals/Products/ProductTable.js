@@ -1,18 +1,6 @@
-import React from 'react';
+import React from "react";
+import MaterialTable from 'material-table';
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom';
-import Edit from '@material-ui/icons/Edit';
-import Delete from '@material-ui/icons/Delete';
-import Check from '@material-ui/icons/Check';
-import AddCircle from '@material-ui/icons/AddCircle';
-import MUIDataTable from "mui-datatables";
-import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { finalMarkUpPrice } from "../../../utils/markUpUtils";
-
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-
-import PreppedProductFormDrawer from './PreppedProductFormDrawer'
 
 import { getProducts } from '../../../actions/getProducts.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
@@ -20,234 +8,96 @@ import { getCategories } from '../../../actions/getCategories.action';
 import { editProduct } from '../../../actions/editProduct.action';
 import { deleteProduct } from '../../../actions/deleteProduct.action';
 
+import PreppedProductFormDrawer from './PreppedProductFormDrawer'
+
 class ProductTable extends React.Component {
-	state = {
-		isEditing: false,
-		currentProductId: '',
-		name: '',
-		distributor: '',
-		category: '',
-		caseQuantity: '',
-		markUp: '',
-		price: '',
-		prepped: false,
-		togglePreppedDrawer: false,
-		rowData: []
-	}
+    state = {
+        togglePreppedDrawer: false,
+        rowData: [],
+    }
 
-	getRows = (obj) => {
-	  	const categoryMenu = this.props.onGetCategories.map(category => {
-	  		return <option key={category.id} value={category.name}>{category.name}</option>
-	  	})
-	  	const distributorMenu = this.props.onGetDistributors.map(distributor => {
-	  		return <option key={distributor.id} value={distributor.name}>{distributor.name}</option>
-	  	})			
-			let formatter = new Intl.NumberFormat('en-US', {
-			  style: 'currency',
-			  currency: 'USD',
-			});
-
-	    let rows = []
-	    for (var key in obj) {
-				if(this.state.isEditing && this.state.currentProductId === obj.id && key !== 'id' && key !== 'markedUpPrice'){
-					if (['category', 'distributor'].includes(key)) {
-						var menuOption = (
-						  key === 'category' ? categoryMenu : 
-						  key === 'distributor' ? distributorMenu : 
-						  null 
-						);						
-	    			rows.push(
-				    	<TextField
-				    		select
-				    		onChange={this.handleChange(key)}
-				    		defaultValue={obj[key] ? obj[key].name : ''}
-			          SelectProps={{
-			            native: true,
-			          }}				                 
-				        >		
-				        <option> </option>			        
-				        {menuOption}
-				      </TextField>	
-			       )
-					} else	 {
-						var adornment = (
-							key === 'price' ? {position:'startAdornment', symbol: '$'} :
-							key === 'markUp' ? {position:'endAdornment', symbol: '%'} :
-							''
-						)
-		    		rows.push(
-		    				<TextField 
-		    					value={this.state[key]} 
-		    					onChange={this.handleChange(key)}
-				          InputProps={{
-				            [adornment.position]: <InputAdornment>{adornment.symbol}</InputAdornment>,
-				          }}
-		    					/>
-		    		)
-	    		}
-
-				} else {
-			    if (!obj[key]) {
-							rows.push('');
-		    		} else if (typeof obj[key] === "object") {
-		           rows.push(obj[key].name)   
-		        } else if (key === "markUp") {
-		        	rows.push(`${obj[key]}%`)
-		        } else if(key === "price" || key === "markedUpPrice") {
-		        	rows.push(formatter.format(obj[key]))
-		        } else {
-		          rows.push(obj[key]);    
-		        } 
-				}    
-			}
-	    return rows
-	}
-
-	handleEdit = tableMeta => event  => {
-		event.stopPropagation()
-		let currentProductId = tableMeta.rowData[0]
-		this.setState(prevState => ({ 
-			togglePreppedDrawer: false,
-			isEditing: !prevState.isEditing, 
-			currentProductId: currentProductId,
-			name: tableMeta.rowData[1],
-			distributor: tableMeta.rowData[2],
-			category: tableMeta.rowData[3],
-			caseQuantity: tableMeta.rowData[4],
-			markUp:tableMeta.rowData[5].slice(0, -1),		
-			price:tableMeta.rowData[6].substring(1),		
-		}))
-	}
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
-  };
-
-	handleSubmit = event => {
-		event.preventDefault()
-		event.stopPropagation()
-		let markedUpPrice = finalMarkUpPrice(parseFloat(this.state.price), parseInt(this.state.markUp))
-		this.setState({ isEditing: false })
-		this.props.onEditProduct(
-			this.state.currentProductId, 
-			this.state.name,
-			this.state.distributor,
-			this.state.category,
-			this.state.price,
-			this.state.markUp,
-			this.state.caseQuantity,
-			this.state.prepped,
-			markedUpPrice,
-		)
-	}	
-
-	handleDelete = (tableMeta, event) => {
-		event.stopPropagation()
-		if (window.confirm('Are you sure you wish to delete this item?')) {
-			this.setState({togglePreppedDrawer: false})
-			let id = tableMeta.rowData[0]
-			this.props.onDeleteProduct(id, this.state.prepped)
-		}
-	}
-
-	handlePreppedDrawer = tableMeta => event => {
-		event.stopPropagation()
-		this.setState({togglePreppedDrawer: true, rowData: tableMeta.rowData})
-	}
-
-	redirectToShow = (rowData) => {
-		let id = rowData[0];
-		if (!this.state.isEditing){
-			this.props.history.push(`/globals/products/${id}`)
-		}
-	}
-
-	componentDidMount = () => {
-		this.props.onRequestProducts()
-		this.props.onRequestCategories()
-		this.props.onRequestDistributors()
-	}	
+    componentDidMount = () => {
+      this.props.onRequestProducts()
+      this.props.onRequestCategories()
+      this.props.onRequestDistributors()      
+    }    
 
   render() {
-  	const { products } = this.props.onGetProducts
-		const columns = [
-			"ID", "Name", "Distributor", 
-			"Category", "Case Quantity", "Mark Up", "Price", "Final Price",
-				{	
-	        name: "",
-	        options: {
-	          filter: false,
-	          customBodyRender: (value, tableMeta, updateValue) => (
-	          	(this.state.isEditing && tableMeta.rowData && tableMeta.rowData[0] === this.state.currentProductId ) ? (
-	          		<Check style={{cursor:'pointer'}} onClick={this.handleSubmit}/>
-	          	) :(
-	          		<Edit style={{cursor:'pointer'}} onClick={ this.handleEdit(tableMeta) }/>
-	          	)
-	          )
-	        }
-	      },	
-	      {
-	        name: "",
-	        options: {
-	          filter: false,
-	          customBodyRender: (value, tableMeta, updateValue) => (
-	          	<Delete style={{cursor:'pointer'}} onClick={ (e) => this.handleDelete(tableMeta, e) }/>
-	          )
-	        }
-	      },
-	      {
-	        name: "",
-	        options: {
-	          filter: false,
-	          customBodyRender: (value, tableMeta, updateValue) => (
-	          	<AddCircle style={{cursor:'pointer'}} onClick={ this.handlePreppedDrawer(tableMeta) }/>
-	          )
-	        }
-	      },		      		
-		];
-    
-		const data = products.map(product => {
-		  	return this.getRows(product)
-		})
-	  const theme = createMuiTheme({
-		  typography: {
-		    useNextVariants: true,
-		  },	  	
-	    overrides: {
-	      MUIDataTable: {
-	        responsiveScroll: {
-	          overflowX: 'none',
-	          height: 'auto',
-	          maxHeight: 'auto',
-	        },
-	      },
-	    },
-	  })		
-    return (
+      let products = this.props.onGetProducts.products
+      let distributors = this.props.onGetDistributors.reduce((obj, item) => (obj[item.name] = item.name, obj) ,{});
+      let categories = this.props.onGetCategories.reduce((obj, item) => (obj[item.name] = item.name, obj) ,{});
 
-      <div>
+    return (    
+      <div> 
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />      
       <PreppedProductFormDrawer 
-      	togglePreppedDrawer={this.state.togglePreppedDrawer} 
-      	rowData={this.state.rowData}
-      	categories={this.props.onGetCategories}
-      	/>
-      <MuiThemeProvider theme={theme}>
-				<MUIDataTable
-				  title={"Global Products"}
-				  data={data}
-				  columns={columns}
-				  options={{
-				    selectableRows: "none",
-				    responsive: "scrollFullHeight",
-				    rowsPerPage: 100,
-				    onRowClick: rowData => this.redirectToShow(rowData)
-				  }}
-				/>
-				</MuiThemeProvider>
-      </div>
+        togglePreppedDrawer={this.state.togglePreppedDrawer} 
+        rowData={this.state.rowData}
+        categories={this.props.onGetCategories}
+      />
 
+        <MaterialTable
+          title="Products"
+          columns={[
+            { title: 'ID', field: 'id', editable: 'never' },
+            { title: 'Name', field: 'name' },
+            { title: 'Distributor', field: 'distributor',
+              lookup: distributors
+            },
+            { title: 'Category', field: 'category',
+              lookup: categories
+            },
+            { title: 'Case Quantity', field: 'caseQuantity' },
+            { title: 'Mark Up', field: 'markUp'},
+            { title: 'Price', field: 'price', type: "currency" },
+            { title: 'Final Price', field: 'markedUpPrice', editable: 'never', type: "currency" },
+
+          ]}
+          data={products}
+          options={{
+            paging: false,
+            actionsColumnIndex: -1
+          }}
+          editable={{
+            onRowUpdate: (newData, oldData) =>
+              new Promise(resolve => {
+                setTimeout(() => {
+                  resolve();
+                  this.props.onEditProduct(
+                    newData.id, 
+                    newData.name,
+                    newData.distributor,
+                    newData.category,
+                    newData.price,
+                    newData.markUp,
+                    newData.caseQuantity,
+                    false,
+                  )
+                }, 600);
+              }),
+            onRowDelete: oldData =>
+              new Promise(resolve => {
+                setTimeout(() => {
+                  resolve();
+                  this.props.onDeleteProduct(oldData.id, oldData.prepped)
+                }, 600);
+              }), 
+            }}
+          actions={[
+            {
+              icon: 'add',
+              tooltip: 'Add',
+              onClick: (event, rowData) => {
+                event.stopPropagation()
+                this.setState({togglePreppedDrawer: true, rowData: rowData})                
+              }
+            },           
+          ]}             
+        />
+      </div>
     );
   }
 }
@@ -267,5 +117,7 @@ const mapActionsToProps = {
 };
 
 
-export default connect(mapStateToProps, mapActionsToProps)(withRouter(ProductTable));
+export default connect(mapStateToProps, mapActionsToProps)(ProductTable);
+
+
 

@@ -10,8 +10,12 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
 	const newState = { ...state };
 	switch (type) {
-		case actionTypes.GET_PRODUCTS:
-		      newState.products = payload.products;
+		case actionTypes.GET_PRODUCTS:					
+					newState.products = payload.products.map((product)=> {
+		         product.distributor = product.distributor.name
+		         product.category = product.category.name
+		         return product
+		      })		      
 		      return newState;
 		case actionTypes.GET_PREPPED_PRODUCTS:
 		      newState.preppedProducts = payload.preppedProducts;
@@ -20,9 +24,12 @@ export default (state = initialState, { type, payload }) => {
 					newState.product = payload.getProduct
 					return newState
 		case actionTypes.EDIT_PRODUCT: 
-				let productIndex = newState.products.findIndex(product => product.id === payload.editProduct.product.id)
+				let editProduct = payload.editProduct.product
+        editProduct.distributor = editProduct.distributor.name
+        editProduct.category = editProduct.category.name
+				let productIndex = newState.products.findIndex(product => product.id === editProduct.id)
 				return {
-					products: update(newState.products, { $splice: [[productIndex, 1, payload.editProduct.product]] })
+					products: update(newState.products, { $splice: [[productIndex, 1, editProduct]] })
 				}
 		case actionTypes.EDIT_PREPPED_PRODUCT: 
 				let preppedProductIndex = newState.preppedProducts.findIndex(product => product.id === payload.editPreppedProduct.product.id)
