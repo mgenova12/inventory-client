@@ -1,6 +1,7 @@
 import React from "react";
 import MaterialTable from 'material-table';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 
 import { getProducts } from '../../../actions/getProducts.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
@@ -21,6 +22,10 @@ class ProductTable extends React.Component {
       this.props.onRequestCategories()
       this.props.onRequestDistributors()      
     }    
+
+    handleRowClick = (event, rowData) => {
+      this.props.history.push(`/globals/products/${rowData.id}`)
+    }
 
   render() {
       let products = this.props.onGetProducts.products
@@ -60,7 +65,8 @@ class ProductTable extends React.Component {
           options={{
             paging: false,
             actionsColumnIndex: -1
-          }}
+          }}  
+          onRowClick={this.handleRowClick}        
           editable={{
             onRowUpdate: (newData, oldData) =>
               new Promise(resolve => {
@@ -117,7 +123,7 @@ const mapActionsToProps = {
 };
 
 
-export default connect(mapStateToProps, mapActionsToProps)(ProductTable);
+export default connect(mapStateToProps, mapActionsToProps)(withRouter(ProductTable));
 
 
 

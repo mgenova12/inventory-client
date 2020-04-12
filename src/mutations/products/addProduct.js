@@ -11,7 +11,7 @@ export default gql`
 	  $prepped: Boolean!,
     $barcode: Int, 
     $description: String,
-    $distributorNumber: Int, 
+    $distributorNumber: String, 
     $brand: String,
     $unitSize: String,
     $documentData: [String!]

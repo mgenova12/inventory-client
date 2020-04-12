@@ -36,7 +36,7 @@ class PreppedProductTable extends React.Component {
             },
             { title: 'Portion Size', field: 'portionSize' },
             { title: 'Case Quantity', field: 'caseQuantity' },
-            { title: 'Mark Up', field: 'markUp'},
+            { title: 'Mark Up', field: 'markUp', type: 'percentage'},
             { title: 'Final Price', field: 'markedUpPrice', editable: 'never', type: "currency" },
 
           ]}

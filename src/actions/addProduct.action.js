@@ -18,7 +18,7 @@ export function addProduct(name, distributorId, categoryId, price, markUp, caseQ
         prepped: prepped,
         barcode: parseInt(barcode),
         description: description,
-        distributorNumber: parseInt(distributorNumber),
+        distributorNumber: distributorNumber,
         brand: brand,
         unitSize: unitSize,
         documentData: documentData,

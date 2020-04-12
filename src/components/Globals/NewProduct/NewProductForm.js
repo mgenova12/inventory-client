@@ -266,7 +266,6 @@ class NewProductForm extends React.Component {
 					<TextField
 					  placeholder="Add Distributor ID Number"
 					  variant="outlined"
-					  type="number"
 					  margin="normal"
 					  label="Distributor Number"
 					  fullWidth
