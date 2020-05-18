@@ -37,11 +37,11 @@ class GlobalNav extends React.Component {
           </ListItem>
       		<Divider />
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to={`/`} key={'Home'}>
-            <ListItemIcon><Home/> </ListItemIcon>
+            <ListItemIcon><Home/></ListItemIcon>
             <ListItemText primary={'Home'} />
           </ListItem>          
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to="/globals/products" key={'Products'}>
-            <ListItemIcon><Restaurant/> </ListItemIcon>
+            <ListItemIcon><Restaurant/></ListItemIcon>
             <ListItemText primary={'Products'} />
           </ListItem>
 
@@ -52,11 +52,11 @@ class GlobalNav extends React.Component {
           </a>
 
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to="/globals/distributors" key={'Distributors'}>
-            <ListItemIcon><LocalShipping/> </ListItemIcon>
+            <ListItemIcon><LocalShipping/></ListItemIcon>
             <ListItemText primary={'Distributors'} />
           </ListItem>
           <ListItem onClick={() => this.toggleDrawer(false)} button component={Link} to="/globals/products/new" key={'Add Product'}>
-            <ListItemIcon><AddShoppingCart/> </ListItemIcon>
+            <ListItemIcon><AddShoppingCart/></ListItemIcon>
             <ListItemText primary={'Add Product'} />
           </ListItem>                                      
       </List>

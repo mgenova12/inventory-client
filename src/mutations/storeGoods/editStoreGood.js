@@ -9,7 +9,7 @@ export default gql`
 	  $countBy: String!, 
     $replenishBy: String!,
     $deliveryDay: String!,
-    $amountInStock: Int!
+    $amountInStock: Int
   ) {
     editStoreGood(input: { 
       id: $id,
