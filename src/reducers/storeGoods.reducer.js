@@ -31,10 +31,17 @@ export default (state = initialState, { type, payload }) => {
 				}					
 				
 			case actionTypes.UPDATE_AMOUNT_IN_STOCK:
-				let storeGoodIdx = newState.storeGoods.findIndex(storeGood => storeGood.id === payload.updateAmountInStock.storeGood.id)
+				let updateAmountInStock = payload.updateAmountInStock.storeGood
+       	updateAmountInStock.countBy = updateAmountInStock.countBy.name
+       	updateAmountInStock.location = updateAmountInStock.location.name
+       	updateAmountInStock.distributor = updateAmountInStock.distributor.name
+       	updateAmountInStock.product = updateAmountInStock.product.name				
+
+				let storeGoodIdx = newState.storeGoods.findIndex(storeGood => storeGood.id === updateAmountInStock.id)
 				return {
-					storeGoods: update(newState.storeGoods, { $splice: [[storeGoodIdx, 1, payload.updateAmountInStock.storeGood]] })
+					storeGoods: update(newState.storeGoods, { $splice: [[storeGoodIdx, 1, updateAmountInStock]] })
 				}		
+
 			case actionTypes.DELETE_STORE_GOOD:
 				let currentStoreGood = newState.storeGoods.find(storeGood => {
 						return storeGood.id === payload

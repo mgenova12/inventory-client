@@ -31,10 +31,6 @@ class InventoryTable extends React.Component {
 		this.props.onEditInventoryQuantityNeeded(storeId).then(() => this.props.history.push(`/store/${storeId}/Success`))
 	}
 
-	// checkForm = (event) => {
-
-	// }
-
 
   render() {
   	const deliveryDay = this.props.match.params.deliveryDay

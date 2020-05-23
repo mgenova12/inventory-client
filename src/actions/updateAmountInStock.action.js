@@ -17,7 +17,7 @@ export function updateAmountInStock(id, amountInStock) {
             type: actionTypes.UPDATE_AMOUNT_IN_STOCK,
             payload: result.data.data
           })       
-    });
+    }).catch(err => console.log(err));
     
   }
 }
