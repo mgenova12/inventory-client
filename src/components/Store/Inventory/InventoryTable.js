@@ -6,6 +6,7 @@ import { editInventory } from '../../../actions/editInventory.action';
 import { editInventoryQuantityNeeded } from '../../../actions/editInventoryQuantityNeeded.action';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import $ from 'jquery';
 
 class InventoryTable extends React.Component {
 	state = {
@@ -30,6 +31,11 @@ class InventoryTable extends React.Component {
 		this.props.onEditInventoryQuantityNeeded(storeId).then(() => this.props.history.push(`/store/${storeId}/Success`))
 	}
 
+	// checkForm = (event) => {
+
+	// }
+
+
   render() {
   	const deliveryDay = this.props.match.params.deliveryDay
   	let title  = (
@@ -37,12 +43,26 @@ class InventoryTable extends React.Component {
 		  deliveryDay === 'false' ? 'Non-Prepped' :  
 		  deliveryDay
 		);
-    return (    
-    	<div> 
+
+		$('.form').on('keydown', 'input, select', function(e) {
+		    if (e.key === "Enter") {
+		        var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+		        focusable = form.find('input,a,select,button,textarea').filter(':visible');
+		        next = focusable.eq(focusable.index(this)+1);
+		        if (next.length) {
+		            next.focus();
+		        } else {
+		            form.submit();
+		        }
+		        return false;
+		    }
+		});
+
+    return ( 
+    	<div className='form'> 
 	    	<h3 align="center"> Inventory For {title} </h3>
 	    	<div className="table-responsive">
-	    	<form >
-
+	    	<form onSubmit={this.handleSubmit}>
 				  <table className="table table-striped">
 				    <thead>
 				      <tr>
@@ -122,7 +142,7 @@ class InventoryTable extends React.Component {
 
 				  </table>
 				  <div align="center"> 
-           <Button size='large' variant="contained" color="primary" onClick={this.handleSubmit}>
+           <Button size='large' type='submit' variant="contained" color="primary" >
                 Submit Inventory
            </Button>
           </div> 
