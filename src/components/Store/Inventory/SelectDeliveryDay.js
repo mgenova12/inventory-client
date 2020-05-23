@@ -32,12 +32,7 @@ class SelectDeliveryDay extends React.Component {
 
   createRedirect = () => {	
     let storeId = this.props.match.params.storeId
-  	this.props.onAddInventory(storeId, this.state.deliveryDay).then(() => this.props.history.push(`/store/${storeId}/Inventory/${this.state.deliveryDay}`)) 	
-  }
-
-  redirect = () => {
-  	let storeId = this.props.match.params.storeId
-  	this.props.history.push(`/store/${storeId}/Inventory/${this.state.deliveryDay}`)
+  	this.props.onAddInventory(storeId, this.state.deliveryDay)
   }
 
 	componentDidMount = () => {
@@ -95,9 +90,11 @@ class SelectDeliveryDay extends React.Component {
 	        {this.state.deliveryDaySelected &&
 	        	<Grow in={true}>
 		        	<div>
+		        	<a href={`/store/${this.props.match.params.storeId}/Inventory/${this.state.deliveryDay}`}>
 			           <Button type='submit' variant="contained" color="primary" size="large" onClick={this.createRedirect}>
 			                Start Inventory
 			           </Button>
+           		</a>  			           
 		           </div>
            	</Grow>
 	        }
@@ -106,9 +103,11 @@ class SelectDeliveryDay extends React.Component {
       	<div className="center-screen"> 
       		<h1> An Inventory Has Already Been Started! </h1>
            <div className="buttons"> 
-           <Button className="button" type='submit' variant="contained" color="primary" size="large" onClick={this.redirect}>
-                Go To Inventory
-           </Button>      	
+           <a href={`/store/${this.props.match.params.storeId}/Inventory/${this.state.deliveryDay}`}>
+	           	<Button className="button" type='submit' variant="contained" color="primary" size="large" onClick={this.redirect}>
+	                Go To Inventory
+           	</Button>
+ 						</a>
 	         <Button className="button" type='submit' variant="contained" color="secondary" size="large" onClick={this.cancelInventory}>
 	              Cancel Inventory
 	         </Button> 

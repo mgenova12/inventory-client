@@ -56,7 +56,7 @@ class InventoryTable extends React.Component {
 				          <th className="location-header" colSpan="3">{location.name}</th>
 				        </tr>
 				        { location.inventories.map((invent) => (
-				        	(invent.storeGood &&
+				        	(invent.storeGood && invent.storeGood.product &&
 					        <tr key={invent.id}> 
 					          <td>{invent.storeGood.product.name}</td>
 					          <td>{invent.storeGood.countBy.name}</td>
