@@ -4,8 +4,10 @@ import { getProduct } from '../../../actions/getProduct.action';
 import TextField from '@material-ui/core/TextField';
 import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCategories } from '../../../actions/getCategories.action';
+import { editProduct } from '../../../actions/editProduct.action';
 import NumberFormat from 'react-number-format'
 import Edit from '@material-ui/icons/Edit';
+import Button from '@material-ui/core/Button';
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -45,6 +47,21 @@ class ProductShow extends React.Component {
     this.setState({isEditing: !this.state.isEditing}) 
   }
 
+  handleSave = (product) => {
+    console.log(product)
+    // this.props.onEditProduct(
+    //   product.id, 
+    //   product.name,
+    //   product.distributor,
+    //   product.category,
+    //   product.price,
+    //   product.markUp,
+    //   product.caseQuantity,
+    //   false,
+    // )
+    // this.setState({isEditing: !this.state.isEditing})
+  }
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -77,10 +94,18 @@ class ProductShow extends React.Component {
               )}
             </div>
             
-            <div> 
+            <div className="d-inline-block"> 
               <h2>Product Details <Edit style={{cursor:'pointer'}} onClick={() => this.handleEdit()}/></h2> 
-              <hr/>
             </div>
+
+            { isEditing &&
+            <div className="d-inline-block">
+              <Button size='small' variant="contained" color="primary" onClick={this.handleSave(product)}>
+                    Save
+               </Button>
+            </div>
+            }
+            <hr/>
             
             {
               !isEditing ?
@@ -191,6 +216,7 @@ const mapStateToProps = state => ({
 });
 
 const mapActionsToProps = {
+  onEditProduct: editProduct,
   onRequestProduct: getProduct,
   onRequestCategories: getCategories,
   onRequestDistributors: getDistributors,  

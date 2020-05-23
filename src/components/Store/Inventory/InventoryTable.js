@@ -41,7 +41,8 @@ class InventoryTable extends React.Component {
     	<div> 
 	    	<h3 align="center"> Inventory For {title} </h3>
 	    	<div className="table-responsive">
-	    	<form onSubmit={this.handleSubmit}>
+	    	<form >
+
 				  <table className="table table-striped">
 				    <thead>
 				      <tr>
@@ -121,7 +122,7 @@ class InventoryTable extends React.Component {
 
 				  </table>
 				  <div align="center"> 
-           <Button size='large' type='submit' variant="contained" color="primary">
+           <Button size='large' variant="contained" color="primary" onClick={this.handleSubmit}>
                 Submit Inventory
            </Button>
           </div> 
