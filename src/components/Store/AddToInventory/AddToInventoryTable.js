@@ -20,6 +20,7 @@ class AddToInventoryTable extends React.Component {
       openModal: false,
       action: '',
       amount: 0,
+      isLoading: true
     }
 
     handleChange = name => event => {
@@ -61,12 +62,13 @@ class AddToInventoryTable extends React.Component {
 
 
     componentDidMount = () => {
-      this.props.onRequestStoreGoods(parseInt(this.props.storeId))     
+      this.props.onRequestStoreGoods(parseInt(this.props.storeId)).then(() => this.setState({isLoading: false}))
     }    
 
 
   render() {
-      let storeGoods = this.props.onGetStoreGoods
+    let storeGoods = this.props.onGetStoreGoods
+
     return (    
       <div> 
       <link
@@ -147,6 +149,7 @@ class AddToInventoryTable extends React.Component {
 
 
         <MaterialTable
+          isLoading={this.state.isLoading}
           title="Add To Inventory"
           columns={
             [

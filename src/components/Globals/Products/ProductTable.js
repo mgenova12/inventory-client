@@ -15,10 +15,11 @@ class ProductTable extends React.Component {
     state = {
         togglePreppedDrawer: false,
         rowData: [],
+        isLoading: true
     }
 
     componentDidMount = () => {
-      this.props.onRequestProducts()
+      this.props.onRequestProducts().then(() => this.setState({isLoading: false}))
       this.props.onRequestCategories()
       this.props.onRequestDistributors()      
     }    
@@ -45,6 +46,7 @@ class ProductTable extends React.Component {
       />
 
         <MaterialTable
+          isLoading={this.state.isLoading}
           title="Products"
           columns={[
             { title: 'ID', field: 'id', editable: 'never' },

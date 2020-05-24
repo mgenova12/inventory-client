@@ -9,9 +9,12 @@ import { getCountBies } from '../../../actions/getCountBies.action';
 import { getLocations } from '../../../actions/getLocations.action';
 
 class StoreGoodsTable extends React.Component {
+  state = {
+    isLoading: true
+  }
 
   componentDidMount = () => {
-    this.props.onRequestStoreGoods(parseInt(this.props.storeId))
+    this.props.onRequestStoreGoods(parseInt(this.props.storeId)).then(() => this.setState({isLoading: false})) 
     this.props.onRequestLocations(parseInt(this.props.storeId))
     this.props.onRequestDistributors()
     this.props.onRequestCountBies()
@@ -30,6 +33,7 @@ class StoreGoodsTable extends React.Component {
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />      
         <MaterialTable
+          isLoading={this.state.isLoading}
           title="Store Goods"
           columns={[
               { title: 'ID', field: 'id', editable: 'never' },

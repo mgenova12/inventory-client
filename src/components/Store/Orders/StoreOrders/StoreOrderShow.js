@@ -131,7 +131,7 @@ class StoreOrderShow extends React.Component {
 										      </tr>
 								    		{
 								    			this.props.onGetInventoryOrder.filter((inventoryOrder) => {
-											    		if(inventoryOrder.storeGood.distributor.name === 'Trappe'){
+											    		if(inventoryOrder.storeGood.distributor.name.toLowerCase() === 'trappe'){
 											    			if(this.state.scanned){
 											    				return inventoryOrder.scanned
 											    			} else {

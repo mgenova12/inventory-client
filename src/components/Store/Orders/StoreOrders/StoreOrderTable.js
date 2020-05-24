@@ -74,7 +74,7 @@ class StoreOrderTable extends React.Component {
 
 				        <td>{new Date(storeOrder.deliveryDate).toLocaleDateString("en-US", { weekday: 'long'})} {new Date(storeOrder.deliveryDate).toLocaleDateString()}</td>
 				        <td>{storeOrder.status} </td>
-				        <td>{new Date(storeOrder.updatedAt).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</td>
+				        <td>{new Date(storeOrder.updatedAt.replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</td>
 
 				      </tr>
 				    ))}
