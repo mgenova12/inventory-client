@@ -30,7 +30,7 @@ export function addProduct(name, distributorId, categoryId, price, markUp, caseQ
       },
     })
     .then((result) => {
-        console.log(result)
+        // console.log(result)
     })
     .catch(err => console.log(err))
     

@@ -3,8 +3,6 @@ import axios from "axios";
 import getInventoryQuery from '../queries/inventories/getInventory';
 import { print } from 'graphql';
 
-
-
 export function getInventory(storeId) {
   return async (dispatch, getState) => {
     let data = localStorage.getItem('data')

@@ -8,6 +8,7 @@ export default gql`
 	    inventories{
 	      id
 				quantity
+				status
 				storeGood{
 	        id
 	        product{
