@@ -33,6 +33,8 @@ class InventoryTable extends React.Component {
 
 
   render() {
+
+
   	const deliveryDay = this.props.match.params.deliveryDay
   	let title  = (
 		  deliveryDay === 'true' ? 'Prepped' :  

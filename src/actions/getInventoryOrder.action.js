@@ -5,7 +5,7 @@ import { print } from 'graphql';
 
 export function getInventoryOrder(storeId, orderId) {
   return async (dispatch, getState) => {
-    axios
+    await axios
     .post(`${process.env.REACT_APP_API_URL}graphql`, {
       query: print(getInventoryOrderQuery),
       variables: {
