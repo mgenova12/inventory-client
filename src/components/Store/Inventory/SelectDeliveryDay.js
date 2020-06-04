@@ -14,7 +14,8 @@ class SelectDeliveryDay extends React.Component {
 	state = {
 		deliveryDay: '',
 		deliveryDaySelected: false,
-		inventoryCount: null
+		inventoryCount: null,
+		loading: false
 	}
 
  handleChange = name => event => {
@@ -32,7 +33,8 @@ class SelectDeliveryDay extends React.Component {
 
   createRedirect = () => {	
     let storeId = this.props.match.params.storeId
-  	this.props.onAddInventory(storeId, this.state.deliveryDay)
+    this.setState({loading: true})
+  	this.props.onAddInventory(storeId, this.state.deliveryDay).then(() => this.props.history.push(`/store/${storeId}/Inventory/${this.state.deliveryDay}`)).then(() => this.setState({loading: false}))
   }
 
 	componentDidMount = () => {
@@ -48,6 +50,9 @@ class SelectDeliveryDay extends React.Component {
 	}	  
 		
   render() {
+    if (this.state.loading) {
+      return <h1>Loading...</h1>;
+    }  	
 		if (this.props.onGetStoreInventory === undefined) { return null }
     return ( 
     <div>   
@@ -90,11 +95,9 @@ class SelectDeliveryDay extends React.Component {
 	        {this.state.deliveryDaySelected &&
 	        	<Grow in={true}>
 		        	<div>
-		        	<a href={`/store/${this.props.match.params.storeId}/Inventory/${this.state.deliveryDay}`}>
 			           <Button type='submit' variant="contained" color="primary" size="large" onClick={this.createRedirect}>
 			                Start Inventory
 			           </Button>
-           		</a>  			           
 		           </div>
            	</Grow>
 	        }

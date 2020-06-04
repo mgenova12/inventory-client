@@ -13,9 +13,9 @@ class InventoryTable extends React.Component {
 		quantity: []
 	}
 
-	componentDidMount = () => {
+	async componentDidMount() {
 		let storeId = this.props.match.params.storeId
-		this.props.onRequestInventory(storeId)
+		await this.props.onRequestInventory(storeId)
 	}	
 
 	handleChange = (inventoryId) => event => {
@@ -31,9 +31,7 @@ class InventoryTable extends React.Component {
 		this.props.onEditInventoryQuantityNeeded(storeId).then(() => this.props.history.push(`/store/${storeId}/Success`))
 	}
 
-
   render() {
-
 
   	const deliveryDay = this.props.match.params.deliveryDay
   	let title  = (
