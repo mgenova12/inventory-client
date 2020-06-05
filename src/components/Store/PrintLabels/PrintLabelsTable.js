@@ -11,37 +11,15 @@ class PrintLabelsTable extends React.Component {
           { title: 'Barcode', field: 'barcode' },
           { title: 'Name', field: 'product' },
         ],
-        data: [],
         action: '',
         rowData: {},
-        currentId: ''
+        currentId: '',
+        isLoading: true
     }
 
-    getRows = (storeGoods) => {
-      const flattenObject = (obj) => {
-       if(obj.product.prepped){
-       	const flattened = {}
-        Object.keys(obj).forEach((key) => {
-          if (typeof obj[key] === 'object' && obj[key] !== null) {
-            flattened[key] = obj[key].name
-            obj[key].barcode ? flattened['barcode'] = obj[key].barcode : flattened[key] = ''
-          } else {
-            flattened[key] = obj[key]
-          }
-        })
-        const data = [...this.state.data];
-        data.push(flattened);
-        this.setState({ ...this.state, data });
-       }
-      }       
-      storeGoods.forEach(storeGood => {  
-        flattenObject(storeGood)       
-      })
-    }
 
     handleSubmit = (event) => {
       event.preventDefault()
-
     }
 
     handleChange = name => event => {
@@ -51,10 +29,11 @@ class PrintLabelsTable extends React.Component {
     };     
 
     componentDidMount = () => {
-      this.props.onRequestStoreGoods(parseInt(this.props.storeId)).then(() => this.getRows(this.props.onGetStoreGoods))
+      this.props.onRequestStoreGoods(parseInt(this.props.storeId)).then(() => this.setState({isLoading: false})) 
     }    
 
   render() {
+    const storeGoods = this.props.onGetStoreGoods
     return (    
 			<div> 
       <link
@@ -63,8 +42,9 @@ class PrintLabelsTable extends React.Component {
       />        
         <MaterialTable
           title="Search Labels"
+          isLoading={this.state.isLoading}
           columns={this.state.columns}
-          data={this.state.data}
+          data={storeGoods}
           options={{
             paging: false,
             actionsColumnIndex: -1,
