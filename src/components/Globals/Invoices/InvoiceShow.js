@@ -61,12 +61,11 @@ class InvoiceShow extends React.Component {
 				    	{
 				    		<tbody>
 					    		{
-					    			this.props.onGetInventoryOrder.filter((inventoryOrder) => {
+					    			this.props.onGetInventoryOrder.forEach((inventoryOrder) => {
 								    		if(inventoryOrder.storeGood.distributor.name === 'Trappe'){
 								    			return inventoryOrder.scanned
 								    		}
 								    }).map((stortedInventoryOrder) => {
-								    		console.log(stortedInventoryOrder.storeGood)
 										      return (
 											      <tr key={stortedInventoryOrder.id} >
 												      <td>
@@ -94,7 +93,7 @@ class InvoiceShow extends React.Component {
 				        <th className="text-center text-danger bg-dark" colSpan="6">Not Delivered!</th>
 				      </tr>								    		
 				      {
-				      	this.props.onGetInventoryOrder.map((inventoryOrder) => {
+				      	this.props.onGetInventoryOrder.forEach((inventoryOrder) => {
 					    		if(inventoryOrder.storeGood.distributor.name === 'Trappe' && !inventoryOrder.scanned){
 					    			return (
 								      <tr key={inventoryOrder.id} >

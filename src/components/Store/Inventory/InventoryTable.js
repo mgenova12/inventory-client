@@ -81,6 +81,7 @@ class InventoryTable extends React.Component {
 					          {invent.storeGood.countBy.name !== '%' ? (
 				            	<TextField
 				                required
+				                pattern="\d*"
 				                type="number"
 				                label="Quantity"
 				                defaultValue={invent.quantity}

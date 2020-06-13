@@ -114,7 +114,7 @@ class OrderShow extends React.Component {
 											    		return inventoryOrder.quantityNeeded !== 0
 											    	}
 
-											    }).map((stortedInventoryOrder) => {
+											    }).forEach((stortedInventoryOrder) => {
 								    			if(i === stortedInventoryOrder.storeGood.product.aisleNumber){
 												      return (
 													      <tr key={stortedInventoryOrder.id} >
@@ -158,7 +158,7 @@ class OrderShow extends React.Component {
 											    		return inventoryOrder.quantityNeeded !== 0
 											    	}
 
-											    }).map((stortedInventoryOrder) => {
+											    }).forEach((stortedInventoryOrder) => {
 
 									    			if(category.name === stortedInventoryOrder.storeGood.product.category.name){
 													      return (

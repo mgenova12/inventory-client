@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
-import { getStoreOrders } from '../../../../actions/getStoreOrders.action';
+import { getStoreOrders } from '../../../../actions/getStoreOrdersTable.action';
 import { getStores } from '../../../../actions/getStores.action';
 import '../index.css'
 

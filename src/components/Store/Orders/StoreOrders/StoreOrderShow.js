@@ -137,9 +137,10 @@ class StoreOrderShow extends React.Component {
 											    			} else {
 											    				return !inventoryOrder.scanned
 											    			}
+											    		} else {
+											    			return null
 											    		}
 											    }).map((stortedInventoryOrder) => {
-
 									    			if(containerType.id === stortedInventoryOrder.storeGood.containerTypeId){
 													      return (
 														      <tr key={stortedInventoryOrder.id} >
@@ -156,6 +157,8 @@ class StoreOrderShow extends React.Component {
 														        <td>{stortedInventoryOrder.quantityNeeded} {stortedInventoryOrder.storeGood.replenishBy}</td>
 														      </tr>		
 													      )
+									    			} else {
+									    				return null
 									    			}
 
 									    		})

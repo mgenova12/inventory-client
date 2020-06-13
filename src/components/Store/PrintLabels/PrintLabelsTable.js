@@ -73,7 +73,6 @@ class PrintLabelsTable extends React.Component {
 
 const mapStateToProps = state => ({
   onGetStoreGoods: state.storeGoodsReducer.storeGoods,
-
 });
 
 const mapActionsToProps = {

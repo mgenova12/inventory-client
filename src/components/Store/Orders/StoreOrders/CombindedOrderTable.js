@@ -20,30 +20,34 @@ class CombindedOrderTable extends React.Component {
 	}
 
 
-getRows = (storeOrders) => {
-	 		storeOrders.map(storeOrder => {
-	 			storeOrder.orders.forEach(order => {
-	 				order.inventories.forEach(inventory => {
-	 					const data = [...this.state.data]
-	 					
-	 					if(this.state.data.find(p => p.product === inventory.storeGood.product.name)){
-	 						let finder = data.find(p => p.product === inventory.storeGood.product.name)
-	 						finder[inventory.store.name] = inventory.quantityNeeded
-	 						finder['total'] = finder['total'] + inventory.quantityNeeded
-	 					} else {
-	 						data.push({product: inventory.storeGood.product.name, [inventory.store.name]:inventory.quantityNeeded, total: inventory.quantityNeeded, onHand: null});
-	 					}
-	 					this.setState({ ...this.state, data });
-	 				})
-	 			})
-	  	})
+getRows = () => {
+  	let storeOrders = this.props.onGetStoreOrders[0]
+  	if (storeOrders) {
+  		let orders = storeOrders.orders
+  		if (orders){
+	  		orders.forEach((order) => {
+		  			order.inventories.forEach((inventory) => {
+							const data = [...this.state.data]
+							if(this.state.data.find(p => p.product === inventory.storeGood.product.name)){
+								let finder = data.find(p => p.product === inventory.storeGood.product.name)
+								finder[inventory.store.name] = inventory.quantityNeeded
+								finder['total'] = finder['total'] + inventory.quantityNeeded
+							} else {
+								data.push({product: inventory.storeGood.product.name, [inventory.store.name]:inventory.quantityNeeded, total: inventory.quantityNeeded, onHand: null});
+							}
+							this.setState({ ...this.state, data });
+						})
+
+	  		})
+  		}
+  	}
 }
 
-getAmountInStock = (storeGood) => {
-		this.props.onGetStoreGoods.map(storeGood => {
+getAmountInStock = () => {
+		this.props.onGetStoreGoods.forEach(storeGood => {
 			const data = [...this.state.data]
-			if(this.state.data.find(p => p.product === storeGood.product.name)){
-				let finder = data.find(p => p.product === storeGood.product.name)
+			if(this.state.data.find(p => p.product === storeGood.product)){
+				let finder = data.find(p => p.product === storeGood.product)
 				finder['onHand'] = storeGood.amountInStock
 				finder['Need'] = finder['total'] - finder['onHand']
 			}
@@ -52,11 +56,12 @@ getAmountInStock = (storeGood) => {
 }
 
 	componentDidMount = () => {
-		this.props.onRequestStoreOrders().then(() => this.getRows(this.props.onGetStoreOrders))
-		this.props.onRequestStoreGoods(this.props.match.params.storeId).then(() => this.getAmountInStock(this.props.onGetStoreGoods))
+		this.props.onRequestStoreOrders().then(() => this.getRows())
+		this.props.onRequestStoreGoods(this.props.match.params.storeId).then(() => this.getAmountInStock())
 	}	
 
   render() {
+
     return (    
 	    	<div>
       <link

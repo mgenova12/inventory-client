@@ -20,6 +20,7 @@ export default gql`
 		      }	          
           storeGood{
           	id
+          	amountInStock
           	distributor{
           		id
           		name
