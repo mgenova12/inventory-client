@@ -10,6 +10,11 @@ export default gql`
 	  $markUp: Int!, 
 	  $caseQuantity: Int, 
 	  $prepped: Boolean!,
+    $description: String,
+    $unitSize: String ,
+    $brand: String,
+    $distributorNumber: String,
+    $barcode: Int
   ) {
     editProduct(input: { 
       id: $id,
@@ -20,6 +25,11 @@ export default gql`
     	markUp: $markUp,
     	caseQuantity: $caseQuantity,
     	prepped: $prepped,
+      description: $description,
+      unitSize: $unitSize,
+      brand: $brand,
+      distributorNumber: $distributorNumber,
+      barcode: $barcode
     }) {
       product {
         id

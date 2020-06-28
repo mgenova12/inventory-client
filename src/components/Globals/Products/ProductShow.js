@@ -4,7 +4,7 @@ import { getProduct } from '../../../actions/getProduct.action';
 import TextField from '@material-ui/core/TextField';
 import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCategories } from '../../../actions/getCategories.action';
-import { editProduct } from '../../../actions/editProduct.action';
+import { editProduct } from '../../../actions/product.action';
 import NumberFormat from 'react-number-format'
 import Edit from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
@@ -30,6 +30,7 @@ function NumberFormatCustom(props) {
 
 class ProductShow extends React.Component {
   state = {
+    productId: '',
     isEditing: false,
     distributor: '',
     category: '',
@@ -40,26 +41,45 @@ class ProductShow extends React.Component {
     description: '',
     distributorNumber: '',
     brand: '',
-    unitSize: ''
+    unitSize: '',
+    prepped: false
   }
 
-  handleEdit = () => {
-    this.setState({isEditing: !this.state.isEditing}) 
+  handleEdit = (product) => {
+    this.setState({
+      isEditing: !this.state.isEditing,
+      productId: product.id,
+      name: product.name,
+      distributor: product.distributor.name,
+      category: product.category.name,
+      price: product.price,
+      markUp: product.markUp,
+      caseQuantity: product.caseQuantity,
+      description: product.description,
+      unitSize: product.unitSize,
+      brand: product.brand,
+      distributorNumber: product.distributorNumber,
+      barcode: product.barcode,
+    }) 
   }
 
-  handleSave = (product) => {
-    console.log(product)
-    // this.props.onEditProduct(
-    //   product.id, 
-    //   product.name,
-    //   product.distributor,
-    //   product.category,
-    //   product.price,
-    //   product.markUp,
-    //   product.caseQuantity,
-    //   false,
-    // )
-    // this.setState({isEditing: !this.state.isEditing})
+  handleSave = () => {
+    this.props.onEditProduct(
+      this.state.productId, 
+      this.state.name,
+      this.state.distributor,
+      this.state.category,
+      this.state.price,
+      this.state.markUp,
+      this.state.caseQuantity,
+      this.state.prepped,
+      this.state.description,
+      this.state.unitSize,
+      this.state.brand,
+      this.state.distributorNumber,
+      this.state.barcode,
+    )
+    window.location.reload();
   }
 
   handleChange = name => event => {
@@ -95,16 +115,10 @@ class ProductShow extends React.Component {
             </div>
             
             <div className="d-inline-block"> 
-              <h2>Product Details <Edit style={{cursor:'pointer'}} onClick={() => this.handleEdit()}/></h2> 
+              <h2>Product Details <Edit style={{cursor:'pointer'}} onClick={() => this.handleEdit(product)}/></h2> 
             </div>
 
-            { isEditing &&
-            <div className="d-inline-block">
-              <Button size='small' variant="contained" color="primary" onClick={this.handleSave(product)}>
-                    Save
-               </Button>
-            </div>
-            }
+
             <hr/>
             
             {
@@ -123,7 +137,7 @@ class ProductShow extends React.Component {
             </ul> 
 
             :
-
+            <form onSubmit={this.handleSave}>
             <ul>
             <li>
               <TextField
@@ -171,11 +185,11 @@ class ProductShow extends React.Component {
                 {categoryMenu}
                 </TextField>  
               </li>
-              <li><TextField label="Case Quantity" fullWidth value={product.caseQuantity} /></li>
+              <li><TextField label="Case Quantity" fullWidth defaultValue={product.caseQuantity} onChange={this.handleChange('caseQuantity')}/></li>
               <li>
                 <TextField
                   required
-                  value={product.price}
+                  defaultValue={product.price}
                   label="Price"
                   placeholder="Add Price"
                   fullWidth
@@ -190,13 +204,18 @@ class ProductShow extends React.Component {
                   }}
                 />                
               </li>
-              <li><TextField label="Mark Up" fullWidth value={product.markUp}/></li>
-              <li><TextField label="Barcode" fullWidth value={product.barcode}/></li>
-              <li><TextField label="Brand" fullWidth value={product.brand}/></li>
-              <li><TextField label="Unit Size" fullWidth value={product.unitSize}/></li>
-              <li><TextField label="Destributor Number" fullWidth value={product.distributorNumber}/></li>
-              <li><TextField label="Description" fullWidth value={product.description}/></li>
+              <li><TextField label="Mark Up" fullWidth defaultValue={product.markUp} onChange={this.handleChange('markUp')}/></li>
+              <li><TextField label="Barcode" fullWidth defaultValue={product.barcode} onChange={this.handleChange('barcode')}/></li>
+              <li><TextField label="Brand" fullWidth defaultValue={product.brand} onChange={this.handleChange('brand')}/></li>
+              <li><TextField label="Unit Size" fullWidth defaultValue={product.unitSize} onChange={this.handleChange('unitSize')}/></li>
+              <li><TextField label="Destributor Number" fullWidth defaultValue={product.distributorNumber} onChange={this.handleChange('distributorNumber')}/></li>
+              <li><TextField label="Description" fullWidth defaultValue={product.description} onChange={this.handleChange('description')}/></li>
             </ul>             
+
+             <Button type='submit' variant="contained" color="primary">
+                  Save Product
+             </Button>
+             </form>
 
 
             }

@@ -14,7 +14,11 @@ class StoreList extends React.Component {
 				<div key={storeType.id} className="list-group">
 					<h4>{storeType.name}</h4> 
 					{storeType.stores.map(store => 
-						<a key={store.id} href={`/store/${store.id}/StoreGoods`} className="list-group-item list-group-item-action list-group-item-light">{store.name}</a>
+					storeType.name === 'Restaurant' ?
+						<a key={store.id} href={`/store/${store.id}/storeType/${storeType.name}/Orders`} className="list-group-item list-group-item-action list-group-item-light">{store.name}</a>
+						:
+						<a key={store.id} href={`/store/${store.id}/storeType/${storeType.name}/StoreOrders`} className="list-group-item list-group-item-action list-group-item-light">{store.name}</a>
+					
 					)}
 				</div>
 			)

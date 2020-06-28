@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { getProducts } from '../../../actions/getProducts.action';
 import { getDistributors } from '../../../actions/getDistributors.action';
 import { getCategories } from '../../../actions/getCategories.action';
-import { editProduct } from '../../../actions/editProduct.action';
+import { editProduct } from '../../../actions/product.action';
 import { deleteProduct } from '../../../actions/deleteProduct.action';
 
 import PreppedProductFormDrawer from './PreppedProductFormDrawer'
@@ -51,11 +51,15 @@ class ProductTable extends React.Component {
           columns={[
             { title: 'ID', field: 'id', editable: 'never' },
             { title: 'Name', field: 'name' },
-            { title: 'Distributor', field: 'distributor',
-              lookup: distributors
+            { 
+              title: 'Distributor', 
+              field: 'distributor',
+              lookup: distributors,
             },
-            { title: 'Category', field: 'category',
-              lookup: categories
+            { 
+              title: 'Category', 
+              field: 'category',
+              lookup: categories,
             },
             { title: 'Case Quantity', field: 'caseQuantity' },
             { title: 'Mark Up', field: 'markUp'},
@@ -74,6 +78,7 @@ class ProductTable extends React.Component {
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
+                  console.log(newData)
                   this.props.onEditProduct(
                     newData.id, 
                     newData.name,

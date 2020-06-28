@@ -23,7 +23,7 @@ class OrderTable extends React.Component {
   render() {
     return (    
    	<div> 
-	    	<h3 align="center"> Orders </h3>
+	    	<h3 align="center"> Sumbitted Inventory </h3>
 	    	<div className="table-responsive">
 				  <table className="table">
 				    <thead>
