@@ -3,7 +3,8 @@ import update from 'immutability-helper';
 
 const initialState = {
   orders: [],
-  inventoryOrder: []
+  inventoryOrder: [],
+  combinded: []
 };
 
 export default (state = initialState, { type, payload }) => {
@@ -17,6 +18,12 @@ export default (state = initialState, { type, payload }) => {
 		      return newState;		      
 		case actionTypes.GET_INVENTORY_ORDER:
 		      newState.inventoryOrder = payload.getInventoryOrder;
+		      return newState;			
+		case actionTypes.GET_COMBINDED:
+					newState.combinded = payload.getCombinded.map((product)=> {
+					    product.stores.map(x => Object.assign(product, JSON.parse(x.replace("=>", ":"))))
+					    return product
+					})
 		      return newState;	
 		case actionTypes.UPDATE_SCANNED:
 				let invetoryIdx = newState.inventoryOrder.findIndex(inventory => inventory.id === payload.updateScanned.inventory.id)

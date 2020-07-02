@@ -52,7 +52,7 @@ class StoreOrderReasonCodes extends React.Component {
 				    </thead>
 
 				    <tbody>
-					    {this.props.onGetInventoryOrder.forEach((inventoryOrder) => {
+					    {this.props.onGetInventoryOrder.map((inventoryOrder) => {
 					    	if(!inventoryOrder.scanned && inventoryOrder.storeGood.distributor.name === 'Trappe'){
 					    		return (
 							      <tr key={inventoryOrder.id}  >
