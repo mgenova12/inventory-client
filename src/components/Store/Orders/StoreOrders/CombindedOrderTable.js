@@ -11,17 +11,18 @@ class CombindedOrderTable extends React.Component {
       columns: [
         { title: 'Product', field: 'product' },
         { title: 'Cambridge', field: 'Cambridge' },
-        { title: 'Bypass', field: 'ByPass' },
+        { title: 'Bypass', field: 'Bypass' },
         { title: 'Dover Road', field: 'Dover Road' },
         { title: 'Total', field: 'total' },
         { title: 'On Hand', field: 'onHand' },
         { title: 'Need', field: 'need' },
       ],		
-			data:[]
+			data:[],
+      isLoading: true
 	}
 
 	componentDidMount = () => {    
-    this.props.onRequestCombinded(this.props.match.params.storeOrderId,this.props.match.params.storeId)
+    this.props.onRequestCombinded(this.props.match.params.storeOrderId,this.props.match.params.storeId).then(() => this.setState({isLoading: false})) 
 	}	
 
   render() {
@@ -33,6 +34,7 @@ class CombindedOrderTable extends React.Component {
         href="https://fonts.googleapis.com/icon?family=Material+Icons"
       />        
         <MaterialTable
+          isLoading={this.state.isLoading}
           title="Combined List"
           columns={this.state.columns}
           data={this.props.onGetCombinded}
