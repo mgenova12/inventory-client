@@ -78,7 +78,6 @@ class ProductTable extends React.Component {
               new Promise(resolve => {
                 setTimeout(() => {
                   resolve();
-                  console.log(newData)
                   this.props.onEditProduct(
                     newData.id, 
                     newData.name,

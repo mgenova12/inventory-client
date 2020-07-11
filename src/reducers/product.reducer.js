@@ -10,7 +10,7 @@ const initialState = {
 export default (state = initialState, { type, payload }) => {
 	const newState = { ...state };
 	switch (type) {
-		case actionTypes.GET_PRODUCTS:					
+		case actionTypes.GET_PRODUCTS:
 					newState.products = payload.products.map((product)=> {
 		         product.distributor = product.distributor.name
 		         product.category = product.category.name

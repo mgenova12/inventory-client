@@ -10,12 +10,13 @@ import $ from 'jquery';
 
 class InventoryTable extends React.Component {
 	state = {
-		quantity: []
+		quantity: [],
+		loading: true
 	}
 
 	async componentDidMount() {
 		let storeId = this.props.match.params.storeId
-		await this.props.onRequestInventory(storeId)
+		await this.props.onRequestInventory(storeId).then(() => this.setState({loading: false}))
 	}	
 
 	handleChange = (inventoryId) => event => {
@@ -32,7 +33,9 @@ class InventoryTable extends React.Component {
 	}
 
   render() {
-
+    if (this.state.loading) {
+      return <h1>Loading...</h1>;
+    } 
   	const deliveryDay = this.props.match.params.deliveryDay
   	let title  = (
 		  deliveryDay === 'true' ? 'Prepped' :  

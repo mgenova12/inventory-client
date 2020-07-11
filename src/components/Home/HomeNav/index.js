@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.css";
+import logo from '../../Common/Imgs/newcroplogo.png';
 
 class HomeNav extends React.Component {
 
@@ -10,6 +11,7 @@ class HomeNav extends React.Component {
 				  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
 				    <span className="navbar-toggler-icon"></span>
 				  </button>
+				  <img src={logo} alt="Logo" width={50} height={50} />
 				  <a className="navbar-brand" href="/">Rusticana</a>
 
 				    <div className="collapse navbar-collapse " id="navbarTogglerDemo03">

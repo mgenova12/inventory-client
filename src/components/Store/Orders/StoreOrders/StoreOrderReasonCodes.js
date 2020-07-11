@@ -10,13 +10,14 @@ import TextField from '@material-ui/core/TextField';
 class StoreOrderReasonCodes extends React.Component {
 
 	state = {
-		reasonCode:''
+		reasonCode:'',
+		loading: true
 	}
 
 	componentDidMount = () => {
 		let storeId = this.props.match.params.currentStoreId
 		let orderId = this.props.match.params.orderId
-		this.props.onRequestInventoryOrder(storeId, orderId)
+		this.props.onRequestInventoryOrder(storeId, orderId).then(() => this.setState({loading: false}))
 	}	
  	
   handleChange = (id) => event => {
@@ -33,7 +34,9 @@ class StoreOrderReasonCodes extends React.Component {
 	}
 
   render() {
-
+    if (this.state.loading) {
+      return <h1>Loading...</h1>;
+    } 
 	    return (    
 	    <div>
 	    <h3 align="center"> Reason Codes </h3>	
@@ -53,7 +56,7 @@ class StoreOrderReasonCodes extends React.Component {
 
 				    <tbody>
 					    {this.props.onGetInventoryOrder.map((inventoryOrder) => {
-					    	if(!inventoryOrder.scanned && inventoryOrder.storeGood.distributor.name === 'Trappe'){
+					    	if(!inventoryOrder.scanned && inventoryOrder.storeGood.distributor.name.downcase === 'Trappe'.downcase){
 					    		return (
 							      <tr key={inventoryOrder.id}  >
 							        <td>{inventoryOrder.id}</td>

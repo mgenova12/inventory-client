@@ -21,13 +21,14 @@ class StoreOrderShow extends React.Component {
 		distributor: null,
 		isChecked: false,
 		barcode: '',
-		scanned: false
+		scanned: false,
+		loading: true
 	}
 
 	componentDidMount = () => {
 		let storeId = this.props.match.params.currentStoreId
 		let orderId = this.props.match.params.orderId
-		this.props.onRequestInventoryOrder(storeId, orderId)
+		this.props.onRequestInventoryOrder(storeId, orderId).then(() => this.setState({loading: false}))
 		this.props.onRequestDistributors()
 		this.props.onRequestContainerTypes()
 	}	
@@ -66,6 +67,9 @@ class StoreOrderShow extends React.Component {
 	}
 
   render() {
+    if (this.state.loading) {
+      return <h1>Loading...</h1>;
+    }    	
     return (    
    	<div> 
 	    	<h3 align="center"> Store Order </h3>		
@@ -117,8 +121,8 @@ class StoreOrderShow extends React.Component {
 				        <th>Checked</th>
 				        <th>Barcode</th>
 				        <th>Product</th>
-				        <th>Current Quantity</th>
-				        <th>Quantity Needed</th>
+				        <th>Store Quantity</th>
+				        <th>{this.state.scanned ? 'Quantity Invoiced' : 'Quantity Needed'}</th>
 				      </tr>
 				    </thead>
 	
@@ -132,16 +136,17 @@ class StoreOrderShow extends React.Component {
 								    		{
 								    			this.props.onGetInventoryOrder.filter((inventoryOrder) => {
 											    		if(inventoryOrder.storeGood.distributor.name.toLowerCase() === 'trappe'){
-											    			if(this.state.scanned){
-											    				return inventoryOrder.scanned
+											    			if(!this.state.scanned){
+											    				return inventoryOrder.quantityNeeded > 0
 											    			} else {
-											    				return !inventoryOrder.scanned
+											    				return inventoryOrder.invoicedQuantity > 0
 											    			}
 											    		} else {
 											    			return null
 											    		}
 											    }).map((stortedInventoryOrder) => {
 									    			if(containerType.id === stortedInventoryOrder.storeGood.containerTypeId){
+									    				console.log(stortedInventoryOrder)
 													      return (
 														      <tr key={stortedInventoryOrder.id} >
 															      <td>
@@ -154,7 +159,7 @@ class StoreOrderShow extends React.Component {
 														        <td>{stortedInventoryOrder.storeGood.product.barcode.toString()}</td>
 														        <td>{stortedInventoryOrder.storeGood.product.name}</td>
 														        <td>{stortedInventoryOrder.quantity} {stortedInventoryOrder.storeGood.countBy.name}</td>
-														        <td>{stortedInventoryOrder.quantityNeeded} {stortedInventoryOrder.storeGood.replenishBy}</td>
+														        <td>{this.state.scanned ? stortedInventoryOrder.invoicedQuantity : stortedInventoryOrder.quantityNeeded} {stortedInventoryOrder.storeGood.replenishBy}</td>
 														      </tr>		
 													      )
 									    			} else {

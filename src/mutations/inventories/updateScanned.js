@@ -7,6 +7,7 @@ export default gql`
 				id
 		    quantity
 		    quantityNeeded
+		    invoicedQuantity
 		    scanned
 				storeGood{
 		      id

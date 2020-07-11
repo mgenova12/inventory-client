@@ -3,7 +3,7 @@
 	cursor: pointer;
 }
 
-.badge {
+.badge1 {
   height: 35px;
   width: 35px;
   display: table-cell;
@@ -13,6 +13,20 @@
   background-color: green;
 }
 
+.badge2 {
+  height: 35px;
+  width: 35px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  border: 0.1875em solid #0F1C3F;
+  background-color: orange;
+}
+
 .badge:hover {
+  background-color: red;
+}
+
+.badge2:hover {
   background-color: red;
 }

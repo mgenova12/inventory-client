@@ -68,7 +68,7 @@ class StoreOrderTable extends React.Component {
 
 				        <td> 
                 	{storeOrder.orders.sort((a, b) => a.store.name.localeCompare(b.store.name)).map((order, index) => {
-                    return <span onClick={(e) => this.redirectToOrder(order.id, order.status, order.storeId, storeOrder.id, e)} className='badge' key={ index }>{order.store.name[0]}</span>;
+                    return <span onClick={(e) => this.redirectToOrder(order.id, order.status, order.storeId, storeOrder.id, e)} className={order.status === 'complete' ? 'badge1' : 'badge2'} key={ index }>{order.store.name[0]}</span>;
                   })}
 				        </td>
 
