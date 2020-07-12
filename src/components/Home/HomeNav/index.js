@@ -20,8 +20,8 @@ class HomeNav extends React.Component {
 				                <a className="nav-link" href="/">Log In</a>
 				            </li>
 				            <li className="nav-item">
-				                <a className="nav-link" href="/">Log Out</a>
-				            </li>
+				                <a className="nav-link" onClick={() => localStorage.removeItem('token')} href="/">Log Out</a>
+				            </li>				            
 				        </ul>
 				    </div>		    
 				</nav>   
