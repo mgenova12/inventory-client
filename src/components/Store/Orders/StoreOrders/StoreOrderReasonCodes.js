@@ -56,7 +56,7 @@ class StoreOrderReasonCodes extends React.Component {
 
 				    <tbody>
 					    {this.props.onGetInventoryOrder.map((inventoryOrder) => {
-					    	if(!inventoryOrder.scanned && inventoryOrder.storeGood.distributor.name.downcase === 'Trappe'.downcase){
+					    	if(!inventoryOrder.scanned && inventoryOrder.storeGood.distributor.name.toLowerCase() === 'Trappe'.toLowerCase()){
 					    		return (
 							      <tr key={inventoryOrder.id}  >
 							        <td>{inventoryOrder.id}</td>

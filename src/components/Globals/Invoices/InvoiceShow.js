@@ -62,7 +62,7 @@ class InvoiceShow extends React.Component {
 				    		<tbody>
 					    		{
 					    			this.props.onGetInventoryOrder.forEach((inventoryOrder) => {
-								    		if(inventoryOrder.storeGood.distributor.name === 'Trappe'){
+								    		if(inventoryOrder.storeGood.distributor.name.toLowerCase() === 'Trappe'.toLowerCase()){
 								    			return inventoryOrder.scanned
 								    		}
 								    }).map((stortedInventoryOrder) => {

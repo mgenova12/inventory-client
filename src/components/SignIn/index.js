@@ -46,7 +46,6 @@ class SignIn extends React.Component {
       password: password
     }
 
-      
     axios.post(`${process.env.REACT_APP_API_URL}login`, {user}, {withCredentials: true})
         .then(response => {
           if (response.data.logged_in) {
@@ -67,7 +66,7 @@ class SignIn extends React.Component {
         <div>
           <ul>
           {this.state.errors.map(error => {
-          return <li key={error}>{error}</li>
+          return <div key={error} className="alert alert-danger fixed-top" role="alert"> {error}</div>
             })}
           </ul>
         </div>
@@ -96,7 +95,7 @@ class SignIn extends React.Component {
               this.state.errors ? this.handleErrors() : null
             }
           </div>          
-          <form noValidate onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"

@@ -43,11 +43,13 @@ class InvoiceTable extends React.Component {
 		})
 	}
 
-	redirectToFinalInventoryOrder = (event, orderId, currentStoreId, saleTotal) => {
-		this.props.history.push({
-     	pathname: `/store/99/storeOrder/${orderId}/${currentStoreId}/InvoiceShow`,
-     	state: {total: saleTotal}
-		})
+	redirectToFinalInventoryOrder = (event, stortedOrder, currentStoreId, saleTotal) => {
+		if(stortedOrder.saleTotal){
+			this.props.history.push({
+	     	pathname: `/store/2/storeOrder/${stortedOrder.id}/${currentStoreId}/InvoiceShow`,
+	     	state: {total: saleTotal}
+			})
+		}
 	}
 
 	componentDidMount = () => {
@@ -125,18 +127,20 @@ class InvoiceTable extends React.Component {
 
 					    }).map((stortedOrder) => {
 					    	 return (
-						      <tr key={stortedOrder.id} onClick={(e) => this.redirectToFinalInventoryOrder(e, stortedOrder.id, stortedOrder.storeId,stortedOrder.saleTotal)}>
+						      <tr key={stortedOrder.id} onClick={(e) => this.redirectToFinalInventoryOrder(e, stortedOrder, stortedOrder.storeId,stortedOrder.saleTotal)}>
 						        <td>{stortedOrder.id}</td>
 						        <td>{new Date(stortedOrder.createdAt).toLocaleString()}</td>
 						        <td>{stortedOrder.store.name}</td>
 						        <td>{stortedOrder.paid ? "Paid" : "Not Paid"}</td>
-						        <td>${stortedOrder.saleTotal}</td>
+						        <td>{stortedOrder.saleTotal ? `$${stortedOrder.saleTotal}` : 'Pending'}</td>
 						        <td>
+						        {stortedOrder.saleTotal &&
 								      <FormControlLabel onClick={(e) => e.stopPropagation()	}
 								        control={
 								          <Checkbox onChange={(e) => this.addSaleTotal(e, stortedOrder.saleTotal)} value="checkedA" />
 								        }
-								      />						        	
+								      />	
+								    }					        	
 						        </td>
 						      </tr>
 					      )
