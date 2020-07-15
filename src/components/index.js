@@ -19,7 +19,7 @@ class Router extends React.Component {
 		if (localStorage.getItem('token')){
 	   axios.get(`${process.env.REACT_APP_API_URL}logged_in`, 	   	
 	   		{ params: { token: localStorage.getItem('token') }},
-	      { withCredentials: true })
+	      )
 	      .then(result => {
 		      if (result.data.logged_in) {
 		        this.handleLogin(result.data)

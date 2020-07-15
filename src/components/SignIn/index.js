@@ -46,7 +46,7 @@ class SignIn extends React.Component {
       password: password
     }
 
-    axios.post(`${process.env.REACT_APP_API_URL}login`, {user}, {withCredentials: true})
+    axios.post(`${process.env.REACT_APP_API_URL}login`, {user},)
         .then(response => {
           if (response.data.logged_in) {
             localStorage.setItem('token', response.data.user.token)
