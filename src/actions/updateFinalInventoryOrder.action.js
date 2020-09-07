@@ -13,7 +13,6 @@ export function updateFinalInventoryOrder(orderId, storeOrderId) {
         storeOrderId: parseInt(storeOrderId)
       },
     }).then((result) => {
-        // console.log(result)
           // dispatch({
           //   type: actionTypes.UPDATE_SCANNED,
           //   payload: result.data.data

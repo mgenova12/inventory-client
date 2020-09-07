@@ -16,13 +16,14 @@ class OrderShow extends React.Component {
 	state = {
 		value: 0,
 		distributor: null,
-		isChecked: false
+		isChecked: false,
+		loading: true,
 	}
 
 	componentDidMount = () => {
 		let storeId = this.props.match.params.storeId
 		let orderId = this.props.match.params.orderId
-		this.props.onRequestInventoryOrder(storeId, orderId)
+		this.props.onRequestInventoryOrder(storeId, orderId).then(() => this.setState({loading: false}))
 		this.props.onRequestDistributors()
 		this.props.onRequestCategories()
 	}	
@@ -41,6 +42,9 @@ class OrderShow extends React.Component {
 	}
 
   render() {
+    if (this.state.loading) {
+      return <h1>Loading...</h1>;
+    }     	
     return (    
    	<div> 
 	    	<h3 align="center"> Final Order </h3>	

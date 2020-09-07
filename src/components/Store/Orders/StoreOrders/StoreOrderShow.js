@@ -146,7 +146,6 @@ class StoreOrderShow extends React.Component {
 											    		}
 											    }).map((stortedInventoryOrder) => {
 									    			if(containerType.id === stortedInventoryOrder.storeGood.containerTypeId){
-									    				console.log(stortedInventoryOrder)
 													      return (
 														      <tr key={stortedInventoryOrder.id} >
 															      <td>
@@ -156,7 +155,7 @@ class StoreOrderShow extends React.Component {
 																        }
 																      />		
 															      </td>
-														        <td>{stortedInventoryOrder.storeGood.product.barcode.toString()}</td>
+														        <td>{stortedInventoryOrder.storeGood.product.barcode ? stortedInventoryOrder.storeGood.product.barcode : ''}</td>
 														        <td>{stortedInventoryOrder.storeGood.product.name}</td>
 														        <td>{stortedInventoryOrder.quantity} {stortedInventoryOrder.storeGood.countBy.name}</td>
 														        <td>{this.state.scanned ? stortedInventoryOrder.invoicedQuantity : stortedInventoryOrder.quantityNeeded} {stortedInventoryOrder.storeGood.replenishBy}</td>

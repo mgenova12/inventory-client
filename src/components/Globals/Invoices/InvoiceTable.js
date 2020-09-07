@@ -58,7 +58,6 @@ class InvoiceTable extends React.Component {
 	}	
 
   render() {
-  	console.log(this.state.store)
     return (    
 	    <div> 
 	    	<h3 align="center">Invoices </h3>

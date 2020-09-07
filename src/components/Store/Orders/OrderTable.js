@@ -39,7 +39,7 @@ class OrderTable extends React.Component {
 				    {this.props.onGetOrders.map((order) => (
 				      <tr key={order.id} onClick={()=> this.handleClick(order.id, order.status)} >
 				        <td>{order.id}</td>
-				        <td>{new Date(order.createdAt.replace(/-/g, '/')).toLocaleString()}</td>
+				        <td>{new Date(order.createdAt.replace(/-/g, '/')).toLocaleDateString([], {timeZone:'America/New_York', hour: '2-digit', minute:'2-digit'})}</td>
 				        <td>{order.store.name}</td>
 				        <td>{order.deliveryDay ? 'Prepped' : 'Distributor'}</td>
 

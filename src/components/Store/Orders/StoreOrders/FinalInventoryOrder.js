@@ -17,12 +17,13 @@ class FinalInventoryOrder extends React.Component {
 		distributor: null,
 		isChecked: false,
 		barcode: '',
+		loading: true,
 	}
 
 	componentDidMount = () => {
 		let storeId = this.props.match.params.currentStoreId
 		let orderId = this.props.match.params.orderId
-		this.props.onRequestInventoryOrder(storeId, orderId)
+		this.props.onRequestInventoryOrder(storeId, orderId).then(() => this.setState({loading: false}))
 		this.props.onRequestDistributors()
 		this.props.onRequestContainerTypes()
 	}	
@@ -34,6 +35,9 @@ class FinalInventoryOrder extends React.Component {
 	}
 
   render() {
+    if (this.state.loading) {
+      return <h1>Loading...</h1>;
+    }   	
     return (    
    	<div> 
 	    	<h3 align="center"> Store Order </h3>		
@@ -62,7 +66,7 @@ class FinalInventoryOrder extends React.Component {
 										      </tr>
 								    		{
 								    			this.props.onGetInventoryOrder.filter((inventoryOrder) => {
-											    		if(inventoryOrder.storeGood.distributor.name === 'Trappe'){
+											    		if(inventoryOrder.storeGood.distributor.name.toLowerCase() === 'trappe'){
 											    			return inventoryOrder.scanned
 											    		}
 											    }).map((stortedInventoryOrder) => {
