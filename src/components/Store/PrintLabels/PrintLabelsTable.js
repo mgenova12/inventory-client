@@ -88,10 +88,6 @@ class PrintLabelsTable extends React.Component {
           options={{
             paging: false,
             actionsColumnIndex: -1,
-            searchFieldStyle: {
-              width: '50vh',
-              fontSize: 25,
-            }
           }}
           actions={[
             {
