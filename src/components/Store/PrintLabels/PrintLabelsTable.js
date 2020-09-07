@@ -22,6 +22,10 @@ class PrintLabelsTable extends React.Component {
       event.preventDefault()
     }
 
+    handleRowClick = (event, rowData) => {
+      this.props.history.push(`/store/${this.props.match.params.storeId}/storeType/${this.props.match.params.storeType}/PrintLabels/${rowData.id}`)
+    }    
+
     handleChange = name => event => {
       this.setState({
         [name]: event.target.value,
@@ -34,6 +38,7 @@ class PrintLabelsTable extends React.Component {
 
   render() {
     const storeGoods = this.props.onGetStoreGoods
+    console.log(storeGoods)
     return (    
 			<div> 
       <link
@@ -45,13 +50,13 @@ class PrintLabelsTable extends React.Component {
           isLoading={this.state.isLoading}
           columns={this.state.columns}
           data={storeGoods}
+          onRowClick={this.handleRowClick}
           options={{
             paging: false,
             actionsColumnIndex: -1,
             searchFieldStyle: {
-              width: '100vh',
-              fontSize: 35,
-              marginRight: '50vh'
+              width: '50vh',
+              fontSize: 25,
             }
           }}
           actions={[
@@ -61,14 +66,13 @@ class PrintLabelsTable extends React.Component {
               onClick: (event, rowData) => {
                 event.stopPropagation()
                 this.setState({action: 'Add', rowData: rowData, currentId: rowData.id})
-                this.props.history.push(`/store/${this.props.match.params.storeId}/storeType/${this.props.match.params.storeType}/PrintLabels/${rowData.id}`)
               }
             },           
           ]}          
         />
 			</div>
     );
-  }
+  } 
 }
 
 const mapStateToProps = state => ({
