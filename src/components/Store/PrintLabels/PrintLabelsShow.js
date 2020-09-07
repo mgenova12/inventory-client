@@ -23,6 +23,10 @@ class PrintLabelsShow extends React.Component {
     this.props.onRequestStoreGood(parseInt(this.props.match.params.productId))
   }   
 
+  backButton = () => {
+		this.props.history.push(`/store/${this.props.match.params.storeId}/storeType/Prepcenter/PrintLabels`)
+  }
+
   render() {
   	const storeGood = this.props.onGetStoreGood
   	
@@ -73,6 +77,7 @@ class PrintLabelsShow extends React.Component {
 		    	</div>
 		    	
 		    	<div className="print-button">
+         		<Button variant="contained" color="primary" onClick={this.backButton}> Back</Button> 
          		<Button variant="contained" color="primary" onClick={() => window.print()}> Print Label </Button> 
          	</div>
 

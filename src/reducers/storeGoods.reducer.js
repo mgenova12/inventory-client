@@ -51,6 +51,7 @@ export default (state = initialState, { type, payload }) => {
 				}					
 		 	case actionTypes.GET_STORE_GOODS:
 					newState.storeGoods = payload.getStoreGoods.filter((sg) => sg.product ).map((storeGood)=> {
+						 storeGood['prepped'] = storeGood.product.prepped
 		         storeGood.countBy = storeGood.countBy.name
 		         storeGood.location = storeGood.location.name
 		         storeGood.distributor = storeGood.distributor.name
