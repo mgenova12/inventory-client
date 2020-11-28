@@ -26,7 +26,7 @@ class CombindedOrderTable extends React.Component {
 	}	
 
   render() {
-    console.log(this.props.onGetCombinded)
+
     return (    
 	    	<div>
       <link

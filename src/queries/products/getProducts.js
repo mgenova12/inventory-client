@@ -17,6 +17,8 @@ export default gql`
 	    markUp  
 	    price
 	    markedUpPrice
+	    brand
+	    days_till_expire
     }
   }
 `;
