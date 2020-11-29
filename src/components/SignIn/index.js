@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import logo from '../Common/Imgs/newcroplogo.png';
+// import logo from '../Common/Imgs/newcroplogo.png';
 import axios from "axios";
 import './index.css'
 
@@ -86,7 +86,6 @@ class SignIn extends React.Component {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className="center">
-            <img src={logo} alt="Logo" width={100} height={100} />
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
