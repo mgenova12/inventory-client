@@ -13,6 +13,8 @@ export default gql`
 	    caseQuantity 
 	    markUp 
 	    markedUpPrice
+	    brand
+	    daysTillExpire
     }
   }
 `;
