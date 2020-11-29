@@ -26,7 +26,7 @@ export default gql`
       maxAmount
       replenishBy
       deliveryDay 
-      container_type {
+      containerType {
         id
         name
       }         
